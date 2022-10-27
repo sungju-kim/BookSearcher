@@ -70,12 +70,12 @@
 			path = LifeCycle;
 			sourceTree = "<group>";
 		};
-		6C535F6C290A719600F474B7 /* Common */ = {
+		6C535F6C290A719600F474B7 /* Support */ = {
 			isa = PBXGroup;
 			children = (
 				6C535F84290A8B9C00F474B7 /* Constraint.swift */,
 			);
-			path = Common;
+			path = Support;
 			sourceTree = "<group>";
 		};
 		6C535F6D290A719B00F474B7 /* Extension */ = {
@@ -177,7 +177,7 @@
 				6C535F6E290A71A500F474B7 /* Network */,
 				6C535F71290A71C000F474B7 /* API */,
 				6C535F6D290A719B00F474B7 /* Extension */,
-				6C535F6C290A719600F474B7 /* Common */,
+				6C535F6C290A719600F474B7 /* Support */,
 				6C535F6A290A718700F474B7 /* LifeCycle */,
 				6C535F77290A804100F474B7 /* Resource */,
 				6CA217B1290A5A4600346196 /* LaunchScreen.storyboard */,

@@ -5,4 +5,10 @@
 //  Created by dale on 2022/10/27.
 //
 
-import Foundation
+import UIKit.UIColor
+
+extension UIColor {
+    enum Custom {
+        static let background = UIColor.systemBackground
+    }
+}

@@ -13,6 +13,12 @@
 		6CA217AE290A5A4500346196 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CA217AC290A5A4500346196 /* Main.storyboard */; };
 		6CA217B0290A5A4600346196 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CA217AF290A5A4600346196 /* Assets.xcassets */; };
 		6CA217B3290A5A4600346196 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CA217B1290A5A4600346196 /* LaunchScreen.storyboard */; };
+		6CA217BC290A5B0800346196 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 6CA217BB290A5B0800346196 /* RxCocoa */; };
+		6CA217BE290A5B0800346196 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 6CA217BD290A5B0800346196 /* RxRelay */; };
+		6CA217C0290A5B0800346196 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6CA217BF290A5B0800346196 /* RxSwift */; };
+		6CA217C3290A5B1100346196 /* RxAppState in Frameworks */ = {isa = PBXBuildFile; productRef = 6CA217C2290A5B1100346196 /* RxAppState */; };
+		6CA217C6290A5B2000346196 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6CA217C5290A5B2000346196 /* SnapKit */; };
+		6CA217C9290A5B5900346196 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 6CA217C8290A5B5900346196 /* .swiftlint.yml */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +30,7 @@
 		6CA217AF290A5A4600346196 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6CA217B2290A5A4600346196 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6CA217B4290A5A4600346196 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6CA217C8290A5B5900346196 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +38,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6CA217C0290A5B0800346196 /* RxSwift in Frameworks */,
+				6CA217BE290A5B0800346196 /* RxRelay in Frameworks */,
+				6CA217C3290A5B1100346196 /* RxAppState in Frameworks */,
+				6CA217BC290A5B0800346196 /* RxCocoa in Frameworks */,
+				6CA217C6290A5B2000346196 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +52,7 @@
 		6CA2179A290A5A4500346196 = {
 			isa = PBXGroup;
 			children = (
+				6CA217C8290A5B5900346196 /* .swiftlint.yml */,
 				6CA217A5290A5A4500346196 /* BookSearcher */,
 				6CA217A4290A5A4500346196 /* Products */,
 			);
@@ -77,12 +90,20 @@
 				6CA2179F290A5A4500346196 /* Sources */,
 				6CA217A0290A5A4500346196 /* Frameworks */,
 				6CA217A1290A5A4500346196 /* Resources */,
+				6C58D8C4290A5D3200E6F7A4 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = BookSearcher;
+			packageProductDependencies = (
+				6CA217BB290A5B0800346196 /* RxCocoa */,
+				6CA217BD290A5B0800346196 /* RxRelay */,
+				6CA217BF290A5B0800346196 /* RxSwift */,
+				6CA217C2290A5B1100346196 /* RxAppState */,
+				6CA217C5290A5B2000346196 /* SnapKit */,
+			);
 			productName = BookSearcher;
 			productReference = 6CA217A3290A5A4500346196 /* BookSearcher.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +132,11 @@
 				Base,
 			);
 			mainGroup = 6CA2179A290A5A4500346196;
+			packageReferences = (
+				6CA217BA290A5B0800346196 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				6CA217C1290A5B1100346196 /* XCRemoteSwiftPackageReference "RxAppState" */,
+				6CA217C4290A5B2000346196 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 6CA217A4290A5A4500346196 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -125,6 +151,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6CA217C9290A5B5900346196 /* .swiftlint.yml in Resources */,
 				6CA217B3290A5A4600346196 /* LaunchScreen.storyboard in Resources */,
 				6CA217B0290A5A4600346196 /* Assets.xcassets in Resources */,
 				6CA217AE290A5A4500346196 /* Main.storyboard in Resources */,
@@ -132,6 +159,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6C58D8C4290A5D3200E6F7A4 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6CA2179F290A5A4500346196 /* Sources */ = {
@@ -216,7 +263,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -270,7 +317,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -358,6 +405,61 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6CA217BA290A5B0800346196 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		6CA217C1290A5B1100346196 /* XCRemoteSwiftPackageReference "RxAppState" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pixeldock/RxAppState.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		6CA217C4290A5B2000346196 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6CA217BB290A5B0800346196 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6CA217BA290A5B0800346196 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		6CA217BD290A5B0800346196 /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6CA217BA290A5B0800346196 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		6CA217BF290A5B0800346196 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6CA217BA290A5B0800346196 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		6CA217C2290A5B1100346196 /* RxAppState */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6CA217C1290A5B1100346196 /* XCRemoteSwiftPackageReference "RxAppState" */;
+			productName = RxAppState;
+		};
+		6CA217C5290A5B2000346196 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6CA217C4290A5B2000346196 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6CA2179B290A5A4500346196 /* Project object */;
 }

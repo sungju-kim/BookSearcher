@@ -56,12 +56,53 @@ final class MainViewController: UIViewController {
         [headerLabel, moreButton].forEach { stackView.addArrangedSubview($0) }
         return stackView
     }()
+
+    private let collectionView: UICollectionView = {
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1),
+            heightDimension: .fractionalHeight(1)
+        )
+
+        let item = NSCollectionLayoutItem(
+            layoutSize: itemSize)
+
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(0.3),
+            heightDimension: .fractionalHeight(1.0)
+        )
+
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: groupSize,
+            subitems: [item]
+        )
+        group.contentInsets = .init(
+            top: 8,
+            leading: 8,
+            bottom: 8,
+            trailing: 8
+        )
+
+        let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = .continuous
+
+        let layout = UICollectionViewCompositionalLayout(section: section)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(MostSoldCell.self,
+                                forCellWithReuseIdentifier: MostSoldCell.identifier)
+
+        collectionView.backgroundColor = .clear
+        collectionView.isScrollEnabled = false
+
+        return collectionView
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         layoutSearchButton()
         layoutMenuBar()
         layoutHeaderContainer()
+        layoutCollectionView()
     }
 }
 
@@ -92,6 +133,16 @@ private extension MainViewController {
         headerContainer.snp.makeConstraints { make in
             make.top.equalTo(menuBar.snp.bottom).offset(Constraint.regular)
             make.leading.trailing.equalToSuperview().inset(Constraint.regular)
+        }
+    }
+
+    func layoutCollectionView() {
+        view.addSubview(collectionView)
+
+        collectionView.snp.makeConstraints { make in
+            make.top.equalTo(headerContainer.snp.bottom).offset(Constraint.regular)
+            make.leading.trailing.equalToSuperview().offset(Constraint.regular)
+            make.height.equalTo(view.safeAreaLayoutGuide).dividedBy(3.5)
         }
     }
 }

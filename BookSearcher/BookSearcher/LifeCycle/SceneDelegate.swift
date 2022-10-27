@@ -15,6 +15,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         window = UIWindow(windowScene: windowScene)
         window?.overrideUserInterfaceStyle = .light
+        window?.backgroundColor = .Custom.background
         window?.rootViewController = MainViewController()
         window?.makeKeyAndVisible()
     }

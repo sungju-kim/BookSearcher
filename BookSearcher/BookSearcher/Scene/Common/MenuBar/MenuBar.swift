@@ -85,11 +85,11 @@ final class MenuBar: UIView {
         let leadingDistance = segmentWidth * CGFloat(index)
 
         UIView.animate(withDuration: 0.2) {[weak self] in
-            guard let `self` = self else { return }
-            self.underLineView.snp.updateConstraints { make in
-                make.leading.equalTo(self.segmentControl).offset(leadingDistance)
+            self?.underLineView.snp.updateConstraints { make in
+                make.leading.equalToSuperview().offset(leadingDistance)
             }
-            self.layoutIfNeeded()
+
+            self?.layoutIfNeeded()
         }
     }
 }
@@ -109,8 +109,7 @@ private extension MenuBar {
         addSubview(underLineView)
 
         underLineView.snp.makeConstraints { make in
-            make.bottom.equalTo(segmentControl)
-            make.leading.equalTo(segmentControl)
+            make.leading.bottom.equalToSuperview()
             make.height.equalTo(4)
             make.width.equalTo(segmentControl.snp.width).dividedBy(segmentControl.numberOfSegments)
         }

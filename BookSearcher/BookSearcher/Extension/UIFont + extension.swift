@@ -8,8 +8,8 @@
 import UIKit.UIFont
 
 extension UIFont {
-    class func customFont(ofSize: CGFloat, weight: CustomWeight) -> UIFont? {
-        return UIFont(name: weight.fontName, size: ofSize)
+    class func customFont(ofSize: CGFloat, weight: CustomWeight) -> UIFont {
+        return UIFont(name: weight.fontName, size: ofSize) ?? .systemFont(ofSize: ofSize)
     }
 
     enum CustomWeight: String {

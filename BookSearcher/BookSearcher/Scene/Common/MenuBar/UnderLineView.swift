@@ -20,7 +20,7 @@ final class UnderLineView: UIView {
     private let lineView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 3
-        view.backgroundColor = .systemCyan
+        view.backgroundColor = .Custom.selectedItem
         return view
     }()
 

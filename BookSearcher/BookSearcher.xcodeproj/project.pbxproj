@@ -126,6 +126,14 @@
 			path = Detail;
 			sourceTree = "<group>";
 		};
+		6C535F77290A804100F474B7 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				6CA217AF290A5A4600346196 /* Assets.xcassets */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		6CA2179A290A5A4500346196 = {
 			isa = PBXGroup;
 			children = (
@@ -153,7 +161,7 @@
 				6C535F6D290A719B00F474B7 /* Extension */,
 				6C535F6C290A719600F474B7 /* Common */,
 				6C535F6A290A718700F474B7 /* LifeCycle */,
-				6CA217AF290A5A4600346196 /* Assets.xcassets */,
+				6C535F77290A804100F474B7 /* Resource */,
 				6CA217B1290A5A4600346196 /* LaunchScreen.storyboard */,
 				6CA217B4290A5A4600346196 /* Info.plist */,
 			);

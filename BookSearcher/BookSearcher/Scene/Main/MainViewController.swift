@@ -32,10 +32,13 @@ final class MainViewController: UIViewController {
         return button
     }()
 
+    private let menuBar = MenuBar()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         layoutSearchButton()
+        layoutMenuBar()
     }
 }
 
@@ -47,6 +50,16 @@ private extension MainViewController {
 
         searchButton.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(Constraint.regular)
+        }
+    }
+
+    func layoutMenuBar() {
+        view.addSubview(menuBar)
+
+        menuBar.snp.makeConstraints { make in
+            make.top.equalTo(searchButton.snp.bottom).offset(Constraint.regular)
+            make.leading.trailing.equalTo(searchButton)
+            make.height.equalTo(50)
         }
     }
 }

@@ -31,6 +31,7 @@ final class MainViewModel {
         inPut.selectedIndex
             .compactMap { ItemType(rawValue: $0) }
             .bind(to: outPut.selectedMenu)
+            .disposed(by: disposeBag)
 
         Observable.combineLatest(inPut.viewDidLoad.asObservable(), outPut.selectedMenu.asObservable()) { $1 }
             .withUnretained(self)

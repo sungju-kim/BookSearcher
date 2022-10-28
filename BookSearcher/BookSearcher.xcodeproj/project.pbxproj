@@ -40,6 +40,7 @@
 		6CA217C3290A5B1100346196 /* RxAppState in Frameworks */ = {isa = PBXBuildFile; productRef = 6CA217C2290A5B1100346196 /* RxAppState */; };
 		6CA217C6290A5B2000346196 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6CA217C5290A5B2000346196 /* SnapKit */; };
 		6CA217C9290A5B5900346196 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 6CA217C8290A5B5900346196 /* .swiftlint.yml */; };
+		6CA45433290BE15A00672B56 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA45432290BE15A00672B56 /* Item.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +74,7 @@
 		6CA217B2290A5A4600346196 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6CA217B4290A5A4600346196 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6CA217C8290A5B5900346196 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		6CA45432290BE15A00672B56 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +132,7 @@
 		6C535F6F290A71B100F474B7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6C535FB2290B91C700F474B7 /* Domain */,
 				6C535FB1290B91C500F474B7 /* DTO */,
 			);
 			path = Model;
@@ -240,8 +243,16 @@
 			isa = PBXGroup;
 			children = (
 				6C535FB3290B920A00F474B7 /* SearchResult.swift */,
+				6CA45432290BE15A00672B56 /* Item.swift */,
 			);
 			path = DTO;
+			sourceTree = "<group>";
+		};
+		6C535FB2290B91C700F474B7 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Domain;
 			sourceTree = "<group>";
 		};
 		6CA2179A290A5A4500346196 = {
@@ -393,6 +404,7 @@
 				6C535F99290AD31100F474B7 /* MostSoldCell.swift in Sources */,
 				6C535FAC290B8DDC00F474B7 /* RepositoryImpl.swift in Sources */,
 				6C535F81290A80EB00F474B7 /* UIFont + extension.swift in Sources */,
+				6CA45433290BE15A00672B56 /* Item.swift in Sources */,
 				6C535FA7290B8ACB00F474B7 /* Network.swift in Sources */,
 				6C535F76290A7FB800F474B7 /* UIColor + extension.swift in Sources */,
 				6C535FB4290B920A00F474B7 /* SearchResult.swift in Sources */,

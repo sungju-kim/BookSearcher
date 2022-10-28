@@ -9,6 +9,6 @@ import Foundation
 import RxSwift
 
 protocol Repository {
-    func searchItem(name: String, startIndex: Int, itemType: ItemType) -> Single<Data>
-    func searchBestSeller(itemType: ItemType) -> Single<Data>
+    func searchItem(name: String, startIndex: Int, itemType: ItemType) -> Single<SearchResult>
+    func searchBestSeller(itemType: ItemType) -> Single<SearchResult>
 }

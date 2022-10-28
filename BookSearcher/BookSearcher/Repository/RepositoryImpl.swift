@@ -15,11 +15,33 @@ final class RepositoryImpl: Repository {
         self.network = network
     }
 
-    func searchItem(name: String, startIndex: Int, itemType: ItemType) -> Single<Data> {
-        return network.fetch(endPoint: AladinEndPoint.item(name: name, startIndex: startIndex, itemType: itemType))
+    func searchItem(name: String, startIndex: Int, itemType: ItemType) -> Single<SearchResult> {
+        return Single.create { observer in
+            self.network.fetch(endPoint: AladinEndPoint.item(name: name, startIndex: startIndex, itemType: itemType))
+                .subscribe { data in
+                    guard let decodedData = try? JSONDecoder().decode(SearchResult.self, from: data) else {
+                        observer(.failure(NetworkError.failToDecode))
+                        return
+                    }
+                    observer(.success(decodedData))
+                } onFailure: { error in
+                    observer(.failure(error))
+                }
+        }
     }
 
-    func searchBestSeller(itemType: ItemType) -> Single<Data> {
-        return network.fetch(endPoint: AladinEndPoint.bestSeller(itemType: itemType))
+    func searchBestSeller(itemType: ItemType) -> Single<SearchResult> {
+        return Single.create { observer in
+            self.network.fetch(endPoint: AladinEndPoint.bestSeller(itemType: itemType))
+                .subscribe { data in
+                    guard let decodedData = try? JSONDecoder().decode(SearchResult.self, from: data) else {
+                        observer(.failure(NetworkError.failToDecode))
+                        return
+                    }
+                    observer(.success(decodedData))
+                } onFailure: { error in
+                    observer(.failure(error))
+                }
+        }
     }
 }

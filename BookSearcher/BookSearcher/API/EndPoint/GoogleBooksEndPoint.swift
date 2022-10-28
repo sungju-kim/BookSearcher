@@ -8,7 +8,8 @@
 import Foundation
 
 enum GoogleBooksEndPoint {
-    case search(bookName: String, startIndex: Int)
+    case books(bookName: String, startIndex: Int)
+    case magazines(magazineName: String, startIndex: Int)
 }
 
 extension GoogleBooksEndPoint: Requestable {
@@ -37,8 +38,10 @@ extension GoogleBooksEndPoint: Requestable {
 
     var queryItem: [URLQueryItem] {
         switch self {
-        case .search(let bookName, let startIndex):
-            return ["q": bookName, "startIndex": "\(startIndex)", "key": apiKey].map { URLQueryItem(name: $0.key, value: $0.value) }
+        case .books(let book, let startIndex):
+            return ["q": book, "startIndex": "\(startIndex)", "printType": "books", "key": apiKey].map { URLQueryItem(name: $0.key, value: $0.value) }
+        case .magazines(let magazine, let startIndex):
+            return ["q": magazine, "startIndex": "\(startIndex)", "printType": "magazines", "key": apiKey].map { URLQueryItem(name: $0.key, value: $0.value) }
         }
     }
 

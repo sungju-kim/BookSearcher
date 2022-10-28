@@ -6,8 +6,12 @@
 //
 
 import UIKit
+import RxSwift
+import RxRelay
 
 final class SearchViewController: UIViewController {
+    private let disposeBag = DisposeBag()
+
     private lazy var beforeButton: UIButton = {
         var configuration = UIButton.Configuration.plain()
         configuration.image = UIImage(systemName: "chevron.left")
@@ -45,6 +49,9 @@ final class SearchViewController: UIViewController {
         return view
     }()
 
+    // MARK: TODO - ViewModel로 로직 이동 필요
+    let beforeButtonTapped = PublishRelay<Void>()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .Custom.background
@@ -52,6 +59,10 @@ final class SearchViewController: UIViewController {
 
         layoutNavigationContainer()
         layoutBorder()
+
+        beforeButton.rx.tap
+            .bind(to: beforeButtonTapped)
+            .disposed(by: disposeBag)
     }
 }
 

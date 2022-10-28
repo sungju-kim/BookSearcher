@@ -6,9 +6,12 @@
 //
 
 import UIKit
+import RxSwift
 import SnapKit
 
 final class MainViewController: UIViewController {
+    private let disposeBag = DisposeBag()
+
     private let searchButton: UIButton = {
         var configuration = UIButton.Configuration.gray()
         configuration.contentInsets = .init(top: Constraint.regular,
@@ -30,6 +33,12 @@ final class MainViewController: UIViewController {
         button.contentHorizontalAlignment = .leading
 
         return button
+    }()
+
+    private let containerView: UIView = {
+        let view = UIView()
+        view.isHidden = true
+        return view
     }()
 
     private let menuBar = MenuBar()
@@ -103,6 +112,54 @@ final class MainViewController: UIViewController {
         layoutMenuBar()
         layoutHeaderContainer()
         layoutCollectionView()
+        layoutContainerView()
+        setChildViewController()
+    }
+
+    private func searchButtonTapped() {
+        guard let searchView = self.children.first?.view else { return }
+        searchView.backgroundColor = .Custom.animateGray
+
+        UIView.animate(withDuration: 0.3) {
+            self.containerView.isHidden = false
+            searchView.backgroundColor = .Custom.background
+
+            self.containerView.snp.remakeConstraints { make in
+                make.edges.equalToSuperview()
+            }
+
+            self.view.layoutIfNeeded()
+        }
+    }
+
+    private func dismissSearchView() {
+        guard let searchView = self.children.first?.view else { return }
+        UIView.animate(withDuration: 0.3) {
+            self.containerView.snp.remakeConstraints { make in
+                make.edges.equalTo(self.searchButton)
+            }
+
+            searchView.backgroundColor = .Custom.animateGray
+            self.view.layoutIfNeeded()
+        } completion: { self.containerView.isHidden = $0 }
+    }
+
+    // MARK: TODO - ViewModel로 로직 이동 필요
+    private func setChildViewController() {
+        let searchViewController = SearchViewController()
+
+        searchViewController.view.frame = containerView.frame
+
+        addChild(searchViewController)
+        containerView.addSubview(searchViewController.view)
+
+        searchViewController.beforeButtonTapped
+            .bind(onNext: dismissSearchView)
+            .disposed(by: disposeBag)
+
+        searchButton.rx.tap
+            .bind(onNext: searchButtonTapped)
+            .disposed(by: disposeBag)
     }
 }
 
@@ -143,6 +200,14 @@ private extension MainViewController {
             make.top.equalTo(headerContainer.snp.bottom).offset(Constraint.regular)
             make.leading.trailing.equalToSuperview().offset(Constraint.regular)
             make.height.equalTo(view.safeAreaLayoutGuide).dividedBy(3.5)
+        }
+    }
+
+    func layoutContainerView() {
+        view.addSubview(containerView)
+
+        containerView.snp.makeConstraints { make in
+            make.edges.equalTo(searchButton)
         }
     }
 }

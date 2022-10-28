@@ -58,6 +58,15 @@ final class MostSoldCell: UICollectionViewCell {
     }
 }
 
+// MARK: - Configure
+
+extension MostSoldCell {
+    func configure(with item: Item) {
+        titleLabel.text = item.title
+        authorLabel.text = item.author
+    }
+}
+
 // MARK: - Layout Section
 
 private extension MostSoldCell {

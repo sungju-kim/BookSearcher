@@ -40,4 +40,13 @@ enum ItemType: Int, CaseIterable {
             return "Music"
         }
     }
+
+    var title: String {
+        switch self {
+        case .eBook:
+            return "최다 판매 eBook"
+        case .music:
+            return "최다 판매 음반"
+        }
+    }
 }

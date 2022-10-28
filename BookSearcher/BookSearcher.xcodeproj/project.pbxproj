@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6C3A579E290C00F100AFED20 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3A579D290C00F100AFED20 /* MainViewModel.swift */; };
 		6C535F76290A7FB800F474B7 /* UIColor + extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C535F75290A7FB800F474B7 /* UIColor + extension.swift */; };
 		6C535F7C290A807800F474B7 /* SF-Pro-Display-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6C535F78290A807800F474B7 /* SF-Pro-Display-Semibold.otf */; };
 		6C535F7D290A807800F474B7 /* SF-Pro-Display-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6C535F79290A807800F474B7 /* SF-Pro-Display-Bold.otf */; };
@@ -44,6 +45,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6C3A579D290C00F100AFED20 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		6C535F75290A7FB800F474B7 /* UIColor + extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + extension.swift"; sourceTree = "<group>"; };
 		6C535F78290A807800F474B7 /* SF-Pro-Display-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Semibold.otf"; sourceTree = "<group>"; };
 		6C535F79290A807800F474B7 /* SF-Pro-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Bold.otf"; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 			children = (
 				6C535F9C290AE87300F474B7 /* Cell */,
 				6CA217AA290A5A4500346196 /* MainViewController.swift */,
+				6C3A579D290C00F100AFED20 /* MainViewModel.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -411,6 +414,7 @@
 				6C535FA5290B81A400F474B7 /* NetworkImpl.swift in Sources */,
 				6C535FA3290B814900F474B7 /* NetworkError.swift in Sources */,
 				6C535F9E290B5AE600F474B7 /* Requestable.swift in Sources */,
+				6C3A579E290C00F100AFED20 /* MainViewModel.swift in Sources */,
 				6C535F91290AB61F00F474B7 /* UnderLineView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

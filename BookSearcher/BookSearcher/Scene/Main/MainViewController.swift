@@ -7,10 +7,13 @@
 
 import UIKit
 import RxSwift
+import RxAppState
 import SnapKit
 
 final class MainViewController: UIViewController {
     private let disposeBag = DisposeBag()
+
+    private var viewModel: MainViewModel?
 
     private let searchButton: UIButton = {
         var configuration = UIButton.Configuration.gray()
@@ -159,6 +162,34 @@ final class MainViewController: UIViewController {
 
         searchButton.rx.tap
             .bind(onNext: searchButtonTapped)
+            .disposed(by: disposeBag)
+    }
+}
+
+// MARK: - Configure
+
+extension MainViewController {
+    func configure(with viewModel: MainViewModel) {
+        self.viewModel = viewModel
+
+        viewModel.outPut.loadedData
+            .bind(to: collectionView.rx.items(cellIdentifier: MostSoldCell.identifier,
+                                              cellType: MostSoldCell.self)) { _, item, cell in
+                cell.configure(with: item) }
+            .disposed(by: disposeBag)
+
+        viewModel.outPut.selectedMenu
+            .withUnretained(self)
+            .bind { viewController, itemType in
+                viewController.headerLabel.text = itemType.title }
+            .disposed(by: disposeBag)
+
+        menuBar.rx.selectedSegmentIndex
+            .bind(to: viewModel.inPut.selectedIndex)
+            .disposed(by: disposeBag)
+
+        rx.viewDidLoad
+            .bind(to: viewModel.inPut.viewDidLoad)
             .disposed(by: disposeBag)
     }
 }

@@ -11,4 +11,5 @@ enum NetworkError: Error {
     case invalidURL
     case failToDecode
     case emptyData
+    case response(code: Int)
 }

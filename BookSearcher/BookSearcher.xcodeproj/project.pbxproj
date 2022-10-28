@@ -23,6 +23,7 @@
 		6C535FA3290B814900F474B7 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C535FA2290B814900F474B7 /* NetworkError.swift */; };
 		6C535FA5290B81A400F474B7 /* NetworkImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C535FA4290B81A400F474B7 /* NetworkImpl.swift */; };
 		6C535FA7290B8ACB00F474B7 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C535FA6290B8ACB00F474B7 /* Network.swift */; };
+		6C535FAA290B8B6200F474B7 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C535FA9290B8B6200F474B7 /* Repository.swift */; };
 		6CA217A7290A5A4500346196 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA217A6290A5A4500346196 /* AppDelegate.swift */; };
 		6CA217A9290A5A4500346196 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA217A8290A5A4500346196 /* SceneDelegate.swift */; };
 		6CA217AB290A5A4500346196 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA217AA290A5A4500346196 /* MainViewController.swift */; };
@@ -53,6 +54,7 @@
 		6C535FA2290B814900F474B7 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		6C535FA4290B81A400F474B7 /* NetworkImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImpl.swift; sourceTree = "<group>"; };
 		6C535FA6290B8ACB00F474B7 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		6C535FA9290B8B6200F474B7 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		6CA217A3290A5A4500346196 /* BookSearcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookSearcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CA217A6290A5A4500346196 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6CA217A8290A5A4500346196 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -211,6 +213,14 @@
 			path = EndPoint;
 			sourceTree = "<group>";
 		};
+		6C535FA8290B8B4800F474B7 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				6C535FA9290B8B6200F474B7 /* Repository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
 		6CA2179A290A5A4500346196 = {
 			isa = PBXGroup;
 			children = (
@@ -233,6 +243,7 @@
 			children = (
 				6C535F70290A71B500F474B7 /* Scene */,
 				6C535F6F290A71B100F474B7 /* Model */,
+				6C535FA8290B8B4800F474B7 /* Repository */,
 				6C535F6E290A71A500F474B7 /* Network */,
 				6C535F71290A71C000F474B7 /* API */,
 				6C535F6D290A719B00F474B7 /* Extension */,
@@ -364,6 +375,7 @@
 				6C535F95290ACCC000F474B7 /* MenuBar + Rx.swift in Sources */,
 				6C535FA1290B5C9D00F474B7 /* GoogleBooksEndPoint.swift in Sources */,
 				6CA217A9290A5A4500346196 /* SceneDelegate.swift in Sources */,
+				6C535FAA290B8B6200F474B7 /* Repository.swift in Sources */,
 				6C535FA5290B81A400F474B7 /* NetworkImpl.swift in Sources */,
 				6C535FA3290B814900F474B7 /* NetworkError.swift in Sources */,
 				6C535F9E290B5AE600F474B7 /* Requestable.swift in Sources */,

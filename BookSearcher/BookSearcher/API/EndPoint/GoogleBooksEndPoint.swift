@@ -19,6 +19,10 @@ extension GoogleBooksEndPoint: Requestable {
         return key
     }
 
+    var method: HTTPMethod {
+        return .get
+    }
+
     var scheme: String {
         return "https"
     }
@@ -31,6 +35,17 @@ extension GoogleBooksEndPoint: Requestable {
         return "/books/v1/volumes"
     }
 
+    var queryItem: [URLQueryItem] {
+        switch self {
+        case .search(let bookName, let startIndex):
+            return ["q": bookName, "startIndex": "\(startIndex)", "key": apiKey].map { URLQueryItem(name: $0.key, value: $0.value) }
+        }
+    }
+
+    var headers: [String: String] {
+        return ["Content-Type": "application/json"]
+    }
+
     var url: URL? {
         var component = URLComponents(string: base)
         component?.scheme = scheme
@@ -39,18 +54,11 @@ extension GoogleBooksEndPoint: Requestable {
         return component?.url
     }
 
-    var headers: [String: String] {
-        return ["Content-Type": "application/json"]
+    var urlRequest: URLRequest? {
+        guard let url = self.url else { return nil}
+        var request = URLRequest(url: url)
+        headers.forEach { request.addValue($0.value, forHTTPHeaderField: $0.key) }
+        return request
     }
 
-    var queryItem: [URLQueryItem] {
-        switch self {
-        case .search(let bookName, let startIndex):
-            return ["q": bookName, "startIndex": "\(startIndex)", "key": apiKey].map { URLQueryItem(name: $0.key, value: $0.value) }
-        }
-    }
-
-    var method: HTTPMethod {
-        return .get
-    }
 }

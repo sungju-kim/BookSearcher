@@ -33,7 +33,10 @@ extension AladinEndPoint: Requestable {
     }
 
     var path: String {
-        return "/ttb/api/ItemList.aspx"
+        switch self {
+        case .eBook, .music:
+            return "/ttb/api/ItemSearch.aspx"
+        }
     }
 
     var queryItem: [String: String] {

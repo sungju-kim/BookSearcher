@@ -11,7 +11,7 @@ final class RepositoryContainer {
     private init() {}
 
     static var shared = RepositoryContainer()
-    private let network = NetworkImpl()
+    private let network: Network = NetworkImpl()
 
-    lazy var repository: RepositoryImpl = RepositoryImpl(network: network)
+    lazy var repository: Repository = RepositoryImpl(network: network)
 }

@@ -14,7 +14,7 @@ protocol Requestable {
     var base: String { get }
     var path: String { get }
     var headers: [String: String] { get }
-    var queryItem: [URLQueryItem] { get }
+    var queryItem: [String: String] { get }
     var url: URL? { get }
     var urlRequest: URLRequest? { get }
 }

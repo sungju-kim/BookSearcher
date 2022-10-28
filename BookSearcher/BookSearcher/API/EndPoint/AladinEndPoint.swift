@@ -1,5 +1,5 @@
 //
-//  GoogleBooksEndPoint.swift
+//  AladinEndPoint.swift
 //  BookSearcher
 //
 //  Created by dale on 2022/10/28.
@@ -7,12 +7,12 @@
 
 import Foundation
 
-enum GoogleBooksEndPoint {
-    case books(bookName: String, startIndex: Int)
-    case magazines(magazineName: String, startIndex: Int)
+enum AladinEndPoint {
+    case eBook(name: String, startIndex: Int)
+    case music(name: String, startIndex: Int)
 }
 
-extension GoogleBooksEndPoint: Requestable {
+extension AladinEndPoint: Requestable {
     var apiKey: String {
         guard let file = Bundle.main.path(forResource: "Info", ofType: "plist") else { return "" }
         guard let resource = NSDictionary(contentsOfFile: file) else { return "" }
@@ -29,20 +29,22 @@ extension GoogleBooksEndPoint: Requestable {
     }
 
     var base: String {
-        return "www.googleapis.com"
+        return "www.aladin.co.kr"
     }
 
     var path: String {
-        return "/books/v1/volumes"
+        return "/ttb/api/ItemList.aspx"
     }
 
-    var queryItem: [URLQueryItem] {
+    var queryItem: [String: String] {
+        var common: [String: String] = ["TTBKey": apiKey, "Output": "JS"]
         switch self {
-        case .books(let book, let startIndex):
-            return ["q": book, "startIndex": "\(startIndex)", "printType": "books", "key": apiKey].map { URLQueryItem(name: $0.key, value: $0.value) }
-        case .magazines(let magazine, let startIndex):
-            return ["q": magazine, "startIndex": "\(startIndex)", "printType": "magazines", "key": apiKey].map { URLQueryItem(name: $0.key, value: $0.value) }
+        case .eBook(let book, let startIndex):
+            common.merge(["Query": book, "startIndex": "\(startIndex)", "SearchTarget": "eBook"]) { current, _ in current }
+        case .music(let music, let startIndex):
+            common.merge(["Query": music, "startIndex": "\(startIndex)", "SearchTarget": "Music"]) { current, _ in current }
         }
+        return common
     }
 
     var headers: [String: String] {
@@ -53,7 +55,7 @@ extension GoogleBooksEndPoint: Requestable {
         var component = URLComponents(string: base)
         component?.scheme = scheme
         component?.path.append(path)
-        component?.queryItems = queryItem
+        component?.queryItems = queryItem.map { URLQueryItem(name: $0.key, value: $0.value) }
         return component?.url
     }
 

@@ -16,10 +16,10 @@ final class RepositoryImpl: Repository {
     }
 
     func search(bookName: String, startIndex: Int) -> Single<Data> {
-        return network.fetch(endPoint: GoogleBooksEndPoint.books(bookName: bookName, startIndex: startIndex))
+        return network.fetch(endPoint: AladinEndPoint.eBook(name: bookName, startIndex: startIndex))
     }
 
     func search(magazineName: String, startIndex: Int) -> Single<Data> {
-        return network.fetch(endPoint: GoogleBooksEndPoint.magazines(magazineName: magazineName, startIndex: startIndex))
+        return network.fetch(endPoint: AladinEndPoint.music(name: magazineName, startIndex: startIndex))
     }
 }

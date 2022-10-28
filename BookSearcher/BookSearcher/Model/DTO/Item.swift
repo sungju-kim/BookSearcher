@@ -27,3 +27,17 @@ struct Item: Decodable {
         case imageURL = "cover"
     }
 }
+
+enum ItemType: Int, CaseIterable {
+    case eBook
+    case music
+
+    var text: String {
+        switch self {
+        case .eBook:
+            return "eBook"
+        case .music:
+            return "Music"
+        }
+    }
+}

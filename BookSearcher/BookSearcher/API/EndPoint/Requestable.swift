@@ -9,11 +9,11 @@ import Foundation
 
 protocol Requestable {
     var apiKey: String { get }
-    var baseURL: URL? { get }
+    var base: String { get }
     var path: String { get }
     var url: URL? { get }
-    var headers: [String: String]? { get }
-    var parameter: [String: Any] { get }
+    var headers: [String: String] { get }
+    var queryItem: [URLQueryItem] { get }
     var method: HTTPMethod { get }
 }
 

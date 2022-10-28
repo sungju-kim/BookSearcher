@@ -8,8 +8,8 @@
 import Foundation
 
 enum AladinEndPoint {
-    case eBook(name: String, startIndex: Int)
-    case music(name: String, startIndex: Int)
+    case bestSeller(itemType: ItemType)
+    case item(name: String, startIndex: Int, itemType: ItemType)
 }
 
 extension AladinEndPoint: Requestable {
@@ -34,18 +34,20 @@ extension AladinEndPoint: Requestable {
 
     var path: String {
         switch self {
-        case .eBook, .music:
+        case .item:
             return "/ttb/api/ItemSearch.aspx"
+        case .bestSeller:
+            return "/ttb/api/ItemList.aspx"
         }
     }
 
     var queryItem: [String: String] {
-        var common: [String: String] = ["TTBKey": apiKey, "Output": "JS"]
+        var common: [String: String] = ["TTBKey": apiKey, "Output": "JS", "Version": "20131101"]
         switch self {
-        case .eBook(let book, let startIndex):
-            common.merge(["Query": book, "startIndex": "\(startIndex)", "SearchTarget": "eBook"]) { current, _ in current }
-        case .music(let music, let startIndex):
-            common.merge(["Query": music, "startIndex": "\(startIndex)", "SearchTarget": "Music"]) { current, _ in current }
+        case .item(let name, let startIndex, let itemType):
+            common.merge(["Query": name, "startIndex": "\(startIndex)", "SearchTarget": itemType.text]) { current, _ in current }
+        case .bestSeller(let itemType):
+            common.merge(["QueryType": "Bestseller", "SearchTarget": itemType.text]) { current, _ in current}
         }
         return common
     }
@@ -65,6 +67,7 @@ extension AladinEndPoint: Requestable {
     var urlRequest: URLRequest? {
         guard let url = self.url else { return nil}
         var request = URLRequest(url: url)
+        request.httpMethod = method.rawValue
         headers.forEach { request.addValue($0.value, forHTTPHeaderField: $0.key) }
         return request
     }

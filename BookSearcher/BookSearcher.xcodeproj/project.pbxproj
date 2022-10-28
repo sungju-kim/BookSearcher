@@ -132,7 +132,6 @@
 		6C535F6F290A71B100F474B7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				6C535FB2290B91C700F474B7 /* Domain */,
 				6C535FB1290B91C500F474B7 /* DTO */,
 			);
 			path = Model;
@@ -246,13 +245,6 @@
 				6CA45432290BE15A00672B56 /* Item.swift */,
 			);
 			path = DTO;
-			sourceTree = "<group>";
-		};
-		6C535FB2290B91C700F474B7 /* Domain */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Domain;
 			sourceTree = "<group>";
 		};
 		6CA2179A290A5A4500346196 = {

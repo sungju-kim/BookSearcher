@@ -15,11 +15,11 @@ final class RepositoryImpl: Repository {
         self.network = network
     }
 
-    func search(bookName: String, startIndex: Int) -> Single<Data> {
-        return network.fetch(endPoint: AladinEndPoint.eBook(name: bookName, startIndex: startIndex))
+    func searchItem(name: String, startIndex: Int, itemType: ItemType) -> Single<Data> {
+        return network.fetch(endPoint: AladinEndPoint.item(name: name, startIndex: startIndex, itemType: itemType))
     }
 
-    func search(magazineName: String, startIndex: Int) -> Single<Data> {
-        return network.fetch(endPoint: AladinEndPoint.music(name: magazineName, startIndex: startIndex))
+    func searchBestSeller(itemType: ItemType) -> Single<Data> {
+        return network.fetch(endPoint: AladinEndPoint.bestSeller(itemType: itemType))
     }
 }

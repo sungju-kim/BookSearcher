@@ -11,4 +11,5 @@ import RxSwift
 protocol Repository {
     func searchItem(name: String, startIndex: Int, itemType: ItemType) -> Single<SearchResult>
     func searchBestSeller(itemType: ItemType) -> Single<SearchResult>
+    func downLoadImage(url: String) -> Single<Data>
 }

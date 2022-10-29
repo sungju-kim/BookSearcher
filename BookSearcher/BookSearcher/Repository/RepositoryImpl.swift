@@ -44,4 +44,9 @@ final class RepositoryImpl: Repository {
                 }
         }
     }
+
+    func downLoadImage(url: String) -> Single<Data> {
+        // MARK: - TODO - 캐싱 기능구현 필요
+        return network.fetch(endPoint: AladinEndPoint.image(url: url))
+    }
 }

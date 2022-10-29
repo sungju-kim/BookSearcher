@@ -10,6 +10,7 @@ import Foundation
 enum AladinEndPoint {
     case bestSeller(itemType: ItemType)
     case item(name: String, startIndex: Int, itemType: ItemType)
+    case image(url: String)
 }
 
 extension AladinEndPoint: Requestable {
@@ -26,10 +27,16 @@ extension AladinEndPoint: Requestable {
 
     var scheme: String {
         return "https"
+
     }
 
     var base: String {
-        return "www.aladin.co.kr"
+        switch self {
+        case.image(let url):
+            return url
+        default:
+            return "www.aladin.co.kr"
+        }
     }
 
     var path: String {
@@ -38,6 +45,8 @@ extension AladinEndPoint: Requestable {
             return "/ttb/api/ItemSearch.aspx"
         case .bestSeller:
             return "/ttb/api/ItemList.aspx"
+        default:
+            return ""
         }
     }
 
@@ -48,12 +57,19 @@ extension AladinEndPoint: Requestable {
             common.merge(["Query": name, "startIndex": "\(startIndex)", "SearchTarget": itemType.text]) { current, _ in current }
         case .bestSeller(let itemType):
             common.merge(["QueryType": "Bestseller", "SearchTarget": itemType.text]) { current, _ in current}
+        default:
+            break
         }
         return common
     }
 
     var headers: [String: String] {
-        return ["Content-Type": "application/json"]
+        switch self {
+        case .image:
+            return [:]
+        default:
+            return ["Content-Type": "application/json"]
+        }
     }
 
     var url: URL? {

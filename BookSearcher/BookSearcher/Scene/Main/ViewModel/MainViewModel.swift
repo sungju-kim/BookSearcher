@@ -16,7 +16,7 @@ final class MainViewModel {
     }
 
     struct Output {
-        let loadedData = PublishRelay<[Item]>()
+        let loadedData = PublishRelay<[MostSoldViewModel]>()
         let selectedMenu = BehaviorRelay<ItemType>(value: .eBook)
     }
     private let disposeBag = DisposeBag()
@@ -37,6 +37,7 @@ final class MainViewModel {
             .withUnretained(self)
             .flatMapLatest { $0.repository.searchBestSeller(itemType: $1) }
             .compactMap { $0.item }
+            .map { $0.map { MostSoldViewModel(item: $0) } }
             .bind(to: outPut.loadedData)
             .disposed(by: disposeBag)
     }

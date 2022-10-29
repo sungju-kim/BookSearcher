@@ -174,8 +174,8 @@ extension MainViewController {
 
         viewModel.outPut.loadedData
             .bind(to: collectionView.rx.items(cellIdentifier: MostSoldCell.identifier,
-                                              cellType: MostSoldCell.self)) { _, item, cell in
-                cell.configure(with: item) }
+                                              cellType: MostSoldCell.self)) { _, viewModel, cell in
+                cell.configure(with: viewModel) }
             .disposed(by: disposeBag)
 
         viewModel.outPut.selectedMenu

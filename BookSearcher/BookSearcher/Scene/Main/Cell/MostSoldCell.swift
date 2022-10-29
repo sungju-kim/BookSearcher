@@ -6,9 +6,12 @@
 //
 
 import UIKit
+import RxSwift
 import SnapKit
 
 final class MostSoldCell: UICollectionViewCell {
+    private let disposeBag = DisposeBag()
+
     static var identifier: String {
         return "\(self)"
     }
@@ -61,9 +64,13 @@ final class MostSoldCell: UICollectionViewCell {
 // MARK: - Configure
 
 extension MostSoldCell {
-    func configure(with item: Item) {
-        titleLabel.text = item.title
-        authorLabel.text = item.author
+    func configure(with viewModel: MostSoldViewModel) {
+        viewModel.output.didLoadData
+            .withUnretained(self)
+            .bind { cell, item in
+                cell.titleLabel.text = item.title
+                cell.authorLabel.text = item.author }
+            .disposed(by: disposeBag)
     }
 }
 

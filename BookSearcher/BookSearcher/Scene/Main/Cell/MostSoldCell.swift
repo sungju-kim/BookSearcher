@@ -65,12 +65,19 @@ final class MostSoldCell: UICollectionViewCell {
 
 extension MostSoldCell {
     func configure(with viewModel: MostSoldViewModel) {
+        viewModel.output.didLoadImage
+            .map { UIImage(data: $0) }
+            .bind(to: imageView.rx.image)
+            .disposed(by: disposeBag)
+
         viewModel.output.didLoadData
             .withUnretained(self)
             .bind { cell, item in
                 cell.titleLabel.text = item.title
                 cell.authorLabel.text = item.author }
             .disposed(by: disposeBag)
+
+        viewModel.input.viewDidLoad.accept(())
     }
 }
 

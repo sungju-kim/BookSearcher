@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 import RxSwift
 import RxRelay
 
@@ -45,10 +46,30 @@ final class SearchViewController: UIViewController {
         return stackView
     }()
 
+    private let menuBar = MenuBar()
+
     private let border: UIView = {
         let view = UIView()
         view.backgroundColor = .darkGray
         return view
+    }()
+
+    private let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.backgroundColor = .clear
+        tableView.register(SearchResultCell.self, forCellReuseIdentifier: SearchResultCell.identifier)
+        return tableView
+    }()
+
+    private lazy var resultContainer: UIStackView = {
+        let stackView = UIStackView()
+        stackView.distribution = .fill
+        stackView.axis = .vertical
+        stackView.isHidden = true
+
+        [menuBar, tableView].forEach { stackView.addArrangedSubview($0) }
+
+        return stackView
     }()
 
     override func viewDidLoad() {
@@ -58,33 +79,46 @@ final class SearchViewController: UIViewController {
 
         layoutNavigationContainer()
         layoutBorder()
+        layoutMenuBar()
+    }
+
+    private func showResults(isShown: Bool) {
+        resultContainer.isHidden = !isShown
+        border.isHidden = isShown
     }
 
     private func viewWillDismiss() {
+        resultContainer.removeFromSuperview()
         searchBar.endEditing(true)
         searchBar.text = nil
+        showResults(isShown: false)
     }
 
     private func viewWillPresent() {
         searchBar.becomeFirstResponder()
+
+        layoutResultContainer()
     }
 }
-
 // MARK: - Configure
 
 extension SearchViewController {
     func configure(with viewModel: SearchViewModel) {
         self.viewModel = viewModel
 
-        viewModel.output.dismissSearchView
-            .bind(onNext: viewWillDismiss)
-            .disposed(by: disposeBag)
-
         viewModel.output.presentSearchView
             .bind(onNext: viewWillPresent)
             .disposed(by: disposeBag)
 
+        searchBar.rx.searchButtonClicked
+            .map { true }
+            .bind(onNext: showResults)
+            .disposed(by: disposeBag)
+
         beforeButton.rx.tap
+            .withUnretained(self)
+            .do { $0.0.viewWillDismiss() }
+            .map { $1 }
             .bind(to: viewModel.input.beforeButtonTapped)
             .disposed(by: disposeBag)
     }
@@ -98,6 +132,21 @@ private extension SearchViewController {
 
         navigationContainer.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+        }
+    }
+
+    func layoutResultContainer() {
+        view.addSubview(resultContainer)
+
+        resultContainer.snp.makeConstraints { make in
+            make.top.equalTo(navigationContainer.snp.bottom)
+            make.leading.trailing.bottom.equalToSuperview()
+        }
+    }
+
+    func layoutMenuBar() {
+        menuBar.snp.makeConstraints { make in
+            make.height.equalTo(50)
         }
     }
 

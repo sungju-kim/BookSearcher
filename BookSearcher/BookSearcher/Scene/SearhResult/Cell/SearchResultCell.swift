@@ -136,6 +136,10 @@ extension SearchResultCell {
             .bind(to: rateLabel.rx.text)
             .disposed(by: disposeBag)
 
+        viewModel.output.starLabelIsHidden
+            .bind(to: starLabel.rx.isHidden)
+            .disposed(by: disposeBag)
+
         viewModel.input.viewDidLoad.accept(())
     }
 }

@@ -20,6 +20,7 @@ final class SearchResultViewModel {
         let didLoadImage = PublishRelay<Data>()
         let didLoadType = PublishRelay<String>()
         let didLoadRate = PublishRelay<String>()
+        let starLabelIsHidden = PublishRelay<Bool>()
     }
     private let disposeBag = DisposeBag()
 
@@ -53,11 +54,21 @@ final class SearchResultViewModel {
             .bind(to: output.didLoadType)
             .disposed(by: disposeBag)
 
-        // MARK: TODO - 별점 정보 파싱 필요
-        viewDidLoad
+        let rate = viewDidLoad
             .compactMap { item.customerReviewRank }
+            .compactMap { Double($0) / 2 }
+            .share()
+
+        rate
+            .filter { $0 != 0 }
             .compactMap { String($0) }
             .bind(to: output.didLoadRate)
             .disposed(by: disposeBag)
+
+        rate
+            .map { $0 == 0 }
+            .bind(to: output.starLabelIsHidden)
+            .disposed(by: disposeBag)
+
     }
 }

@@ -16,6 +16,7 @@ final class SearchViewModel {
         let viewWillPresent = PublishRelay<Void>()
         let beforeButtonTapped = PublishRelay<Void>()
         let searchButtonClicked = PublishRelay<String>()
+        let selectedIndex = BehaviorRelay<Int>(value: 0)
     }
 
     struct Output {
@@ -39,8 +40,8 @@ final class SearchViewModel {
             .bind(to: output.dismissSearchView)
             .disposed(by: disposeBag)
 
-        input.searchButtonClicked
-            .map { ($0, 0, ItemType.eBook )}
+        Observable.combineLatest(input.searchButtonClicked, input.selectedIndex.compactMap { ItemType(rawValue: $0) })
+            .map { ($0, 0, $1) }
             .flatMapLatest(repository.searchItem)
             .compactMap { $0.item }
             .map { $0.map { SearchResultViewModel(item: $0) } }

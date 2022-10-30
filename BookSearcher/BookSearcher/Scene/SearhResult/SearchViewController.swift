@@ -154,6 +154,10 @@ extension SearchViewController {
             .bind(onNext: showResults)
             .disposed(by: disposeBag)
 
+        menuBar.rx.selectedSegmentIndex
+            .bind(to: viewModel.input.selectedIndex)
+            .disposed(by: disposeBag)
+
         beforeButton.rx.tap
             .withUnretained(self)
             .do { $0.0.viewWillDismiss() }

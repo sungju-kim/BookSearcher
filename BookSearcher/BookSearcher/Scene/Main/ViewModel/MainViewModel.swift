@@ -53,7 +53,7 @@ final class MainViewModel {
             .disposed(by: disposeBag)
 
         input.searchButtonTapped
-            .bind(to: searchViewModel.input.searchButtonTapped)
+            .bind(to: searchViewModel.input.viewWillPresent)
             .disposed(by: disposeBag)
 
         input.searchButtonTapped

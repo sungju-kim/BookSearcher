@@ -10,7 +10,7 @@ import RxSwift
 import SnapKit
 
 final class MostSoldCell: UICollectionViewCell {
-    private let disposeBag = DisposeBag()
+    private var disposeBag = DisposeBag()
 
     static var identifier: String {
         return "\(self)"
@@ -59,6 +59,11 @@ final class MostSoldCell: UICollectionViewCell {
 
         layoutContainer()
     }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
+    }
 }
 
 // MARK: - Configure
@@ -70,11 +75,12 @@ extension MostSoldCell {
             .bind(to: imageView.rx.image)
             .disposed(by: disposeBag)
 
-        viewModel.output.didLoadData
-            .withUnretained(self)
-            .bind { cell, item in
-                cell.titleLabel.text = item.title
-                cell.authorLabel.text = item.author }
+        viewModel.output.didLoadTitle
+            .bind(to: titleLabel.rx.text)
+            .disposed(by: disposeBag)
+
+        viewModel.output.didLoadAuthor
+            .bind(to: authorLabel.rx.text)
             .disposed(by: disposeBag)
 
         viewModel.input.viewDidLoad.accept(())

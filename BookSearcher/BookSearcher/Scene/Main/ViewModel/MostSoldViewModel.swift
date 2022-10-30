@@ -15,7 +15,8 @@ final class MostSoldViewModel {
     }
 
     struct Output {
-        let didLoadData = PublishRelay<Item>()
+        let didLoadTitle = PublishRelay<String>()
+        let didLoadAuthor = PublishRelay<String>()
         let didLoadImage = PublishRelay<Data>()
     }
     private let disposeBag = DisposeBag()
@@ -31,15 +32,18 @@ final class MostSoldViewModel {
 
         viewDidLoad
             .compactMap { item.imageURL }
-            .withUnretained(self)
-            .flatMapLatest { viewModel, url in
-                viewModel.repository.downLoadImage(url: url)}
+            .flatMapLatest(repository.downLoadImage)
             .bind(to: output.didLoadImage)
             .disposed(by: disposeBag)
 
         viewDidLoad
-            .map { item }
-            .bind(to: output.didLoadData)
+            .compactMap { item.title }
+            .bind(to: output.didLoadTitle)
+            .disposed(by: disposeBag)
+
+        viewDidLoad
+            .compactMap { item.author }
+            .bind(to: output.didLoadAuthor)
             .disposed(by: disposeBag)
     }
 }

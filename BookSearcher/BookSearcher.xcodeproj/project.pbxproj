@@ -108,6 +108,21 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		6C3A57A4290E788500AFED20 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				6C3A57A2290E707500AFED20 /* SearchViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		6C3A57A5290E788B00AFED20 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		6C535F6A290A718700F474B7 /* LifeCycle */ = {
 			isa = PBXGroup;
 			children = (
@@ -174,9 +189,9 @@
 		6C535F72290A71D100F474B7 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				6CA217AA290A5A4500346196 /* MainViewController.swift */,
 				6C3A57A1290D593000AFED20 /* ViewModel */,
 				6C535F9C290AE87300F474B7 /* Cell */,
-				6CA217AA290A5A4500346196 /* MainViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -185,7 +200,8 @@
 			isa = PBXGroup;
 			children = (
 				6C535FBD290B9DAF00F474B7 /* SearchViewController.swift */,
-				6C3A57A2290E707500AFED20 /* SearchViewModel.swift */,
+				6C3A57A5290E788B00AFED20 /* Cell */,
+				6C3A57A4290E788500AFED20 /* ViewModel */,
 			);
 			path = SearhResult;
 			sourceTree = "<group>";

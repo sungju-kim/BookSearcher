@@ -11,7 +11,7 @@ import RxRelay
 
 final class MostSoldViewModel {
     struct Input {
-        let viewDidLoad = PublishRelay<Void>()
+        let cellDidLoad = PublishRelay<Void>()
     }
 
     struct Output {
@@ -28,20 +28,18 @@ final class MostSoldViewModel {
     let output = Output()
 
     init(item: Item) {
-        let viewDidLoad = input.viewDidLoad.share()
-
-        viewDidLoad
+        input.cellDidLoad
             .compactMap { item.imageURL }
             .flatMapLatest(repository.downLoadImage)
             .bind(to: output.didLoadImage)
             .disposed(by: disposeBag)
 
-        viewDidLoad
+        input.cellDidLoad
             .compactMap { item.title }
             .bind(to: output.didLoadTitle)
             .disposed(by: disposeBag)
 
-        viewDidLoad
+        input.cellDidLoad
             .compactMap { item.author }
             .bind(to: output.didLoadAuthor)
             .disposed(by: disposeBag)

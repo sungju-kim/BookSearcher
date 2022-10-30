@@ -140,7 +140,7 @@ extension SearchResultCell {
             .bind(to: starLabel.rx.isHidden)
             .disposed(by: disposeBag)
 
-        viewModel.input.viewDidLoad.accept(())
+        viewModel.input.cellDidLoad.accept(())
     }
 }
 

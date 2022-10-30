@@ -85,7 +85,7 @@ extension MostSoldCell {
             .bind(to: authorLabel.rx.text)
             .disposed(by: disposeBag)
 
-        viewModel.input.viewDidLoad.accept(())
+        viewModel.input.cellDidLoad.accept(())
     }
 }
 

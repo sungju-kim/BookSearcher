@@ -18,7 +18,9 @@ final class MostSoldCell: UICollectionViewCell {
 
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleToFill
+        imageView.layer.cornerRadius = 5
+        imageView.clipsToBounds = true
         return imageView
     }()
 

@@ -105,28 +105,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6C3A57A1290D593000AFED20 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				6C3A579D290C00F100AFED20 /* MainViewModel.swift */,
-				6C3A579F290D58D800AFED20 /* MostSoldViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		6C3A57A4290E788500AFED20 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				6C3A57A2290E707500AFED20 /* SearchViewModel.swift */,
-				6C3A57AA290E7E9F00AFED20 /* SearchResultViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		6C3A57A5290E788B00AFED20 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
 				6C3A57A8290E7E9400AFED20 /* SearchResultCell.swift */,
+				6C3A57AA290E7E9F00AFED20 /* SearchResultViewModel.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -200,7 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				6CA217AA290A5A4500346196 /* MainViewController.swift */,
-				6C3A57A1290D593000AFED20 /* ViewModel */,
+				6C3A579D290C00F100AFED20 /* MainViewModel.swift */,
 				6C535F9C290AE87300F474B7 /* Cell */,
 			);
 			path = Main;
@@ -210,8 +193,8 @@
 			isa = PBXGroup;
 			children = (
 				6C535FBD290B9DAF00F474B7 /* SearchViewController.swift */,
+				6C3A57A2290E707500AFED20 /* SearchViewModel.swift */,
 				6C3A57A5290E788B00AFED20 /* Cell */,
-				6C3A57A4290E788500AFED20 /* ViewModel */,
 			);
 			path = SearhResult;
 			sourceTree = "<group>";
@@ -256,6 +239,7 @@
 			isa = PBXGroup;
 			children = (
 				6C535F98290AD31100F474B7 /* MostSoldCell.swift */,
+				6C3A579F290D58D800AFED20 /* MostSoldViewModel.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";

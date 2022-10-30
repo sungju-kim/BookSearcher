@@ -72,7 +72,7 @@ final class SearchResultCell: UICollectionViewCell {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = Constraint.min
-        stackView.distribution = .equalCentering
+        stackView.distribution = .equalSpacing
         [titleLabel, authorLabel, informationContainer].forEach { stackView.addArrangedSubview($0) }
         return stackView
     }()

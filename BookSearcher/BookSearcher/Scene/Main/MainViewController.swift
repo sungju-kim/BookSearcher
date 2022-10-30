@@ -70,31 +70,11 @@ final class MainViewController: UIViewController {
     }()
 
     private let collectionView: UICollectionView = {
-        let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1),
-            heightDimension: .fractionalHeight(1)
-        )
-
-        let item = NSCollectionLayoutItem(
-            layoutSize: itemSize)
-
-        let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(0.3),
-            heightDimension: .fractionalHeight(1.0)
-        )
-
-        let group = NSCollectionLayoutGroup.horizontal(
-            layoutSize: groupSize,
-            subitems: [item]
-        )
-        group.contentInsets = .init(
-            top: 8,
-            leading: 8,
-            bottom: 8,
-            trailing: 8
-        )
-
-        let section = NSCollectionLayoutSection(group: group)
+        let section: NSCollectionLayoutSection = .init(itemWidth: .fractionalWidth(1),
+                                                       itemHeight: .fractionalHeight(1),
+                                                       groupWidth: .fractionalWidth(0.3),
+                                                       groupHeight: .fractionalHeight(1),
+                                                       contentInset: .init(top: 8, leading: 8, bottom: 8, trailing: 8))
         section.orthogonalScrollingBehavior = .continuous
 
         let layout = UICollectionViewCompositionalLayout(section: section)

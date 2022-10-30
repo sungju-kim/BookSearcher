@@ -13,6 +13,7 @@
 		6C3A57A9290E7E9400AFED20 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3A57A8290E7E9400AFED20 /* SearchResultCell.swift */; };
 		6C3A57AB290E7E9F00AFED20 /* SearchResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3A57AA290E7E9F00AFED20 /* SearchResultViewModel.swift */; };
 		6C3A57AF290ED5EC00AFED20 /* Reactive + extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3A57AE290ED5EC00AFED20 /* Reactive + extension.swift */; };
+		6C3A57B3290EEA3100AFED20 /* NSCollectionLayoutSection + extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3A57B2290EEA3100AFED20 /* NSCollectionLayoutSection + extension.swift */; };
 		6C535F76290A7FB800F474B7 /* UIColor + extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C535F75290A7FB800F474B7 /* UIColor + extension.swift */; };
 		6C535F7C290A807800F474B7 /* SF-Pro-Display-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6C535F78290A807800F474B7 /* SF-Pro-Display-Semibold.otf */; };
 		6C535F7D290A807800F474B7 /* SF-Pro-Display-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6C535F79290A807800F474B7 /* SF-Pro-Display-Bold.otf */; };
@@ -55,6 +56,7 @@
 		6C3A57A8290E7E9400AFED20 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		6C3A57AA290E7E9F00AFED20 /* SearchResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewModel.swift; sourceTree = "<group>"; };
 		6C3A57AE290ED5EC00AFED20 /* Reactive + extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reactive + extension.swift"; sourceTree = "<group>"; };
+		6C3A57B2290EEA3100AFED20 /* NSCollectionLayoutSection + extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSCollectionLayoutSection + extension.swift"; sourceTree = "<group>"; };
 		6C535F75290A7FB800F474B7 /* UIColor + extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + extension.swift"; sourceTree = "<group>"; };
 		6C535F78290A807800F474B7 /* SF-Pro-Display-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Semibold.otf"; sourceTree = "<group>"; };
 		6C535F79290A807800F474B7 /* SF-Pro-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Bold.otf"; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 				6C535F75290A7FB800F474B7 /* UIColor + extension.swift */,
 				6C535F80290A80EB00F474B7 /* UIFont + extension.swift */,
 				6C3A57AE290ED5EC00AFED20 /* Reactive + extension.swift */,
+				6C3A57B2290EEA3100AFED20 /* NSCollectionLayoutSection + extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -439,6 +442,7 @@
 				6C535F81290A80EB00F474B7 /* UIFont + extension.swift in Sources */,
 				6CA45433290BE15A00672B56 /* Item.swift in Sources */,
 				6C535FA7290B8ACB00F474B7 /* Network.swift in Sources */,
+				6C3A57B3290EEA3100AFED20 /* NSCollectionLayoutSection + extension.swift in Sources */,
 				6C535F76290A7FB800F474B7 /* UIColor + extension.swift in Sources */,
 				6C535FB4290B920A00F474B7 /* SearchResult.swift in Sources */,
 				6C3A57AF290ED5EC00AFED20 /* Reactive + extension.swift in Sources */,

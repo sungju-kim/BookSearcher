@@ -172,24 +172,24 @@ extension MainViewController {
     func configure(with viewModel: MainViewModel) {
         self.viewModel = viewModel
 
-        viewModel.outPut.loadedData
+        viewModel.output.loadedData
             .bind(to: collectionView.rx.items(cellIdentifier: MostSoldCell.identifier,
                                               cellType: MostSoldCell.self)) { _, viewModel, cell in
                 cell.configure(with: viewModel) }
             .disposed(by: disposeBag)
 
-        viewModel.outPut.selectedMenu
+        viewModel.output.selectedMenu
             .withUnretained(self)
             .bind { viewController, itemType in
                 viewController.headerLabel.text = itemType.title }
             .disposed(by: disposeBag)
 
         menuBar.rx.selectedSegmentIndex
-            .bind(to: viewModel.inPut.selectedIndex)
+            .bind(to: viewModel.input.selectedIndex)
             .disposed(by: disposeBag)
 
         rx.viewDidLoad
-            .bind(to: viewModel.inPut.viewDidLoad)
+            .bind(to: viewModel.input.viewDidLoad)
             .disposed(by: disposeBag)
     }
 }

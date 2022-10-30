@@ -24,21 +24,21 @@ final class MainViewModel {
     @Injector(keypath: \.repository)
     private var repository: Repository
 
-    let inPut = Input()
-    let outPut = Output()
+    let input = Input()
+    let output = Output()
 
     init() {
-        inPut.selectedIndex
+        input.selectedIndex
             .compactMap { ItemType(rawValue: $0) }
-            .bind(to: outPut.selectedMenu)
+            .bind(to: output.selectedMenu)
             .disposed(by: disposeBag)
 
-        Observable.combineLatest(inPut.viewDidLoad.asObservable(), outPut.selectedMenu.asObservable()) { $1 }
+        Observable.combineLatest(input.viewDidLoad.asObservable(), output.selectedMenu.asObservable()) { $1 }
             .withUnretained(self)
             .flatMapLatest { $0.repository.searchBestSeller(itemType: $1) }
             .compactMap { $0.item }
             .map { $0.map { MostSoldViewModel(item: $0) } }
-            .bind(to: outPut.loadedData)
+            .bind(to: output.loadedData)
             .disposed(by: disposeBag)
     }
 }

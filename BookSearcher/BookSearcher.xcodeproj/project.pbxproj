@@ -10,6 +10,7 @@
 		6C3A579E290C00F100AFED20 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3A579D290C00F100AFED20 /* MainViewModel.swift */; };
 		6C3A57A0290D58D800AFED20 /* MostSoldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3A579F290D58D800AFED20 /* MostSoldViewModel.swift */; };
 		6C3A57A3290E707500AFED20 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3A57A2290E707500AFED20 /* SearchViewModel.swift */; };
+		6C3A57A9290E7E9400AFED20 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3A57A8290E7E9400AFED20 /* SearchResultCell.swift */; };
 		6C535F76290A7FB800F474B7 /* UIColor + extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C535F75290A7FB800F474B7 /* UIColor + extension.swift */; };
 		6C535F7C290A807800F474B7 /* SF-Pro-Display-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6C535F78290A807800F474B7 /* SF-Pro-Display-Semibold.otf */; };
 		6C535F7D290A807800F474B7 /* SF-Pro-Display-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6C535F79290A807800F474B7 /* SF-Pro-Display-Bold.otf */; };
@@ -50,6 +51,7 @@
 		6C3A579D290C00F100AFED20 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		6C3A579F290D58D800AFED20 /* MostSoldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostSoldViewModel.swift; sourceTree = "<group>"; };
 		6C3A57A2290E707500AFED20 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		6C3A57A8290E7E9400AFED20 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		6C535F75290A7FB800F474B7 /* UIColor + extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + extension.swift"; sourceTree = "<group>"; };
 		6C535F78290A807800F474B7 /* SF-Pro-Display-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Semibold.otf"; sourceTree = "<group>"; };
 		6C535F79290A807800F474B7 /* SF-Pro-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Bold.otf"; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 		6C3A57A5290E788B00AFED20 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				6C3A57A8290E7E9400AFED20 /* SearchResultCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -427,6 +430,7 @@
 				6C535F93290ABEA400F474B7 /* MenuBar.swift in Sources */,
 				6CA217AB290A5A4500346196 /* MainViewController.swift in Sources */,
 				6C3A57A0290D58D800AFED20 /* MostSoldViewModel.swift in Sources */,
+				6C3A57A9290E7E9400AFED20 /* SearchResultCell.swift in Sources */,
 				6C535F99290AD31100F474B7 /* MostSoldCell.swift in Sources */,
 				6C535FAC290B8DDC00F474B7 /* RepositoryImpl.swift in Sources */,
 				6C535F81290A80EB00F474B7 /* UIFont + extension.swift in Sources */,

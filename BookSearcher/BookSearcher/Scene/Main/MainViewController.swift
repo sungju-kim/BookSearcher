@@ -116,10 +116,9 @@ final class MainViewController: UIViewController {
         layoutHeaderContainer()
         layoutCollectionView()
         layoutContainerView()
-        setChildViewController()
     }
 
-    private func searchButtonTapped() {
+    private func presentSearchView() {
         guard let searchView = self.children.first?.view else { return }
         searchView.backgroundColor = .Custom.animateGray
 
@@ -137,6 +136,7 @@ final class MainViewController: UIViewController {
 
     private func dismissSearchView() {
         guard let searchView = self.children.first?.view else { return }
+
         UIView.animate(withDuration: 0.3) {
             self.containerView.snp.remakeConstraints { make in
                 make.edges.equalTo(self.searchButton)
@@ -147,22 +147,14 @@ final class MainViewController: UIViewController {
         } completion: { self.containerView.isHidden = $0 }
     }
 
-    // MARK: TODO - ViewModel로 로직 이동 필요
-    private func setChildViewController() {
+    private func setChildViewController(viewModel: SearchViewModel) {
         let searchViewController = SearchViewController()
+        searchViewController.configure(with: viewModel)
 
         searchViewController.view.frame = containerView.frame
 
         addChild(searchViewController)
         containerView.addSubview(searchViewController.view)
-
-        searchViewController.beforeButtonTapped
-            .bind(onNext: dismissSearchView)
-            .disposed(by: disposeBag)
-
-        searchButton.rx.tap
-            .bind(onNext: searchButtonTapped)
-            .disposed(by: disposeBag)
     }
 }
 
@@ -182,6 +174,22 @@ extension MainViewController {
             .withUnretained(self)
             .bind { viewController, itemType in
                 viewController.headerLabel.text = itemType.title }
+            .disposed(by: disposeBag)
+
+        viewModel.output.didLoadSearchViewModel
+            .bind(onNext: setChildViewController)
+            .disposed(by: disposeBag)
+
+        viewModel.output.showSearchView
+            .bind(onNext: presentSearchView)
+            .disposed(by: disposeBag)
+
+        viewModel.output.dismissSearchView
+            .bind(onNext: dismissSearchView)
+            .disposed(by: disposeBag)
+
+        searchButton.rx.tap
+            .bind(to: viewModel.input.searchButtonTapped)
             .disposed(by: disposeBag)
 
         menuBar.rx.selectedSegmentIndex

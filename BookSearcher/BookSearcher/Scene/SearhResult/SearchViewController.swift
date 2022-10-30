@@ -12,6 +12,8 @@ import RxRelay
 final class SearchViewController: UIViewController {
     private let disposeBag = DisposeBag()
 
+    private var viewModel: SearchViewModel?
+
     private lazy var beforeButton: UIButton = {
         var configuration = UIButton.Configuration.plain()
         configuration.image = UIImage(systemName: "chevron.left")
@@ -49,9 +51,6 @@ final class SearchViewController: UIViewController {
         return view
     }()
 
-    // MARK: TODO - ViewModel로 로직 이동 필요
-    let beforeButtonTapped = PublishRelay<Void>()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .Custom.background
@@ -59,9 +58,34 @@ final class SearchViewController: UIViewController {
 
         layoutNavigationContainer()
         layoutBorder()
+    }
+
+    private func viewWillDismiss() {
+        searchBar.endEditing(true)
+        searchBar.text = nil
+    }
+
+    private func viewWillPresent() {
+        searchBar.becomeFirstResponder()
+    }
+}
+
+// MARK: - Configure
+
+extension SearchViewController {
+    func configure(with viewModel: SearchViewModel) {
+        self.viewModel = viewModel
+
+        viewModel.output.dismissSearchView
+            .bind(onNext: viewWillDismiss)
+            .disposed(by: disposeBag)
+
+        viewModel.output.presentSearchView
+            .bind(onNext: viewWillPresent)
+            .disposed(by: disposeBag)
 
         beforeButton.rx.tap
-            .bind(to: beforeButtonTapped)
+            .bind(to: viewModel.input.beforeButtonTapped)
             .disposed(by: disposeBag)
     }
 }

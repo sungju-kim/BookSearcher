@@ -46,12 +46,9 @@ final class MainViewController: UIViewController {
 
     private let menuBar = MenuBar()
 
-    private let headerLabel: UILabel = {
-        let label = UILabel()
-        label.font = .customFont(ofSize: 28, weight: .regular)
-        label.textColor = .Custom.textWhite
-        return label
-    }()
+    private let headerLabel: UILabel = CustomLabel(fontColor: .Custom.textWhite,
+                                                   fontSize: 28,
+                                                   fontWeight: .regular)
 
     private let moreButton: UIButton = {
         var configuration = UIButton.Configuration.plain()

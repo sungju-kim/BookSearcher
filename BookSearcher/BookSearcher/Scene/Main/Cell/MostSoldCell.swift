@@ -25,18 +25,18 @@ final class MostSoldCell: UICollectionViewCell {
     }()
 
     private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = .customFont(ofSize: 12, weight: .regular)
+        let label = CustomLabel(fontColor: .Custom.textGray,
+                                fontSize: 12,
+                                fontWeight: .regular)
         label.numberOfLines = 1
-        label.textColor = .Custom.textGray
         return label
     }()
 
     private let authorLabel: UILabel = {
-        let label = UILabel()
-        label.font = .customFont(ofSize: 12, weight: .regular)
+        let label = CustomLabel(fontColor: .Custom.textGray,
+                                fontSize: 12,
+                                fontWeight: .regular)
         label.numberOfLines = 1
-        label.textColor = .Custom.textGray
         return label
     }()
 

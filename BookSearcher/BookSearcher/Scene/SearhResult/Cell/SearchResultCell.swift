@@ -25,45 +25,45 @@ final class SearchResultCell: UICollectionViewCell {
     }()
 
     private let titleLabel: UILabel = {
-        let label = UILabel()
+        let label = CustomLabel(fontColor: .white,
+                                fontSize: 14,
+                                fontWeight: .regular)
         label.numberOfLines = 2
         label.lineBreakMode = .byWordWrapping
-        label.textColor = .white
-        label.font = .customFont(ofSize: 14, weight: .regular)
         return label
     }()
 
     private let authorLabel: UILabel = {
-        let label = UILabel()
+        let label = CustomLabel(fontColor: .Custom.textGray,
+                                fontSize: 12,
+                                fontWeight: .regular)
         label.numberOfLines = 2
-        label.textColor = .Custom.textGray
-        label.font = .customFont(ofSize: 12, weight: .regular)
         return label
     }()
 
     private let typeLabel: UILabel = {
-        let label = UILabel()
+        let label = CustomLabel(fontColor: .Custom.textGray,
+                                fontSize: 12,
+                                fontWeight: .regular)
         label.numberOfLines = 1
-        label.textColor = .Custom.textGray
-        label.font = .customFont(ofSize: 12, weight: .regular)
         label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         return label
     }()
 
     private let rateLabel: UILabel = {
-        var label = UILabel()
+        var label = CustomLabel(fontColor: .Custom.textGray,
+                                fontSize: 12,
+                                fontWeight: .regular)
         label.numberOfLines = 1
-        label.textColor = .Custom.textGray
-        label.font = .customFont(ofSize: 12, weight: .regular)
         label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         return label
     }()
 
     private let starLabel: UILabel = {
-        let label = UILabel()
+        let label = CustomLabel(fontColor: .Custom.textGray,
+                                fontSize: 12,
+                                fontWeight: .regular)
         label.text = "★"
-        label.textColor = .Custom.textGray
-        label.font = .customFont(ofSize: 12, weight: .regular)
         label.setContentHuggingPriority(.defaultLow, for: .horizontal)
         return label
     }()

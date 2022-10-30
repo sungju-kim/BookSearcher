@@ -138,6 +138,17 @@ extension SearchViewController {
             .bind(onNext: viewWillPresent)
             .disposed(by: disposeBag)
 
+        viewModel.output.loadedData
+            .bind(to: collectionView.rx.items(cellIdentifier: SearchResultCell.identifier, cellType: SearchResultCell.self)) { _, viewModel, cell in
+                cell.configure(with: viewModel) }
+            .disposed(by: disposeBag)
+
+        searchBar.rx.searchButtonClicked
+            .withLatestFrom(searchBar.rx.text)
+            .compactMap { $0 }
+            .bind(to: viewModel.input.searchButtonClicked)
+            .disposed(by: disposeBag)
+
         searchBar.rx.searchButtonClicked
             .map { true }
             .bind(onNext: showResults)

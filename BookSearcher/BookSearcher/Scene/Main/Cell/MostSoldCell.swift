@@ -41,7 +41,7 @@ final class MostSoldCell: UICollectionViewCell {
     private lazy var containerView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.distribution = .fill
+        stackView.distribution = .fillProportionally
         stackView.spacing = Constraint.min
 
         [imageView, titleLabel, authorLabel].forEach { stackView.addArrangedSubview($0) }

@@ -64,7 +64,7 @@ final class MainViewController: UIViewController {
     private lazy var headerContainer: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.distribution = .fill
+        stackView.distribution = .fillProportionally
         [headerLabel, moreButton].forEach { stackView.addArrangedSubview($0) }
         return stackView
     }()

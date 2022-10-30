@@ -54,11 +54,12 @@ final class SearchViewController: UIViewController {
         return view
     }()
 
-    private let tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.backgroundColor = .clear
-        tableView.register(SearchResultCell.self, forCellReuseIdentifier: SearchResultCell.identifier)
-        return tableView
+    private let collectionView: UICollectionView = {
+        let collectionView = UICollectionView()
+        collectionView.backgroundColor = .clear
+        collectionView.register(SearchResultCell.self, forCellWithReuseIdentifier: SearchResultCell.identifier)
+
+        return collectionView
     }()
 
     private lazy var resultContainer: UIStackView = {
@@ -67,7 +68,7 @@ final class SearchViewController: UIViewController {
         stackView.axis = .vertical
         stackView.isHidden = true
 
-        [menuBar, tableView].forEach { stackView.addArrangedSubview($0) }
+        [menuBar, collectionView].forEach { stackView.addArrangedSubview($0) }
 
         return stackView
     }()

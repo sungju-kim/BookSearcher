@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class SearchResultCell: UITableViewCell {
+final class SearchResultCell: UICollectionViewCell {
     static var identifier: String {
         return "\(self)"
     }

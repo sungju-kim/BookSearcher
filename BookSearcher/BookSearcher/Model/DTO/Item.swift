@@ -17,9 +17,10 @@ struct Item: Decodable {
     let publisher: String?
     let customerReviewRank: Int?
     let mallType: String?
+    let isbn13: String?
 
     enum CodingKeys: String, CodingKey {
-        case title, link, author, pubDate, creator
+        case title, link, author, pubDate, creator, isbn13
         case priceSales, priceStandard, mallType
         case publisher, customerReviewRank
         case itemDescription = "description"

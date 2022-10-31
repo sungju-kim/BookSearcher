@@ -9,8 +9,9 @@ import Foundation
 
 enum AladinEndPoint {
     case bestSeller(itemType: ItemType)
-    case item(name: String, startIndex: Int, itemType: ItemType)
+    case items(name: String, startIndex: Int, itemType: ItemType)
     case image(url: String)
+    case item(id: String)
 }
 
 extension AladinEndPoint: Requestable {
@@ -41,10 +42,12 @@ extension AladinEndPoint: Requestable {
 
     var path: String {
         switch self {
-        case .item:
+        case .items:
             return "/ttb/api/ItemSearch.aspx"
         case .bestSeller:
             return "/ttb/api/ItemList.aspx"
+        case .item:
+            return "/ttb/api/ItemLookUp.aspx"
         default:
             return ""
         }
@@ -53,10 +56,12 @@ extension AladinEndPoint: Requestable {
     var queryItem: [String: String] {
         var common: [String: String] = ["TTBKey": apiKey, "Output": "JS", "Version": "20131101"]
         switch self {
-        case .item(let name, let startIndex, let itemType):
+        case .items(let name, let startIndex, let itemType):
             common.merge(["Query": name, "startIndex": "\(startIndex)", "SearchTarget": itemType.text]) { current, _ in current }
         case .bestSeller(let itemType):
             common.merge(["QueryType": "Bestseller", "SearchTarget": itemType.text]) { current, _ in current}
+        case .item(let id):
+            common.merge(["ItemID": id, "ItemIdType": "ISBN", "OptResult": "ratingInfo, reviewList"]) { current, _ in current}
         default:
             break
         }

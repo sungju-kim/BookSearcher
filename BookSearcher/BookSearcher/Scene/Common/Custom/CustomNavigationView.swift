@@ -1,5 +1,5 @@
 //
-//  CustomNavigationBar.swift
+//  CustomNavigationView.swift
 //  BookSearcher
 //
 //  Created by dale on 2022/10/31.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class CustomNavigationView: UIView {
+final class CustomNavigationView: UIStackView {
     private(set) var beforeButton: UIButton = {
         var configuration = UIButton.Configuration.plain()
         configuration.image = UIImage(systemName: "chevron.left")
@@ -31,35 +31,21 @@ final class CustomNavigationView: UIView {
         return searchBar
     }()
 
-    private lazy var navigationContainer: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .fill
-        [beforeButton, searchBar].forEach { stackView.addArrangedSubview($0) }
-        return stackView
-    }()
-
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        layoutNavigationContainer()
+        setAttribute()
     }
 
-    required init?(coder: NSCoder) {
+    required init(coder: NSCoder) {
         super.init(coder: coder)
 
-        layoutNavigationContainer()
+        setAttribute()
     }
-}
 
-// MARK: - Layout Section
-
-private extension CustomNavigationView {
-    func layoutNavigationContainer() {
-        addSubview(navigationContainer)
-
-        navigationContainer.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview()
-        }
+    private func setAttribute() {
+        axis = .horizontal
+        distribution = .fill
+        [beforeButton, searchBar].forEach { addArrangedSubview($0) }
     }
 }

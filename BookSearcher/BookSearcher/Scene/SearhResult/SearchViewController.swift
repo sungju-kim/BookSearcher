@@ -78,6 +78,13 @@ final class SearchViewController: UIViewController {
 
         layoutResultContainer()
     }
+
+    private func pushDetailView(with viewModel: DetailViewModel) {
+        let viewController = DetailViewController()
+        viewController.configure(with: viewModel)
+
+        navigationController?.pushViewController(viewController, animated: true)
+    }
 }
 // MARK: - Configure
 
@@ -94,6 +101,10 @@ extension SearchViewController {
                 cell.configure(with: viewModel) }
             .disposed(by: disposeBag)
 
+        viewModel.output.prepareForPush
+            .bind(onNext: pushDetailView)
+            .disposed(by: disposeBag)
+
         navigationView.searchBar.rx.searchButtonClicked
             .withLatestFrom(navigationView.searchBar.rx.text)
             .compactMap { $0 }
@@ -103,6 +114,10 @@ extension SearchViewController {
         navigationView.searchBar.rx.searchButtonClicked
             .map { true }
             .bind(onNext: showResults)
+            .disposed(by: disposeBag)
+
+        collectionView.rx.itemSelected
+            .bind(to: viewModel.input.itemSelected)
             .disposed(by: disposeBag)
 
         menuBar.rx.selectedSegmentIndex

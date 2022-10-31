@@ -128,10 +128,11 @@ final class MainViewController: UIViewController {
         let searchViewController = SearchViewController()
         searchViewController.configure(with: viewModel)
 
-        searchViewController.view.frame = containerView.frame
-
-        addChild(searchViewController)
-        containerView.addSubview(searchViewController.view)
+        let navigationController = UINavigationController(rootViewController: searchViewController)
+        navigationController.view.frame = containerView.frame
+        navigationController.isNavigationBarHidden = true
+        addChild(navigationController)
+        containerView.addSubview(navigationController.view)
     }
 }
 

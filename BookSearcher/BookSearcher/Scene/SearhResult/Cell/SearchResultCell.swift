@@ -55,7 +55,7 @@ final class SearchResultCell: UICollectionViewCell {
                                 fontSize: 12,
                                 fontWeight: .regular)
         label.numberOfLines = 1
-        label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        label.setContentHuggingPriority(.init(750), for: .horizontal)
         return label
     }()
 
@@ -108,6 +108,8 @@ final class SearchResultCell: UICollectionViewCell {
         super.prepareForReuse()
 
         disposeBag = DisposeBag()
+        rateLabel.text = ""
+        starLabel.isHidden = true
     }
 }
 

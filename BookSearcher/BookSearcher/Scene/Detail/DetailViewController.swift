@@ -6,13 +6,18 @@
 //
 
 import UIKit
+import RxSwift
+import RxAppState
 
 final class DetailViewController: UIViewController {
+    private let disposeBag = DisposeBag()
 
     private let contentsView: UIScrollView = {
         let scrollView = UIScrollView()
         return scrollView
     }()
+
+    private let navigationView = CustomNavigationView()
 
     private let bookInformationView: BookInformationView = BookInformationView()
 
@@ -42,10 +47,28 @@ final class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = .Custom.background
+
         layoutContentView()
+        layoutNavigationView()
         layoutBookInformationView()
         layoutButtonContainer()
         layoutBorder()
+    }
+
+    private func returnToSearchView() {
+        navigationController?.popViewController(animated: true)
+    }
+}
+
+// MARK: - Configure
+
+extension DetailViewController {
+    func configure(with viewModel: DetailViewModel) {
+
+        navigationView.beforeButton.rx.tap
+            .bind(onNext: returnToSearchView)
+            .disposed(by: disposeBag)
     }
 }
 
@@ -60,11 +83,20 @@ private extension DetailViewController {
         }
     }
 
+    func layoutNavigationView() {
+        contentsView.addSubview(navigationView)
+
+        navigationView.snp.makeConstraints { make in
+            make.top.leading.trailing.equalToSuperview()
+        }
+    }
+
     func layoutBookInformationView() {
         contentsView.addSubview(bookInformationView)
 
         bookInformationView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalTo(navigationView.snp.bottom)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
     }
 

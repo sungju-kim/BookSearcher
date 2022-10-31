@@ -45,8 +45,24 @@ final class RepositoryImpl: Repository {
         }
     }
 
+    func searchInformation(id: String) -> Single<SearchResult> {
+        return Single.create { observer in
+            self.network.fetch(endPoint: AladinEndPoint.item(id: id))
+                .subscribe { data in
+                    guard let decodedData = try? JSONDecoder().decode(SearchResult.self, from: data) else {
+                        observer(.failure(NetworkError.failToDecode))
+                        return
+                    }
+                    observer(.success(decodedData))
+                } onFailure: { error in
+                    observer(.failure(error))
+                }
+        }
+    }
+
     func downLoadImage(url: String) -> Single<Data> {
         // MARK: - TODO - 캐싱 기능구현 필요
         return network.fetch(endPoint: AladinEndPoint.image(url: url))
     }
+
 }

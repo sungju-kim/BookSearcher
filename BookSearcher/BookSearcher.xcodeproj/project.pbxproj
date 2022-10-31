@@ -49,6 +49,7 @@
 		6CA217C9290A5B5900346196 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 6CA217C8290A5B5900346196 /* .swiftlint.yml */; };
 		6CA45433290BE15A00672B56 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA45432290BE15A00672B56 /* Item.swift */; };
 		6CCEEB8B290F9AD200C19013 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCEEB8A290F9AD200C19013 /* DetailViewController.swift */; };
+		6CCEEB91290FB62000C19013 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCEEB90290FB62000C19013 /* CustomButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -91,6 +92,7 @@
 		6CA217C8290A5B5900346196 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		6CA45432290BE15A00672B56 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		6CCEEB8A290F9AD200C19013 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		6CCEEB90290FB62000C19013 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				6C3A57B4290EEFDE00AFED20 /* CustomLabel.swift */,
+				6CCEEB90290FB62000C19013 /* CustomButton.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -449,6 +452,7 @@
 				6CA217A7290A5A4500346196 /* AppDelegate.swift in Sources */,
 				6C535FBE290B9DAF00F474B7 /* SearchViewController.swift in Sources */,
 				6C535FAE290B8F1000F474B7 /* RepositoryContainer.swift in Sources */,
+				6CCEEB91290FB62000C19013 /* CustomButton.swift in Sources */,
 				6C535FA1290B5C9D00F474B7 /* AladinEndPoint.swift in Sources */,
 				6CA217A9290A5A4500346196 /* SceneDelegate.swift in Sources */,
 				6C535FAA290B8B6200F474B7 /* Repository.swift in Sources */,

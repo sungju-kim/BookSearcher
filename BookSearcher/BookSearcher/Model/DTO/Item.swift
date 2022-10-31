@@ -34,7 +34,7 @@ struct SubInfo: Decodable {
     let subTitle, originalTitle: String?
     let itemPage: Int?
     let ratingInfo: RatingInfo?
-    let reviewList: ReviewList?
+    let reviewList: [Review]?
 }
 
 struct RatingInfo: Decodable {
@@ -42,7 +42,7 @@ struct RatingInfo: Decodable {
     let ratingCount, commentReviewCount, myReviewCount: Int
 }
 
-struct ReviewList: Decodable {
+struct Review: Decodable {
     let reviewRank: Int
     let writer, link, title: String
 }

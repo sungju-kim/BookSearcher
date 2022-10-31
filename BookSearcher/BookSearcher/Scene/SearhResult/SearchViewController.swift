@@ -15,36 +15,7 @@ final class SearchViewController: UIViewController {
 
     private var viewModel: SearchViewModel?
 
-    private lazy var beforeButton: UIButton = {
-        var configuration = UIButton.Configuration.plain()
-        configuration.image = UIImage(systemName: "chevron.left")
-        configuration.baseForegroundColor = .Custom.placeholder
-        let button = UIButton(configuration: configuration)
-        return button
-    }()
-
-    private let searchBar: UISearchBar = {
-        let searchBar = UISearchBar()
-        searchBar.backgroundImage = UIImage()
-        searchBar.setImage(.init(), for: .search, state: .normal)
-        searchBar.setImage(UIImage(systemName: "xmark"), for: .clear, state: .normal)
-        searchBar.searchTextField.tintColor = .Custom.placeholder
-        searchBar.searchTextField.backgroundColor = .clear
-        let attribute = NSAttributedString(string: "Play 북에서 검색",
-                                          attributes: [NSAttributedString.Key.foregroundColor: UIColor.Custom.placeholder,
-                                                       NSAttributedString.Key.font: UIFont.customFont(ofSize: 18, weight: .regular)])
-        searchBar.searchTextField.attributedPlaceholder = attribute
-        searchBar.searchTextField.textColor = .Custom.textGray
-        return searchBar
-    }()
-
-    private lazy var navigationContainer: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .fill
-        [beforeButton, searchBar].forEach { stackView.addArrangedSubview($0) }
-        return stackView
-    }()
+    private lazy var navigationView = CustomNavigationView()
 
     private let menuBar = MenuBar()
 
@@ -97,13 +68,13 @@ final class SearchViewController: UIViewController {
 
     private func viewWillDismiss() {
         resultContainer.removeFromSuperview()
-        searchBar.endEditing(true)
-        searchBar.text = nil
+        navigationView.searchBar.endEditing(true)
+        navigationView.searchBar.text = nil
         showResults(isShown: false)
     }
 
     private func viewWillPresent() {
-        searchBar.becomeFirstResponder()
+        navigationView.searchBar.becomeFirstResponder()
 
         layoutResultContainer()
     }
@@ -123,13 +94,13 @@ extension SearchViewController {
                 cell.configure(with: viewModel) }
             .disposed(by: disposeBag)
 
-        searchBar.rx.searchButtonClicked
-            .withLatestFrom(searchBar.rx.text)
+        navigationView.searchBar.rx.searchButtonClicked
+            .withLatestFrom(navigationView.searchBar.rx.text)
             .compactMap { $0 }
             .bind(to: viewModel.input.searchButtonClicked)
             .disposed(by: disposeBag)
 
-        searchBar.rx.searchButtonClicked
+        navigationView.searchBar.rx.searchButtonClicked
             .map { true }
             .bind(onNext: showResults)
             .disposed(by: disposeBag)
@@ -138,7 +109,7 @@ extension SearchViewController {
             .bind(to: viewModel.input.selectedIndex)
             .disposed(by: disposeBag)
 
-        beforeButton.rx.tap
+        navigationView.beforeButton.rx.tap
             .withUnretained(self)
             .do { $0.0.viewWillDismiss() }
             .map { $1 }
@@ -151,9 +122,9 @@ extension SearchViewController {
 
 private extension SearchViewController {
     func layoutNavigationContainer() {
-        view.addSubview(navigationContainer)
+        view.addSubview(navigationView)
 
-        navigationContainer.snp.makeConstraints { make in
+        navigationView.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
     }
@@ -162,7 +133,7 @@ private extension SearchViewController {
         view.addSubview(resultContainer)
 
         resultContainer.snp.makeConstraints { make in
-            make.top.equalTo(navigationContainer.snp.bottom)
+            make.top.equalTo(navigationView.snp.bottom)
             make.leading.trailing.bottom.equalToSuperview()
         }
     }
@@ -177,7 +148,7 @@ private extension SearchViewController {
         view.addSubview(border)
 
         border.snp.makeConstraints { make in
-            make.top.equalTo(navigationContainer.snp.bottom)
+            make.top.equalTo(navigationView.snp.bottom)
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(1)
         }

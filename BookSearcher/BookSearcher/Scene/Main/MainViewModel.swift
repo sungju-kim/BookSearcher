@@ -14,6 +14,7 @@ final class MainViewModel {
         let viewDidLoad = PublishRelay<Void>()
         let selectedIndex = BehaviorRelay<Int>(value: 0)
         let searchButtonTapped = PublishRelay<Void>()
+        let itemSelected = PublishRelay<IndexPath>()
     }
 
     struct Output {
@@ -22,6 +23,7 @@ final class MainViewModel {
         let didLoadSearchViewModel = PublishRelay<SearchViewModel>()
         let showSearchView = PublishRelay<Void>()
         let dismissSearchView = PublishRelay<Void>()
+        let prepareForPush = PublishRelay<DetailViewModel>()
     }
     private let disposeBag = DisposeBag()
 
@@ -37,10 +39,22 @@ final class MainViewModel {
             .bind(to: output.selectedMenu)
             .disposed(by: disposeBag)
 
-        Observable.combineLatest(input.viewDidLoad.asObservable(), output.selectedMenu.asObservable()) { $1 }
+        let items = Observable.combineLatest(input.viewDidLoad.asObservable(), output.selectedMenu.asObservable()) { $1 }
             .withUnretained(self)
             .flatMapLatest { $0.repository.searchBestSeller(itemType: $1) }
             .compactMap { $0.item }
+            .share()
+
+        input.itemSelected
+            .withLatestFrom(items) { ($0, $1) }
+            .map { indexPath, items in
+                items[indexPath.item] }
+            .compactMap { $0.isbn13 }
+            .map { DetailViewModel(itemId: $0) }
+            .bind(to: output.prepareForPush)
+            .disposed(by: disposeBag)
+
+        items
             .map { $0.map { MostSoldViewModel(item: $0) } }
             .bind(to: output.loadedData)
             .disposed(by: disposeBag)

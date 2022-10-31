@@ -124,6 +124,13 @@ final class MainViewController: UIViewController {
         } completion: { self.containerView.isHidden = $0 }
     }
 
+    private func pushDetailView(with viewModel: DetailViewModel) {
+        let viewController = DetailViewController()
+        viewController.configure(with: viewModel)
+
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+
     private func setChildViewController(viewModel: SearchViewModel) {
         let searchViewController = SearchViewController()
         searchViewController.configure(with: viewModel)
@@ -164,6 +171,14 @@ extension MainViewController {
 
         viewModel.output.dismissSearchView
             .bind(onNext: dismissSearchView)
+            .disposed(by: disposeBag)
+
+        viewModel.output.prepareForPush
+            .bind(onNext: pushDetailView)
+            .disposed(by: disposeBag)
+
+        collectionView.rx.itemSelected
+            .bind(to: viewModel.input.itemSelected)
             .disposed(by: disposeBag)
 
         searchButton.rx.tap

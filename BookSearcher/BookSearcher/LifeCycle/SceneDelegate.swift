@@ -16,11 +16,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let viewController = MainViewController()
         let viewModel = MainViewModel()
         viewController.configure(with: viewModel)
+        let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.isNavigationBarHidden = true
 
         window = UIWindow(windowScene: windowScene)
         window?.overrideUserInterfaceStyle = .light
         window?.backgroundColor = .Custom.background
-        window?.rootViewController = viewController
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
 }

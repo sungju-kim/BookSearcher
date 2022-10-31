@@ -53,10 +53,10 @@ final class SearchViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .Custom.background
+        view.superview?.backgroundColor = .Custom.background
         view.layer.cornerRadius = 5
 
-        layoutNavigationContainer()
+        layoutNavigationView()
         layoutBorder()
         layoutMenuBar()
     }
@@ -121,7 +121,7 @@ extension SearchViewController {
 // MARK: - Layout Section
 
 private extension SearchViewController {
-    func layoutNavigationContainer() {
+    func layoutNavigationView() {
         view.addSubview(navigationView)
 
         navigationView.snp.makeConstraints { make in

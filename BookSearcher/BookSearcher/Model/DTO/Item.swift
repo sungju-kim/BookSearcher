@@ -18,15 +18,33 @@ struct Item: Decodable {
     let customerReviewRank: Int?
     let mallType: String?
     let isbn13: String?
+    let subInfo: SubInfo?
 
     enum CodingKeys: String, CodingKey {
         case title, link, author, pubDate, creator, isbn13
         case priceSales, priceStandard, mallType
-        case publisher, customerReviewRank
+        case publisher, customerReviewRank, subInfo
         case itemDescription = "description"
         case itemID = "itemId"
         case imageURL = "cover"
     }
+}
+
+struct SubInfo: Decodable {
+    let subTitle, originalTitle: String?
+    let itemPage: Int?
+    let ratingInfo: RatingInfo?
+    let reviewList: ReviewList?
+}
+
+struct RatingInfo: Decodable {
+    let ratingScore: Double
+    let ratingCount, commentReviewCount, myReviewCount: Int
+}
+
+struct ReviewList: Decodable {
+    let reviewRank: Int
+    let writer, link, title: String
 }
 
 enum ItemType: Int, CaseIterable {

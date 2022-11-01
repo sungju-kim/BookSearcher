@@ -33,7 +33,7 @@ extension PlaneDataSource {
     var section: NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(100))
+            heightDimension: .estimated(250))
 
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 

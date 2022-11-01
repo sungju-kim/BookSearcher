@@ -7,11 +7,13 @@
 
 import UIKit
 import RxSwift
+import RxRelay
 import RxAppState
 
 final class DetailViewController: UIViewController {
     private let disposeBag = DisposeBag()
 
+    private var viewModel: DetailViewModel?
 
     private let navigationView = CustomNavigationView()
 
@@ -70,9 +72,22 @@ final class DetailViewController: UIViewController {
 
 extension DetailViewController {
     func configure(with viewModel: DetailViewModel) {
+        self.viewModel = viewModel
+
+        viewModel.output.didLoadData
+            .withUnretained(self)
+            .observe(on: MainScheduler.instance)
+            .bind { viewController, viewModels in
+                viewController.dataSource.configure(with: viewModels)
+                viewController.collectionView.reloadData() }
+            .disposed(by: disposeBag)
 
         navigationView.beforeButton.rx.tap
             .bind(onNext: returnToSearchView)
+            .disposed(by: disposeBag)
+
+        rx.viewDidLoad
+            .bind(to: viewModel.input.viewDidLoad)
             .disposed(by: disposeBag)
     }
 }

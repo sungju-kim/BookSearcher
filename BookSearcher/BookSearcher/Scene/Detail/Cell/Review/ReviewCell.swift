@@ -6,9 +6,15 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 import SnapKit
 
 final class ReviewCell: UICollectionViewCell {
+    private var disposeBag = DisposeBag()
+
+    private var viewModel: ReviewCellViewModel?
+
     static var identifier: String {
         return "\(self)"
     }
@@ -16,6 +22,8 @@ final class ReviewCell: UICollectionViewCell {
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
+        imageView.backgroundColor = .Custom.textGray
+        imageView.clipsToBounds = true
         return imageView
     }()
 
@@ -34,7 +42,7 @@ final class ReviewCell: UICollectionViewCell {
     private lazy var dateContainer: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.spacing = Constraint.min / 2
+        stackView.spacing = Constraint.min
 
         [starRateView, dateLabel].forEach { stackView.addArrangedSubview($0) }
         return stackView
@@ -55,12 +63,6 @@ final class ReviewCell: UICollectionViewCell {
         return stackView
     }()
 
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
-
-        imageView.layer.cornerRadius = imageView.frame.height / 2
-    }
-
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -74,12 +76,47 @@ final class ReviewCell: UICollectionViewCell {
         layoutImageView()
         layoutContainer()
     }
+
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+
+        imageView.layer.cornerRadius = imageView.frame.height / 2
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        disposeBag = DisposeBag()
+    }
 }
 
 // MARK: - Configure
 extension ReviewCell {
     func configure(with viewModel: ReviewCellViewModel) {
+        self.viewModel = viewModel
 
+        viewModel.output.didLoadImage
+            .compactMap { UIImage(data: $0) }
+            .bind(to: imageView.rx.image)
+            .disposed(by: disposeBag)
+
+        viewModel.output.didLoadName
+            .bind(to: nameLabel.rx.text)
+            .disposed(by: disposeBag)
+
+        viewModel.output.didLoadDate
+            .bind(to: dateLabel.rx.text)
+            .disposed(by: disposeBag)
+
+        viewModel.output.didLoadStarRate
+            .bind(onNext: starRateView.configure)
+            .disposed(by: disposeBag)
+
+        viewModel.output.didLoadContent
+            .bind(to: reviewConent.rx.text)
+            .disposed(by: disposeBag)
+
+        viewModel.input.cellDidLoad.accept(())
     }
 }
 

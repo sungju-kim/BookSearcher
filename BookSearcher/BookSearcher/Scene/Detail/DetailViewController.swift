@@ -76,8 +76,9 @@ extension DetailViewController {
 
         viewModel.output.didLoadData
             .withUnretained(self)
-            .do { viewController, viewModels in
-                viewController.dataSource.configure(with: viewModels) }
+            .do { viewController, data in
+                let (section, viewModel) = data
+                viewController.dataSource.configure(at: section, with: viewModel) }
             .map { _ in }
             .observe(on: MainScheduler.instance)
             .bind(onNext: collectionView.reloadData)

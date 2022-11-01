@@ -23,7 +23,7 @@ final class ButtonCellViewModel: CellViewModel {
     let input = Input()
     let output = Output()
 
-    init(link: String?) {
+    init(link: String) {
         input.linkButtonTapped
             .compactMap { link }
             .compactMap { URL(string: $0) }

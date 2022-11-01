@@ -37,6 +37,13 @@ struct SubInfo: Decodable {
     let reviewList: [Review]?
 }
 
+extension SubInfo {
+    func mockReviewList() -> [Review] {
+        guard let count = ratingInfo?.ratingCount else { return [] }
+        return (0..<count).map {Review(reviewRank: Int.random(in: 0...10), writer: "\($0)writer", link: "\($0)link", title: "\($0)title")}
+    }
+}
+
 struct RatingInfo: Decodable {
     let ratingScore: Double
     let ratingCount, commentReviewCount, myReviewCount: Int

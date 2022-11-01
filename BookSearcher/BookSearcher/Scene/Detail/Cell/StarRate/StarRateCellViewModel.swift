@@ -27,32 +27,28 @@ final class StarRateCellViewModel: CellViewModel {
     let input = Input()
     let output = Output()
 
-    init(ratingInfo: RatingInfo?, reviewList: [Review]?) {
+    init(ratingInfo: RatingInfo, reviewList: [Review]) {
         input.cellDidLoad
-            .compactMap { ratingInfo?.ratingScore }
+            .compactMap { ratingInfo.ratingScore }
             .map { round($0 * 5) / 10 }
             .map { String($0) }
             .bind(to: output.didLoadRate)
             .disposed(by: disposeBag)
 
         input.cellDidLoad
-            .compactMap { ratingInfo?.ratingScore }
+            .compactMap { ratingInfo.ratingScore }
             .map { $0/10 }
             .bind(to: output.didLoadStarRate)
             .disposed(by: disposeBag)
 
         input.cellDidLoad
-            .compactMap { ratingInfo?.ratingCount }
+            .compactMap { ratingInfo.ratingCount }
             .map { "평점 \($0)개"}
             .bind(to: output.didLoadRateCount)
             .disposed(by: disposeBag)
 
-            // Mock ReviewList
-        guard let count = ratingInfo?.ratingCount else { return }
-        let reviewList: [Review] = (0..<count).map {Review(reviewRank: Int.random(in: 0...10), writer: "\($0)writer", link: "\($0)link", title: "\($0)title")}
-
         input.cellDidLoad
-            .compactMap { (ratingInfo?.ratingCount, reviewList) }
+            .compactMap { (ratingInfo.ratingCount, reviewList) }
             .map(getRatio)
             .bind(to: output.didLoadReviewRatio)
             .disposed(by: disposeBag)

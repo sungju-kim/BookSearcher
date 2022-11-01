@@ -8,18 +8,20 @@
 import UIKit
 
 final class DetailDataSource: NSObject, UICollectionViewDataSource {
-    private var subDataSources: [Int: any SubDataSource] = [0: BannerDataSource(),
-                                                        1: ButtonDataSource(),
-                                                        2: BookInfoDataSource(),
-                                                        3: StarRateDataSource(),
-                                                        4: ReviewDataSource()]
+    private var subDataSources: [SectionType: any SubDataSource] = [.banner: BannerDataSource(),
+                                                                    .button: ButtonDataSource(),
+                                                                    .bookInfo: BookInfoDataSource(),
+                                                                    .starRate: StarRateDataSource(),
+                                                                    .review: ReviewDataSource()]
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        guard let section = SectionType(rawValue: section) else { return 0 }
         return subDataSources[section]?.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let subDataSource = subDataSources[indexPath.section] else { return UICollectionViewCell() }
+        guard let section = SectionType(rawValue: indexPath.section),
+              let subDataSource = subDataSources[section] else { return UICollectionViewCell() }
         return subDataSource.dequeCell(from: collectionView, at: indexPath)
     }
 
@@ -28,7 +30,8 @@ final class DetailDataSource: NSObject, UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let subDataSource = subDataSources[indexPath.section] else { return UICollectionReusableView() }
+        guard let section = SectionType(rawValue: indexPath.section),
+            let subDataSource = subDataSources[section] else { return UICollectionReusableView() }
         return subDataSource.reusableView(from: collectionView, kind: kind, at: indexPath)
     }
 }
@@ -37,12 +40,14 @@ final class DetailDataSource: NSObject, UICollectionViewDataSource {
 
 extension DetailDataSource {
     func sectionProvider(index: Int, _: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
-        let subDataSource = subDataSources[index] ?? BannerDataSource()
+        guard let section = SectionType(rawValue: index) else { return BannerDataSource().section }
+        let subDataSource = subDataSources[section] ?? BannerDataSource()
 
         return subDataSource.section
     }
 
-    func configure(with viewModels: [any SectionViewModel]) {
-        viewModels.enumerated().forEach { subDataSources[$0]?.configure(with: $1) }
+    func configure(at sectionType: SectionType, with viewModel: any SectionViewModel) {
+        subDataSources[sectionType]?.configure(with: viewModel)
+//        viewModels.enumerated().forEach { subDataSources[$0]?.configure(with: $1) }
     }
 }

@@ -31,27 +31,27 @@ final class ReviewCellViewModel: CellViewModel {
     let input = Input()
     let output = Output()
 
-    init(review: Review?) {
+    init(review: Review) {
         input.cellDidLoad
-            .compactMap { review?.writer }
+            .compactMap { review.writer }
             .bind(to: output.didLoadName)
             .disposed(by: disposeBag)
 
         input.cellDidLoad
-            .compactMap { review?.imageURL }
+            .compactMap { review.imageURL }
             .flatMapLatest(repository.downLoadImage)
             .bind(to: output.didLoadImage)
             .disposed(by: disposeBag)
 
         input.cellDidLoad
-            .compactMap { review?.reviewRank }
+            .compactMap { review.reviewRank }
             .compactMap { Double($0) }
             .map { $0 / 10 }
             .bind(to: output.didLoadStarRate)
             .disposed(by: disposeBag)
 
         input.cellDidLoad
-            .compactMap { review?.title }
+            .compactMap { review.title }
             .bind(to: output.didLoadContent)
             .disposed(by: disposeBag)
     }

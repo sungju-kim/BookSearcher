@@ -7,6 +7,8 @@
 
 import UIKit
 
+// MARK: - SubDataSource
+
 protocol SubDataSource {
     associatedtype ViewModelType
     var section: NSCollectionLayoutSection { get }
@@ -22,6 +24,8 @@ extension SubDataSource {
         return UICollectionReusableView()
     }
 }
+
+// MARK: - PlaneDataSource
 
 protocol PlaneDataSource {}
 
@@ -47,6 +51,8 @@ extension PlaneDataSource {
         return section
    }
 }
+
+// MARK: - HeaderDataSource
 
 protocol HeaderDataSource { }
 

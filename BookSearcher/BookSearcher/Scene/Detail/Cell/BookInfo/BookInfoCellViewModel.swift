@@ -23,7 +23,7 @@ final class BookInfoCellViewModel: CellViewModel {
     let input = Input()
     let output = Output()
 
-    init(text: String?) {
+    init(text: String) {
         input.cellDidLoad
             .compactMap { text }
             .bind(to: output.didLoadText)

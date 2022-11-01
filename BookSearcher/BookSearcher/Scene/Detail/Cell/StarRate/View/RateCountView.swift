@@ -36,8 +36,8 @@ final class RateCountView: UIView {
 // MARK: - Configure
 
 extension RateCountView {
-    func configure(rates: [Double]) {
-        rates.enumerated().forEach { rangeViews[$0].configure(rate: $1) }
+    func configure(rates: [Int: Double]) {
+        rates.forEach { rangeViews[$0 - 1].configure(rate: $1) }
     }
 }
 

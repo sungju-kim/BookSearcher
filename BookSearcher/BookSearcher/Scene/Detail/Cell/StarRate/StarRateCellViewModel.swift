@@ -21,7 +21,7 @@ final class StarRateCellViewModel: CellViewModel {
         let didLoadRate = PublishRelay<String>()
         let didLoadStarRate = PublishRelay<Double>()
         let didLoadRateCount = PublishRelay<String>()
-        let didLoadReviewRatio = PublishRelay<[Double]>()
+        let didLoadReviewRatio = PublishRelay<[Int: Double]>()
     }
 
     let input = Input()
@@ -59,20 +59,19 @@ final class StarRateCellViewModel: CellViewModel {
 
     }
 
-    private func getRatio(totalCount: Int?, reviews: [Review]?) -> [Double] {
+    private func getRatio(totalCount: Int?, reviews: [Review]?) -> [Int: Double] {
         guard let reviews = reviews,
-              let totalCount = totalCount else { return [] }
+              let totalCount = totalCount else { return [:] }
 
         var reviewCounter: [Int: Double] = [:]
 
         reviews.forEach { reviewCounter[$0.reviewRank / 2, default: 0] += 1 }
 
-        // MARK: - TODO: 리뷰갯수가 다를때 (0점대가 없거나 1점대가 없거나) 에러 핸들링
-        var ratios = reviewCounter.sorted { $0.key > $1.key }.map { $0.value / Double(totalCount) }
+        var ratios: [Int: Double] = [:]
+        reviewCounter.forEach { ratios[$0.key, default: 0] = $0.value / Double(totalCount) }
 
-        ratios[1] += ratios[0]
-        ratios.removeFirst()
-
+        ratios[1, default: 0] += ratios[0, default: 0]
+        ratios[0] = nil
         return  ratios
     }
 }

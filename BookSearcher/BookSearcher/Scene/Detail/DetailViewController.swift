@@ -12,14 +12,8 @@ import RxAppState
 final class DetailViewController: UIViewController {
     private let disposeBag = DisposeBag()
 
-    private let contentsView: UIScrollView = {
-        let scrollView = UIScrollView()
-        return scrollView
-    }()
 
     private let navigationView = CustomNavigationView()
-
-    private let bookInformationView: BookInformationView = BookInformationView()
 
     private let readButton: UIButton = CustomButton(title: "샘플 읽기",
                                                      backgroundColor: .clear,
@@ -38,10 +32,24 @@ final class DetailViewController: UIViewController {
         return stackView
     }()
 
-    private let border: UIView = {
-        let view = UIView()
-        view.backgroundColor = .darkGray
-        return view
+    private let dataSource = DetailDataSource()
+
+    private lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewCompositionalLayout(sectionProvider: dataSource.sectionProvider)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+
+        collectionView.dataSource = dataSource
+        collectionView.backgroundColor = .clear
+
+        collectionView.register(BannerCell.self, forCellWithReuseIdentifier: BannerCell.identifier)
+        collectionView.register(ButtonCell.self, forCellWithReuseIdentifier: ButtonCell.identifier)
+        collectionView.register(BookInfoCell.self, forCellWithReuseIdentifier: BookInfoCell.identifier)
+        collectionView.register(StarRateCell.self, forCellWithReuseIdentifier: StarRateCell.identifier)
+        collectionView.register(ReviewCell.self, forCellWithReuseIdentifier: ReviewCell.identifier)
+        collectionView.register(CommonHeaderView.self,
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                withReuseIdentifier: CommonHeaderView.identifier)
+        return collectionView
     }()
 
     override func viewDidLoad() {
@@ -49,11 +57,8 @@ final class DetailViewController: UIViewController {
 
         view.backgroundColor = .Custom.background
 
-        layoutContentView()
         layoutNavigationView()
-        layoutBookInformationView()
-        layoutButtonContainer()
-        layoutBorder()
+        layoutCollectionView()
     }
 
     private func returnToSearchView() {
@@ -75,47 +80,20 @@ extension DetailViewController {
 // MARK: - Layout Section
 
 private extension DetailViewController {
-    func layoutContentView() {
-        view.addSubview(contentsView)
-
-        contentsView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-    }
-
     func layoutNavigationView() {
-        contentsView.addSubview(navigationView)
+        view.addSubview(navigationView)
 
         navigationView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview()
+            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
     }
 
-    func layoutBookInformationView() {
-        contentsView.addSubview(bookInformationView)
+    func layoutCollectionView() {
+        view.addSubview(collectionView)
 
-        bookInformationView.snp.makeConstraints { make in
+        collectionView.snp.makeConstraints { make in
             make.top.equalTo(navigationView.snp.bottom)
-            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-        }
-    }
-
-    func layoutButtonContainer() {
-        contentsView.addSubview(buttonContainer)
-
-        buttonContainer.snp.makeConstraints { make in
-            make.top.equalTo(bookInformationView.snp.bottom).offset(Constraint.regular)
-            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(Constraint.regular)
-        }
-    }
-
-    func layoutBorder() {
-        contentsView.addSubview(border)
-
-        border.snp.makeConstraints { make in
-            make.top.equalTo(buttonContainer.snp.bottom).offset(Constraint.regular)
-            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(1)
+            make.leading.trailing.bottom.equalToSuperview()
         }
     }
 }

@@ -126,7 +126,8 @@ private extension BannerCell {
         imageView.snp.makeConstraints { make in
             make.width.equalTo(120)
             make.height.equalTo(180)
-            make.top.leading.bottom.equalToSuperview().inset(Constraint.regular)
+            make.top.leading.equalToSuperview().inset(Constraint.regular)
+            make.bottom.equalToSuperview().inset(Constraint.semiMax)
         }
     }
 

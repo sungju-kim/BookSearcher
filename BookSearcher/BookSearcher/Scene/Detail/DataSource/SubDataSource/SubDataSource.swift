@@ -39,6 +39,42 @@ extension PlaneDataSource {
 
         let section = NSCollectionLayoutSection(group: group)
 
+        section.contentInsets = .init(top: 0,
+                                      leading: 0,
+                                      bottom: Constraint.semiMax,
+                                      trailing: 0)
+
+        return section
+   }
+}
+
+protocol HeaderDataSource { }
+
+extension HeaderDataSource {
+    var section: NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .estimated(100))
+
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: itemSize,
+                                                       subitem: item,
+                                                       count: 1)
+
+        let section = NSCollectionLayoutSection(group: group)
+
+        section.boundarySupplementaryItems = [
+            NSCollectionLayoutBoundarySupplementaryItem(layoutSize: .init(widthDimension: .fractionalWidth(1.0),
+                                                                          heightDimension: .estimated(100)),
+                                                        elementKind: UICollectionView.elementKindSectionHeader,
+                                                        alignment: .top)]
+
+        section.contentInsets = .init(top: Constraint.regular,
+                                      leading: Constraint.regular,
+                                      bottom: Constraint.max,
+                                      trailing: Constraint.regular)
+
         return section
    }
 }

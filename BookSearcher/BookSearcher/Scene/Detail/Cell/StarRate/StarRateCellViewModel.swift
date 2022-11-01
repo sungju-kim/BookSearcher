@@ -67,6 +67,7 @@ final class StarRateCellViewModel: CellViewModel {
 
         reviews.forEach { reviewCounter[$0.reviewRank / 2, default: 0] += 1 }
 
+        // MARK: - TODO: 리뷰갯수가 다를때 (0점대가 없거나 1점대가 없거나) 에러 핸들링
         var ratios = reviewCounter.sorted { $0.key > $1.key }.map { $0.value / Double(totalCount) }
 
         ratios[1] += ratios[0]

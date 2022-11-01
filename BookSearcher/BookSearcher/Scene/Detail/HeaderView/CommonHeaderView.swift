@@ -12,7 +12,7 @@ final class CommonHeaderView: UICollectionReusableView {
         return "\(self)"
     }
 
-    private let headerLabel = CustomLabel(fontColor: .white, fontSize: 18, fontWeight: .semibold)
+    private let headerLabel = CustomLabel(fontColor: .white, fontSize: 28, fontWeight: .semibold)
 
     override init(frame: CGRect) {
         super.init(frame: frame)

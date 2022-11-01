@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class BookInfoDataSource: SubDataSource {
+final class BookInfoDataSource: SubDataSource, HeaderDataSource {
     private(set) var viewModel: BookInfoSectionViewModel?
 
     var count: Int {
@@ -37,28 +37,4 @@ final class BookInfoDataSource: SubDataSource {
         self.viewModel = viewModel
 
     }
-}
-
-extension BookInfoDataSource {
-    var section: NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(100))
-
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: itemSize,
-                                                       subitem: item,
-                                                       count: 1)
-
-        let section = NSCollectionLayoutSection(group: group)
-
-        section.boundarySupplementaryItems = [
-            NSCollectionLayoutBoundarySupplementaryItem(layoutSize: .init(widthDimension: .fractionalWidth(1.0),
-                                                                          heightDimension: .estimated(100)),
-                                                        elementKind: UICollectionView.elementKindSectionHeader,
-                                                        alignment: .top)]
-
-        return section
-   }
 }

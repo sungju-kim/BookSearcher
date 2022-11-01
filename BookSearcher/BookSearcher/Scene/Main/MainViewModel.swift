@@ -49,7 +49,9 @@ final class MainViewModel {
             .withLatestFrom(items) { ($0, $1) }
             .map { indexPath, items in
                 items[indexPath.item] }
-            .compactMap { $0.isbn13 }
+            .compactMap {
+                let condition = $0.isbn13 == "" || $0.isbn13 == nil
+                return condition ? $0.isbn : $0.isbn13 }
             .map { DetailViewModel(itemId: $0) }
             .bind(to: output.prepareForPush)
             .disposed(by: disposeBag)

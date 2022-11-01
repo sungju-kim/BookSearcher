@@ -65,6 +65,7 @@ final class DetailViewModel {
 
         let reviewSectionViewModel = subInfo
             .map { $0.mockReviewList() }
+            .filter { !$0.isEmpty }
             .map { $0.map { ReviewCellViewModel(review: $0) } }
             .map { ReviewSectionViewModel(headerText: "평점 및 리뷰 정보", cellViewModels: $0) }
             .map { (SectionType.review, $0 as any SectionViewModel) }

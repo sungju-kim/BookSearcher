@@ -6,8 +6,14 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 final class BannerCell: UICollectionViewCell {
+    private var disposeBag = DisposeBag()
+
+    private var viewModel: BannerCellViewModel?
+
     static var identifier: String {
         return "\(self)"
     }
@@ -76,12 +82,38 @@ final class BannerCell: UICollectionViewCell {
         layoutLabelContainer()
         layoutBorder()
     }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        disposeBag = DisposeBag()
+    }
 }
 
 // MARK: - Configure
 
 extension BannerCell {
     func configure(with viewModel: BannerCellViewModel) {
+        self.viewModel = viewModel
+
+        viewModel.output.didLoadImage
+            .compactMap { UIImage(data: $0) }
+            .bind(to: imageView.rx.image)
+            .disposed(by: disposeBag)
+
+        viewModel.output.didLoadTitle
+            .bind(to: titleLabel.rx.text)
+            .disposed(by: disposeBag)
+
+        viewModel.output.didLoadAuthor
+            .bind(to: authorLabel.rx.text)
+            .disposed(by: disposeBag)
+
+        viewModel.output.didLoadInfo
+            .bind(to: informationLabel.rx.text)
+            .disposed(by: disposeBag)
+
+        viewModel.input.cellDidLoad.accept(())
     }
 }
 

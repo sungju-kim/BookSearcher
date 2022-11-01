@@ -76,10 +76,11 @@ extension DetailViewController {
 
         viewModel.output.didLoadData
             .withUnretained(self)
+            .do { viewController, viewModels in
+                viewController.dataSource.configure(with: viewModels) }
+            .map { _ in }
             .observe(on: MainScheduler.instance)
-            .bind { viewController, viewModels in
-                viewController.dataSource.configure(with: viewModels)
-                viewController.collectionView.reloadData() }
+            .bind(onNext: collectionView.reloadData)
             .disposed(by: disposeBag)
 
         navigationView.beforeButton.rx.tap

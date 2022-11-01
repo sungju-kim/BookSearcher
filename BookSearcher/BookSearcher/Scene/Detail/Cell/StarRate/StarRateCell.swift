@@ -69,6 +69,14 @@ extension StarRateCell {
             .bind(to: ratingLabel.rx.text)
             .disposed(by: disposeBag)
 
+        viewModel.output.didLoadRateCount
+            .bind(to: countLabel.rx.text)
+            .disposed(by: disposeBag)
+
+        viewModel.output.didLoadReviewRatio
+            .bind(onNext: rateCountView.configure)
+            .disposed(by: disposeBag)
+
         viewModel.output.didLoadStarRate
             .bind(onNext: starRateView.configure)
             .disposed(by: disposeBag)

@@ -70,7 +70,7 @@ final class MainViewController: UIViewController {
         let section: NSCollectionLayoutSection = .init(itemWidth: .fractionalWidth(1),
                                                        itemHeight: .fractionalHeight(1),
                                                        groupWidth: .fractionalWidth(0.3),
-                                                       groupHeight: .fractionalHeight(1),
+                                                       groupHeight: .fractionalWidth(0.5),
                                                        contentInset: .init(top: 8, leading: 8, bottom: 8, trailing: 8))
         section.orthogonalScrollingBehavior = .continuous
 
@@ -231,7 +231,7 @@ private extension MainViewController {
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(headerContainer.snp.bottom).offset(Constraint.regular)
             make.leading.trailing.equalToSuperview().offset(Constraint.regular)
-            make.height.equalTo(view.safeAreaLayoutGuide).dividedBy(3.5)
+            make.bottom.equalToSuperview()
         }
     }
 

@@ -15,7 +15,11 @@ final class DetailViewController: UIViewController {
 
     private var viewModel: DetailViewModel?
 
-    private let navigationView = CustomNavigationView()
+    private let navigationView = {
+       let navigationView = CustomNavigationView()
+        navigationView.searchBar.searchTextField.isHidden = true
+        return navigationView
+    }()
 
     private let readButton: UIButton = CustomButton(title: "샘플 읽기",
                                                      backgroundColor: .clear,

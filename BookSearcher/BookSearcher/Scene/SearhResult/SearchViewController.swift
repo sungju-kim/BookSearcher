@@ -29,7 +29,7 @@ final class SearchViewController: UIViewController {
         let section: NSCollectionLayoutSection = .init(itemWidth: .fractionalWidth(1),
                                                        itemHeight: .fractionalHeight(1),
                                                        groupWidth: .fractionalWidth(1),
-                                                       groupHeight: .fractionalHeight(0.15),
+                                                       groupHeight: .fractionalWidth(0.3),
                                                        contentInset: .init(top: 8, leading: 8, bottom: 8, trailing: 8))
 
         let layout = UICollectionViewCompositionalLayout(section: section)

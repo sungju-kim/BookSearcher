@@ -43,11 +43,6 @@ extension PlaneDataSource {
 
         let section = NSCollectionLayoutSection(group: group)
 
-        section.contentInsets = .init(top: 0,
-                                      leading: 0,
-                                      bottom: Constraint.semiMax,
-                                      trailing: 0)
-
         return section
    }
 }
@@ -75,11 +70,6 @@ extension HeaderDataSource {
                                                                           heightDimension: .estimated(100)),
                                                         elementKind: UICollectionView.elementKindSectionHeader,
                                                         alignment: .top)]
-
-        section.contentInsets = .init(top: Constraint.regular,
-                                      leading: Constraint.regular,
-                                      bottom: Constraint.max,
-                                      trailing: Constraint.regular)
 
         return section
    }

@@ -15,4 +15,3 @@ import Foundation
     case review
     case publish
 }
-

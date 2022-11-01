@@ -42,7 +42,8 @@ private extension CommonHeaderView {
         addSubview(headerLabel)
 
         headerLabel.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.leading.bottom.trailing.equalToSuperview().inset(Constraint.regular)
+            make.top.equalToSuperview().inset(Constraint.semiMax)
         }
     }
 }

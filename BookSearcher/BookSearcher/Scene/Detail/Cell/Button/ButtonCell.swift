@@ -80,7 +80,7 @@ private extension ButtonCell {
         contentView.addSubview(buttonContainer)
 
         buttonContainer.snp.makeConstraints { make in
-            make.top.equalToSuperview()
+            make.top.equalToSuperview().inset(Constraint.regular)
             make.leading.trailing.bottom.equalToSuperview().inset(Constraint.regular)
         }
     }

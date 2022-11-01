@@ -128,7 +128,7 @@ private extension ReviewCell {
 
         imageView.snp.makeConstraints { make in
             make.width.height.equalTo(50)
-            make.top.leading.equalToSuperview()
+            make.top.leading.equalToSuperview().inset(Constraint.regular)
         }
     }
 
@@ -137,7 +137,7 @@ private extension ReviewCell {
 
         container.snp.makeConstraints { make in
             make.leading.equalTo(imageView.snp.trailing).offset(Constraint.regular)
-            make.top.bottom.trailing.equalToSuperview()
+            make.top.bottom.trailing.equalToSuperview().inset(Constraint.regular)
         }
     }
 }

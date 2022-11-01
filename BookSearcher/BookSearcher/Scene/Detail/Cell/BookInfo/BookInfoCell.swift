@@ -65,7 +65,7 @@ private extension BookInfoCell {
         contentView.addSubview(textLabel)
 
         textLabel.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.edges.equalToSuperview().inset(Constraint.regular)
         }
     }
 }

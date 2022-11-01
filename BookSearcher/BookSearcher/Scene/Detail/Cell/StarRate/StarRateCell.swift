@@ -92,7 +92,7 @@ private extension StarRateCell {
         contentView.addSubview(leftContainer)
 
         leftContainer.snp.makeConstraints { make in
-            make.leading.top.bottom.equalToSuperview()
+            make.leading.top.bottom.equalToSuperview().inset(Constraint.regular)
         }
     }
 
@@ -101,7 +101,7 @@ private extension StarRateCell {
 
         rateCountView.snp.makeConstraints { make in
             make.leading.equalTo(leftContainer.snp.trailing).offset(Constraint.regular)
-            make.top.bottom.trailing.equalToSuperview()
+            make.top.bottom.trailing.equalToSuperview().inset(Constraint.regular)
         }
     }
 }

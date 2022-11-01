@@ -47,6 +47,13 @@ struct Review: Decodable {
     let writer, link, title: String
 }
 
+// Mock URL - API 포함되지 않은 정보입니다.
+extension Review {
+    var imageURL: String {
+        return "https://user-images.githubusercontent.com/78553659/199285029-bc78a84b-ad54-4e9d-93f7-87f4b12df5aa.jpeg"
+    }
+}
+
 enum ItemType: Int, CaseIterable {
     case eBook
     case music

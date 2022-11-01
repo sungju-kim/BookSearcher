@@ -17,6 +17,6 @@ final class StarRateCellViewModel: CellViewModel {
     let input = Input()
     let output = Output()
 
-    init(ratingInfo: RatingInfo?) {
+    init(ratingInfo: RatingInfo?, reviewList: [Review]?) {
     }
 }

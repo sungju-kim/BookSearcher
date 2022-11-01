@@ -50,8 +50,8 @@ final class DetailViewModel {
             .share()
 
         let starRateSectionViewModel = loadedData
-            .map { $0.subInfo?.ratingInfo }
-            .map { [StarRateCellViewModel(ratingInfo: $0)] }
+            .map { ($0.subInfo?.ratingInfo, $0.subInfo?.reviewList)}
+            .map {[StarRateCellViewModel(ratingInfo: $0.0, reviewList: $0.1)]}
             .map { StarRateSectionViewModel(headerText: "평점 및 리뷰", cellViewModels: $0)}
             .share()
 

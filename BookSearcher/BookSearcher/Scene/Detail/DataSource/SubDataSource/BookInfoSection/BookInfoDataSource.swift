@@ -28,7 +28,7 @@ final class BookInfoDataSource: SubDataSource {
               let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
                                                                                withReuseIdentifier: CommonHeaderView.identifier,
                                                                                for: indexPath) as? CommonHeaderView else { return UICollectionReusableView() }
-
+        headerView.configure(with: viewModel?.headerText)
         return headerView
     }
 

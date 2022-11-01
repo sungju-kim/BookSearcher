@@ -30,7 +30,7 @@ final class CommonHeaderView: UICollectionReusableView {
 // MARK: - Configure
 
 extension CommonHeaderView {
-    func configure(with text: String) {
+    func configure(with text: String?) {
         headerLabel.text = text
     }
 }

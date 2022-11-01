@@ -54,7 +54,7 @@ enum ItemType: Int, CaseIterable {
     var text: String {
         switch self {
         case .eBook:
-            return "eBook"
+            return "Book"
         case .music:
             return "Music"
         }

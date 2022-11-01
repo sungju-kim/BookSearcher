@@ -1,14 +1,16 @@
 //
-//  BookInformationView.swift
+//  BannerCell.swift
 //  BookSearcher
 //
 //  Created by dale on 2022/10/31.
 //
 
 import UIKit
-import SnapKit
 
-final class BookInformationView: UIView {
+final class BannerCell: UICollectionViewCell {
+    static var identifier: String {
+        return "\(self)"
+    }
     private(set) var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleToFill
@@ -76,11 +78,18 @@ final class BookInformationView: UIView {
     }
 }
 
+// MARK: - Configure
+
+extension BannerCell {
+    func configure(with viewModel: BannerCellViewModel) {
+    }
+}
+
 // MARK: - Layout Section
 
-private extension BookInformationView {
+private extension BannerCell {
     func layoutImageView() {
-        addSubview(imageView)
+        contentView.addSubview(imageView)
 
         imageView.snp.makeConstraints { make in
             make.width.equalTo(120)
@@ -90,7 +99,7 @@ private extension BookInformationView {
     }
 
     func layoutLabelContainer() {
-        addSubview(labelContainer)
+        contentView.addSubview(labelContainer)
 
         labelContainer.snp.makeConstraints { make in
             make.top.trailing.equalToSuperview().inset(Constraint.regular)
@@ -99,7 +108,7 @@ private extension BookInformationView {
     }
 
     func layoutBorder() {
-        addSubview(border)
+        contentView.addSubview(border)
 
         border.snp.makeConstraints { make in
             make.leading.trailing.bottom.equalToSuperview()

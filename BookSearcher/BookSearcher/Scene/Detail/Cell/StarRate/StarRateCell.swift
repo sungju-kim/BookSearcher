@@ -93,7 +93,6 @@ private extension StarRateCell {
 
         leftContainer.snp.makeConstraints { make in
             make.leading.top.bottom.equalToSuperview()
-            make.width.equalTo(ratingLabel.intrinsicContentSize.width)
         }
     }
 
@@ -102,8 +101,7 @@ private extension StarRateCell {
 
         rateCountView.snp.makeConstraints { make in
             make.leading.equalTo(leftContainer.snp.trailing).offset(Constraint.regular)
-            make.trailing.equalToSuperview()
-            make.top.equalTo(leftContainer)
+            make.top.bottom.trailing.equalToSuperview()
         }
     }
 }

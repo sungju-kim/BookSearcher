@@ -14,7 +14,7 @@ final class RateCountView: UIView {
     private lazy var container: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = Constraint.min
+        stackView.spacing = Constraint.min / 2
         stackView.distribution = .fillEqually
         rangeViews.reversed().forEach { stackView.addArrangedSubview($0) }
         return stackView

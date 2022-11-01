@@ -13,6 +13,7 @@ final class ButtonSectionViewModel: SectionViewModel {
     var cellViewModels: [ButtonCellViewModel]?
 
     init(headerText: String?, cellViewModels: [CellViewModel]) {
+        self.headerText = headerText
         guard let cellViewModels = cellViewModels as? [ButtonCellViewModel] else { return }
         self.cellViewModels = cellViewModels
     }

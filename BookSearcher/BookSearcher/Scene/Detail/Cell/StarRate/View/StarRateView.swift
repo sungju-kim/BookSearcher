@@ -61,8 +61,12 @@ final class StarRateView: UIView {
         layoutBackgroundView()
         layoutForegroundView()
     }
+}
 
-    func resizeForground(rate: Double) {
+// MARK: - Configure
+
+extension StarRateView {
+    func configure(rate: Double) {
         visibleView.snp.remakeConstraints { make in
             make.leading.equalToSuperview()
             make.width.equalTo(backgroundView).multipliedBy(rate)

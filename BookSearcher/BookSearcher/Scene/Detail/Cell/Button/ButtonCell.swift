@@ -6,8 +6,14 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 final class ButtonCell: UICollectionViewCell {
+    private var disposeBag = DisposeBag()
+
+    private var viewModel: ButtonCellViewModel?
+
     static var identifier: String {
         return "\(self)"
     }
@@ -48,12 +54,22 @@ final class ButtonCell: UICollectionViewCell {
         layoutButtonContainer()
         layoutBorder()
     }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        disposeBag = DisposeBag()
+    }
 }
 
 // MARK: - Configure
 extension ButtonCell {
     func configure(with viewModel: ButtonCellViewModel) {
-        
+        self.viewModel = viewModel
+
+        readButton.rx.tap
+            .bind(to: viewModel.input.linkButtonTapped)
+            .disposed(by: disposeBag)
     }
 }
 

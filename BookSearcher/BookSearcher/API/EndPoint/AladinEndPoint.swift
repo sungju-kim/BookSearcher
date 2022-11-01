@@ -19,6 +19,7 @@ extension AladinEndPoint: Requestable {
         guard let file = Bundle.main.path(forResource: "Info", ofType: "plist") else { return "" }
         guard let resource = NSDictionary(contentsOfFile: file) else { return "" }
         guard let key = resource["API_KEY"] as? String else { fatalError("Info.plist에 API Key를 설정해주세요.")}
+        if key == "" { fatalError("Info.plist에 API Key를 설정해주세요.") }
         return key
     }
 

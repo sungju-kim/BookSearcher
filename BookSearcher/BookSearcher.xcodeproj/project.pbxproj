@@ -25,6 +25,7 @@
 		6C096DF029110CFD00A5BC82 /* ReviewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C096DEF29110CFD00A5BC82 /* ReviewCellViewModel.swift */; };
 		6C096DF229110D1100A5BC82 /* ReviewSectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C096DF129110D1100A5BC82 /* ReviewSectionViewModel.swift */; };
 		6C096DFB2911396900A5BC82 /* StarRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C096DFA2911396900A5BC82 /* StarRateView.swift */; };
+		6C096DFD291148C000A5BC82 /* RateCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C096DFC291148C000A5BC82 /* RateCountView.swift */; };
 		6C3A579E290C00F100AFED20 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3A579D290C00F100AFED20 /* MainViewModel.swift */; };
 		6C3A57A0290D58D800AFED20 /* MostSoldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3A579F290D58D800AFED20 /* MostSoldViewModel.swift */; };
 		6C3A57A3290E707500AFED20 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3A57A2290E707500AFED20 /* SearchViewModel.swift */; };
@@ -100,6 +101,7 @@
 		6C096DEF29110CFD00A5BC82 /* ReviewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCellViewModel.swift; sourceTree = "<group>"; };
 		6C096DF129110D1100A5BC82 /* ReviewSectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewSectionViewModel.swift; sourceTree = "<group>"; };
 		6C096DFA2911396900A5BC82 /* StarRateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRateView.swift; sourceTree = "<group>"; };
+		6C096DFC291148C000A5BC82 /* RateCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateCountView.swift; sourceTree = "<group>"; };
 		6C3A579D290C00F100AFED20 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		6C3A579F290D58D800AFED20 /* MostSoldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostSoldViewModel.swift; sourceTree = "<group>"; };
 		6C3A57A2290E707500AFED20 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
@@ -448,6 +450,7 @@
 			isa = PBXGroup;
 			children = (
 				6C096DFA2911396900A5BC82 /* StarRateView.swift */,
+				6C096DFC291148C000A5BC82 /* RateCountView.swift */,
 				6C85A248291160B400E8534A /* RangeView.swift */,
 			);
 			path = View;
@@ -654,6 +657,7 @@
 				6C096DF029110CFD00A5BC82 /* ReviewCellViewModel.swift in Sources */,
 				6C535FAC290B8DDC00F474B7 /* RepositoryImpl.swift in Sources */,
 				6C096DDB29110BA500A5BC82 /* CellViewModel.swift in Sources */,
+				6C096DFD291148C000A5BC82 /* RateCountView.swift in Sources */,
 				6C535F81290A80EB00F474B7 /* UIFont + extension.swift in Sources */,
 				6CA45433290BE15A00672B56 /* Item.swift in Sources */,
 				6C096DD029110A1D00A5BC82 /* ButtonDataSource.swift in Sources */,

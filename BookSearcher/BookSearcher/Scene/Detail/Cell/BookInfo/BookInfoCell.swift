@@ -6,8 +6,14 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 final class BookInfoCell: UICollectionViewCell {
+    private var disposeBag = DisposeBag()
+
+    private var viewModel: BookInfoCellViewModel?
+
     static var identifier: String {
         return "\(self)"
     }
@@ -17,9 +23,6 @@ final class BookInfoCell: UICollectionViewCell {
                                 fontSize: 12,
                                 fontWeight: .regular)
         label.numberOfLines = 3
-        label.text = """
-특수부대 헌터 한건우. 정부에게 배신당하고 15년 전으로 회귀했다. 그가 죽인 100명의 특성을 모두 흡수한 채로. \"이건 너무 사기인데?\" 이제부터 내가 판을 짜겠다. 특수부대 헌터 한건우. 정부에게 배신당하고 15년 전으로 회귀했다. 그가 죽인 100명의 특성을 모두 흡수한 채로. \"이건 너무 사기인데?\" 이제부터 내가 판을 짜겠다.
-"""
         return label
     }()
 
@@ -34,12 +37,24 @@ final class BookInfoCell: UICollectionViewCell {
 
         layoutTextLabel()
     }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        disposeBag = DisposeBag()
+    }
 }
 
 // MARK: - Configure
 extension BookInfoCell {
     func configure(with viewModel: BookInfoCellViewModel) {
+        self.viewModel = viewModel
 
+        viewModel.output.didLoadText
+            .bind(to: textLabel.rx.text)
+            .disposed(by: disposeBag)
+
+        viewModel.input.cellDidLoad.accept(())
     }
 }
 

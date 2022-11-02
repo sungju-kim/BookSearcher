@@ -16,7 +16,18 @@ final class DetailViewModel {
     }
 
     struct Output {
-        let didLoadData = PublishRelay<(SectionType, any SectionViewModel)>()
+        let didLoadBannerViewModel = PublishRelay<BannerViewModel>()
+        let didLoadButtonViewModel = PublishRelay<ButtonViewModel>()
+        let didLoadBookInfoViewModel = PublishRelay<BookInfoViewModel>()
+        let didLoadRatingViewModel = PublishRelay<RatingViewModel>()
+        let didLoadReview = PublishRelay<[ReviewCellViewModel]>()
+    }
+
+    struct SubViewModels {
+        let bannerViewModel = BannerViewModel()
+        let buttonViewModel = ButtonViewModel()
+        let bookInfoViewModel = BookInfoViewModel()
+        let ratingViewModel = RatingViewModel()
     }
 
     @Injector(keypath: \.repository)
@@ -24,57 +35,53 @@ final class DetailViewModel {
 
     let input = Input()
     let output = Output()
+    private let subViewModels = SubViewModels()
 
     init(itemId: String) {
-        let loadedData = input.viewDidLoad
+        let item = input.viewDidLoad
             .map { itemId }
             .flatMapLatest(repository.searchInformation)
             .compactMap { $0.item }
             .compactMap { $0.first }
             .share()
 
-        let bannerSectionViewModel = loadedData
-            .map { BannerSectionViewModel(headerText: nil, cellViewModels: [BannerCellViewModel(item: $0)]) }
-            .map { (SectionType.banner, $0 as any SectionViewModel) }
-                .share()
+        item
+            .withUnretained(self)
+            .map { ($0.subViewModels.bannerViewModel, $1) }
+            .map { $0.configure(with: $1) }
+            .bind(to: output.didLoadBannerViewModel)
+            .disposed(by: disposebag)
 
-        let buttonSectionViewModel = loadedData
+        item
             .compactMap { $0.link }
-            .map { [ButtonCellViewModel(link: $0)] }
-            .map { ButtonSectionViewModel(headerText: nil, cellViewModels: $0) }
-            .map { (SectionType.button, $0 as any SectionViewModel) }
-            .share()
+            .withUnretained(self)
+            .map { ($0.subViewModels.buttonViewModel, $1) }
+            .map { $0.configure(with: $1) }
+            .bind(to: output.didLoadButtonViewModel)
+            .disposed(by: disposebag)
 
-        let bookInfoSectionViewModel = loadedData
-            .map { [$0.mallType, $0.itemDescription] }
-            .compactMap { $0 as? [String] }
-            .filter { $0[1] != ""}
-            .map {
-                BookInfoSectionViewModel(headerText: "\($0[0]) 정보",
-                                         cellViewModels: [BookInfoCellViewModel(text: $0[1])]) }
-            .map { (SectionType.bookInfo, $0 as any SectionViewModel) }
-            .share()
-
-        let subInfo = loadedData
+        item
+            .compactMap { $0.itemDescription }
+            .withUnretained(self)
+            .map { ($0.subViewModels.bookInfoViewModel, $1) }
+            .map { $0.configure(with: $1) }
+            .bind(to: output.didLoadBookInfoViewModel)
+            .disposed(by: disposebag)
+        let subInfo = item
             .compactMap { $0.subInfo }
             .share()
 
-        let starRateSectionViewModel = Observable.zip( subInfo.compactMap { $0.ratingInfo }, subInfo.map { $0.mockReviewList() })
-            .map { [StarRateCellViewModel(ratingInfo: $0, reviewList: $1)] }
-            .map { StarRateSectionViewModel(headerText: "평점 및 리뷰", cellViewModels: $0) }
-            .map { (SectionType.starRate, $0 as any SectionViewModel) }
-            .share()
+        Observable.zip( subInfo.compactMap { $0.ratingInfo }, subInfo.map { $0.mockReviewList() })
+            .withUnretained(self)
+            .map { ($0.subViewModels.ratingViewModel, $1.0, $1.1) }
+            .map { $0.configure(with: $1, and: $2)}
+            .bind(to: output.didLoadRatingViewModel)
+            .disposed(by: disposebag)
 
-        let reviewSectionViewModel = subInfo
+        subInfo
             .map { $0.mockReviewList() }
-            .filter { !$0.isEmpty }
             .map { $0.map { ReviewCellViewModel(review: $0) } }
-            .map { ReviewSectionViewModel(headerText: "평점 및 리뷰 정보", cellViewModels: $0) }
-            .map { (SectionType.review, $0 as any SectionViewModel) }
-            .share()
-
-        Observable.merge(bannerSectionViewModel, buttonSectionViewModel, bookInfoSectionViewModel, starRateSectionViewModel, reviewSectionViewModel)
-            .bind(to: output.didLoadData)
+            .bind(to: output.didLoadReview)
             .disposed(by: disposebag)
     }
 }

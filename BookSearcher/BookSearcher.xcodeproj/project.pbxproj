@@ -66,7 +66,6 @@
 		6CCEEBA82910158F00C19013 /* BookInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCEEBA72910158F00C19013 /* BookInfoView.swift */; };
 		6CCEEBAA291015A300C19013 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCEEBA9291015A300C19013 /* RatingView.swift */; };
 		6CCEEBAC291015B000C19013 /* ReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCEEBAB291015B000C19013 /* ReviewCell.swift */; };
-		6CCEEBAE29101A3600C19013 /* CommonHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCEEBAD29101A3600C19013 /* CommonHeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -126,7 +125,6 @@
 		6CCEEBA72910158F00C19013 /* BookInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookInfoView.swift; sourceTree = "<group>"; };
 		6CCEEBA9291015A300C19013 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		6CCEEBAB291015B000C19013 /* ReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCell.swift; sourceTree = "<group>"; };
-		6CCEEBAD29101A3600C19013 /* CommonHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -301,7 +299,6 @@
 			children = (
 				6CCEEB8A290F9AD200C19013 /* DetailViewController.swift */,
 				6CCEEB94290FB9EF00C19013 /* DetailViewModel.swift */,
-				6CCEEBA329100EED00C19013 /* HeaderView */,
 				6CCEEB9C29100B5B00C19013 /* View */,
 			);
 			path = Detail;
@@ -432,14 +429,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		6CCEEBA329100EED00C19013 /* HeaderView */ = {
-			isa = PBXGroup;
-			children = (
-				6CCEEBAD29101A3600C19013 /* CommonHeaderView.swift */,
-			);
-			path = HeaderView;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -567,7 +556,6 @@
 				6C535FA7290B8ACB00F474B7 /* Network.swift in Sources */,
 				6CCEEB99290FDD8100C19013 /* CustomNavigationView.swift in Sources */,
 				6C85A249291160B400E8534A /* RangeView.swift in Sources */,
-				6CCEEBAE29101A3600C19013 /* CommonHeaderView.swift in Sources */,
 				6C096DE429110C3600A5BC82 /* ButtonViewModel.swift in Sources */,
 				6C3A57B3290EEA3100AFED20 /* NSCollectionLayoutSection + extension.swift in Sources */,
 				6C535F76290A7FB800F474B7 /* UIColor + extension.swift in Sources */,

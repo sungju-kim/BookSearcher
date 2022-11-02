@@ -29,7 +29,6 @@ final class BannerView: UIView {
                                 fontWeight: .semibold)
         label.numberOfLines = 3
         label.lineBreakMode = .byWordWrapping
-        label.text = "타이틀 입니다."
         return label
     }()
 
@@ -38,7 +37,6 @@ final class BannerView: UIView {
                                 fontSize: 14,
                                 fontWeight: .regular)
         label.numberOfLines = 1
-        label.text = "작가 입니다."
         return label
     }()
 
@@ -46,7 +44,6 @@ final class BannerView: UIView {
         let label = CustomLabel(fontColor: .Custom.textGray,
                                 fontSize: 14,
                                 fontWeight: .regular)
-        label.text = "EBOOK ' 240page"
         return label
     }()
 

@@ -15,6 +15,12 @@ final class RatingView: UIView {
 
     private var viewModel: RatingViewModel?
 
+    private let headerLabel: UILabel = {
+        let label = CustomLabel(fontColor: .white, fontSize: 28, fontWeight: .semibold)
+        label.text = "평점 및 리뷰정보"
+        return label
+    }()
+
     private let ratingLabel: UILabel = {
         let label = CustomLabel(fontColor: .white, fontSize: 60, fontWeight: .bold)
         label.textAlignment = .center
@@ -45,6 +51,7 @@ final class RatingView: UIView {
         super.init(frame: frame)
 
         self.isHidden = true
+        layoutHeaderLabel()
         layoutLeftContainer()
         layoutRateCountView()
     }
@@ -53,6 +60,7 @@ final class RatingView: UIView {
         super.init(coder: coder)
 
         self.isHidden = true
+        layoutHeaderLabel()
         layoutLeftContainer()
         layoutRateCountView()
     }
@@ -90,11 +98,21 @@ extension RatingView {
 // MARK: - Layout Section
 
 private extension RatingView {
+    func layoutHeaderLabel() {
+        addSubview(headerLabel)
+
+        headerLabel.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(Constraint.regular)
+            make.top.equalToSuperview().inset(Constraint.semiMax)
+        }
+    }
+
     func layoutLeftContainer() {
         addSubview(leftContainer)
 
         leftContainer.snp.makeConstraints { make in
-            make.leading.top.bottom.equalToSuperview().inset(Constraint.regular)
+            make.top.equalTo(headerLabel.snp.bottom).offset(Constraint.regular)
+            make.leading.bottom.equalToSuperview().inset(Constraint.regular)
         }
     }
 
@@ -102,8 +120,9 @@ private extension RatingView {
         addSubview(rateCountView)
 
         rateCountView.snp.makeConstraints { make in
+            make.top.equalTo(headerLabel.snp.bottom).offset(Constraint.regular)
             make.leading.equalTo(leftContainer.snp.trailing).offset(Constraint.regular)
-            make.top.bottom.trailing.equalToSuperview().inset(Constraint.regular)
+            make.bottom.trailing.equalToSuperview().inset(Constraint.regular)
         }
     }
 }

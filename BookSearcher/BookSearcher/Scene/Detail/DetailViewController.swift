@@ -170,7 +170,7 @@ private extension DetailViewController {
         contentView.addSubview(reviewList)
 
         reviewList.snp.makeConstraints { make in
-            make.top.equalTo(ratingView.snp.bottom)
+            make.top.equalTo(ratingView.snp.bottom).offset(Constraint.regular)
             make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
         }

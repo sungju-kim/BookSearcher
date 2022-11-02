@@ -115,6 +115,7 @@ extension DetailViewController {
 
         viewModel.output.didLoadReview
             .bind(to: reviewList.rx.items(cellIdentifier: ReviewCell.identifier, cellType: ReviewCell.self)) { _, viewModel, cell in
+                cell.selectionStyle = .none
                 cell.configure(with: viewModel) }
             .disposed(by: disposeBag)
 

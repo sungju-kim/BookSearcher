@@ -58,7 +58,7 @@ extension AladinEndPoint: Requestable {
         var common: [String: String] = ["TTBKey": apiKey, "Output": "JS", "Version": "20131101"]
         switch self {
         case .items(let name, let startIndex, let itemType):
-            common.merge(["Query": name, "startIndex": "\(startIndex)", "SearchTarget": itemType.text]) { current, _ in current }
+            common.merge(["Query": name, "Start": "\(startIndex)", "SearchTarget": itemType.text]) { current, _ in current }
         case .bestSeller(let itemType):
             common.merge(["QueryType": "Bestseller", "SearchTarget": itemType.text]) { current, _ in current}
         case .item(let id):

@@ -21,41 +21,26 @@ final class DetailViewController: UIViewController {
         return navigationView
     }()
 
-    private let readButton: UIButton = CustomButton(title: "샘플 읽기",
-                                                     backgroundColor: .clear,
-                                                     fontColor: .Custom.buttonBlue)
-
-    private let wishListButton: UIButton = CustomButton(title: "위시리스트에 추가",
-                                                         image: UIImage(systemName: "bookmark.square"),
-                                                         backgroundColor: .Custom.buttonBlue,
-                                                         fontColor: .Custom.background)
-
-    private lazy var buttonContainer: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = Constraint.min
-        [readButton, wishListButton].forEach { stackView.addArrangedSubview($0) }
-        return stackView
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        return scrollView
     }()
 
-    private let dataSource = DetailDataSource()
+    private let contentView = UIView()
 
-    private lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewCompositionalLayout(sectionProvider: dataSource.sectionProvider)
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+    private let bannerView = BannerView()
 
-        collectionView.dataSource = dataSource
-        collectionView.backgroundColor = .clear
+    private let buttonView = ButtonView()
 
-        collectionView.register(BannerCell.self, forCellWithReuseIdentifier: BannerCell.identifier)
-        collectionView.register(ButtonCell.self, forCellWithReuseIdentifier: ButtonCell.identifier)
-        collectionView.register(BookInfoCell.self, forCellWithReuseIdentifier: BookInfoCell.identifier)
-        collectionView.register(StarRateCell.self, forCellWithReuseIdentifier: StarRateCell.identifier)
-        collectionView.register(ReviewCell.self, forCellWithReuseIdentifier: ReviewCell.identifier)
-        collectionView.register(CommonHeaderView.self,
-                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                withReuseIdentifier: CommonHeaderView.identifier)
-        return collectionView
+    private let bookInfoView = BookInfoView()
+
+    private let ratingView = RatingView()
+
+    private let reviewList: UITableView = {
+        let tableView = UITableView()
+        tableView.backgroundColor = .clear
+        tableView.register(ReviewCell.self, forCellReuseIdentifier: ReviewCell.identifier)
+        return tableView
     }()
 
     override func viewDidLoad() {
@@ -64,7 +49,13 @@ final class DetailViewController: UIViewController {
         view.backgroundColor = .Custom.background
 
         layoutNavigationView()
-        layoutCollectionView()
+        layoutScrollView()
+        layoutContentView()
+        layoutBannerView()
+        layoutButtonView()
+        layoutBookInfoView()
+        layoutRatingView()
+        layoutReviewList()
     }
 
     private func returnToSearchView() {
@@ -78,14 +69,26 @@ extension DetailViewController {
     func configure(with viewModel: DetailViewModel) {
         self.viewModel = viewModel
 
-        viewModel.output.didLoadData
-            .withUnretained(self)
-            .do { viewController, data in
-                let (section, viewModel) = data
-                viewController.dataSource.configure(at: section, with: viewModel) }
-            .map { _ in }
+        viewModel.output.didLoadBannerViewModel
+            .bind(onNext: bannerView.configure)
+            .disposed(by: disposeBag)
+
+        viewModel.output.didLoadButtonViewModel
+            .bind(onNext: buttonView.configure)
+            .disposed(by: disposeBag)
+
+        viewModel.output.didLoadBookInfoViewModel
+            .bind(onNext: bookInfoView.configure)
+            .disposed(by: disposeBag)
+
+        viewModel.output.didLoadRatingViewModel
             .observe(on: MainScheduler.instance)
-            .bind(onNext: collectionView.reloadData)
+            .bind(onNext: ratingView.configure)
+            .disposed(by: disposeBag)
+
+        viewModel.output.didLoadReview
+            .bind(to: reviewList.rx.items(cellIdentifier: ReviewCell.identifier, cellType: ReviewCell.self)) { _, viewModel, cell in
+                cell.configure(with: viewModel) }
             .disposed(by: disposeBag)
 
         navigationView.beforeButton.rx.tap
@@ -109,12 +112,68 @@ private extension DetailViewController {
         }
     }
 
-    func layoutCollectionView() {
-        view.addSubview(collectionView)
+    func layoutScrollView() {
+        view.addSubview(scrollView)
 
-        collectionView.snp.makeConstraints { make in
+        scrollView.snp.makeConstraints { make in
             make.top.equalTo(navigationView.snp.bottom)
-            make.leading.trailing.bottom.equalToSuperview()
+            make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
+
+    func layoutContentView() {
+        scrollView.addSubview(contentView)
+
+        contentView.snp.makeConstraints { make in
+            make.edges.equalTo(scrollView.contentLayoutGuide)
+            make.width.equalTo(scrollView.frameLayoutGuide)
+            make.height.equalTo(1000)
+        }
+    }
+
+    func layoutBannerView() {
+        contentView.addSubview(bannerView)
+
+        bannerView.snp.makeConstraints { make in
+            make.top.leading.trailing.equalToSuperview()
+        }
+    }
+
+    func layoutButtonView() {
+        contentView.addSubview(buttonView)
+
+        buttonView.snp.makeConstraints { make in
+            make.top.equalTo(bannerView.snp.bottom)
+            make.leading.trailing.equalToSuperview()
+        }
+    }
+
+    func layoutBookInfoView() {
+        contentView.addSubview(bookInfoView)
+
+        bookInfoView.snp.makeConstraints { make in
+            make.top.equalTo(buttonView.snp.bottom)
+            make.leading.trailing.equalToSuperview()
+        }
+    }
+
+    func layoutRatingView() {
+        contentView.addSubview(ratingView)
+
+        ratingView.snp.makeConstraints { make in
+            make.top.equalTo(bookInfoView.snp.bottom)
+            make.leading.trailing.equalToSuperview()
+        }
+    }
+
+    func layoutReviewList() {
+        contentView.addSubview(reviewList)
+
+        reviewList.snp.makeConstraints { make in
+            make.top.equalTo(ratingView.snp.bottom)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+    }
+
 }

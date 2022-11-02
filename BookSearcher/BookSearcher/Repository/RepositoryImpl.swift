@@ -10,6 +10,7 @@ import RxSwift
 
 final class RepositoryImpl: Repository {
     private let network: Network
+    private let imageCache: NSCache = NSCache<NSString, NSData>()
 
     init(network: Network) {
         self.network = network
@@ -61,8 +62,20 @@ final class RepositoryImpl: Repository {
     }
 
     func downLoadImage(url: String) -> Single<Data> {
-        // MARK: - TODO - 캐싱 기능구현 필요
-        return network.fetch(endPoint: AladinEndPoint.image(url: url))
+        return Single.create { observer in
+            if let image = self.imageCache.object(forKey: url as NSString) {
+                observer(.success(image as Data))
+                return Disposables.create()
+            }
+
+            return self.network.fetch(endPoint: AladinEndPoint.image(url: url))
+                .subscribe { data in
+                    self.imageCache.setObject(data as NSData, forKey: url as NSString)
+                    observer(.success(data))
+                } onFailure: { error in
+                    observer(.failure(error))
+                }
+        }
     }
 
 }

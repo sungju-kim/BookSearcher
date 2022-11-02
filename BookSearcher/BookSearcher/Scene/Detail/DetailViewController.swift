@@ -11,7 +11,7 @@ import RxRelay
 import RxAppState
 
 final class DetailViewController: UIViewController {
-    private let disposeBag = DisposeBag()
+    private var disposeBag = DisposeBag()
 
     private var viewModel: DetailViewModel?
 
@@ -72,6 +72,13 @@ final class DetailViewController: UIViewController {
         layoutBookInfoView()
         layoutRatingView()
         layoutReviewList()
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        disposeBag = DisposeBag()
+        viewModel = nil
     }
 
     private func returnToSearchView() {

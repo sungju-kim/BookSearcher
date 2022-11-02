@@ -27,7 +27,9 @@ final class RatingViewModel {
 
     let input = Input()
     let output = Output()
-
+    deinit {
+        print("deinit \(String(describing: type(of: self)))")
+    }
     init() {
         input.updateRating
             .compactMap { $0.ratingInfo?.ratingScore}
@@ -49,8 +51,9 @@ final class RatingViewModel {
             .disposed(by: disposeBag)
 
         input.updateRating
-            .compactMap { ($0.ratingInfo?.ratingCount, $0.mockReviewList()) }
-            .map(getRatio)
+            .compactMap { ($0.ratingInfo?.ratingCount, $0.reviewList) }
+            .map {[unowned self] count, reviews in
+                getRatio(totalCount: count, reviews: reviews) }
             .bind(to: output.didLoadReviewRatio)
             .disposed(by: disposeBag)
 

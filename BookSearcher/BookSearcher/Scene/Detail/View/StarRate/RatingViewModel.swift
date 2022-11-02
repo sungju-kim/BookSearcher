@@ -27,9 +27,7 @@ final class RatingViewModel {
 
     let input = Input()
     let output = Output()
-    deinit {
-        print("deinit \(String(describing: type(of: self)))")
-    }
+
     init() {
         input.updateRating
             .compactMap { $0.ratingInfo?.ratingScore}
@@ -50,8 +48,9 @@ final class RatingViewModel {
             .bind(to: output.didLoadRateCount)
             .disposed(by: disposeBag)
 
+        // ReviewList의 경우 프리미엄 API에서 제공하는 정보로써 MockReviewList를 활용합니다.
         input.updateRating
-            .compactMap { ($0.ratingInfo?.ratingCount, $0.reviewList) }
+            .compactMap { ($0.ratingInfo?.ratingCount, $0.mockReviewList()) }
             .map {[unowned self] count, reviews in
                 getRatio(totalCount: count, reviews: reviews) }
             .bind(to: output.didLoadReviewRatio)

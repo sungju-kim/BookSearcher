@@ -70,21 +70,21 @@ final class SearchResultCell: UICollectionViewCell {
         return label
     }()
 
-    private lazy var labelContainer: UIStackView = {
+    private let labelContainer: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = Constraint.min
         stackView.distribution = .equalSpacing
-        [titleLabel, authorLabel, informationContainer].forEach { stackView.addArrangedSubview($0) }
+
         return stackView
     }()
 
-    private lazy var informationContainer: UIStackView = {
+    private let informationContainer: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.spacing = Constraint.min
         stackView.distribution = .fill
-        [typeLabel, rateLabel, starLabel].forEach { stackView.addArrangedSubview($0) }
+
         return stackView
     }()
 
@@ -164,6 +164,9 @@ private extension SearchResultCell {
 
     func layoutLabelContainer() {
         contentView.addSubview(labelContainer)
+
+        [typeLabel, rateLabel, starLabel].forEach { informationContainer.addArrangedSubview($0) }
+        [titleLabel, authorLabel, informationContainer].forEach { labelContainer.addArrangedSubview($0) }
 
         labelContainer.snp.makeConstraints { make in
             make.leading.equalTo(imageView.snp.trailing).offset(Constraint.regular)

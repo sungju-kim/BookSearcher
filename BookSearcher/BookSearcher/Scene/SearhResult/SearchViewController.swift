@@ -40,13 +40,11 @@ final class SearchViewController: UIViewController {
         return collectionView
     }()
 
-    private lazy var resultContainer: UIStackView = {
+    private let resultContainer: UIStackView = {
         let stackView = UIStackView()
         stackView.distribution = .fill
         stackView.axis = .vertical
         stackView.isHidden = true
-
-        [menuBar, collectionView].forEach { stackView.addArrangedSubview($0) }
 
         return stackView
     }()
@@ -146,6 +144,8 @@ private extension SearchViewController {
 
     func layoutResultContainer() {
         view.addSubview(resultContainer)
+
+        [menuBar, collectionView].forEach { resultContainer.addArrangedSubview($0) }
 
         resultContainer.snp.makeConstraints { make in
             make.top.equalTo(navigationView.snp.bottom)

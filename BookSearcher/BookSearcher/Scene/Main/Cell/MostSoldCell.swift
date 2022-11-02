@@ -18,7 +18,7 @@ final class MostSoldCell: UICollectionViewCell {
         return "\(self)"
     }
 
-    private lazy var imageView: UIImageView = {
+    private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleToFill
         imageView.layer.cornerRadius = 5
@@ -42,13 +42,12 @@ final class MostSoldCell: UICollectionViewCell {
         return label
     }()
 
-    private lazy var containerView: UIStackView = {
+    private let containerView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fillProportionally
         stackView.spacing = Constraint.min
 
-        [imageView, titleLabel, authorLabel].forEach { stackView.addArrangedSubview($0) }
         return stackView
     }()
 
@@ -98,6 +97,8 @@ extension MostSoldCell {
 private extension MostSoldCell {
     func layoutContainer() {
         addSubview(containerView)
+
+        [imageView, titleLabel, authorLabel].forEach { containerView.addArrangedSubview($0) }
 
         containerView.snp.makeConstraints { make in
             make.edges.equalToSuperview()

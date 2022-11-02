@@ -39,12 +39,11 @@ final class ReviewCell: UITableViewCell {
         return label
     }()
 
-    private lazy var dateContainer: UIStackView = {
+    private let dateContainer: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.spacing = Constraint.min
 
-        [starRateView, dateLabel].forEach { stackView.addArrangedSubview($0) }
         return stackView
     }()
 
@@ -54,12 +53,11 @@ final class ReviewCell: UITableViewCell {
         return label
     }()
 
-    private lazy var container: UIStackView = {
+    private let container: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = Constraint.min
 
-        [nameLabel, dateContainer, reviewConent].forEach { stackView.addArrangedSubview($0) }
         return stackView
     }()
 
@@ -138,6 +136,9 @@ private extension ReviewCell {
 
     func layoutContainer() {
         contentView.addSubview(container)
+
+        [starRateView, dateLabel].forEach { dateContainer.addArrangedSubview($0) }
+        [nameLabel, dateContainer, reviewConent].forEach { container.addArrangedSubview($0) }
 
         container.snp.makeConstraints { make in
             make.leading.equalTo(userImageView.snp.trailing).offset(Constraint.regular)

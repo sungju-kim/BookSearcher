@@ -35,13 +35,12 @@ final class RatingView: UIView {
         return label
     }()
 
-    private lazy var leftContainer: UIStackView = {
+    private let leftContainer: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = Constraint.min
         stackView.distribution = .fill
 
-        [ratingLabel, starRateView, countLabel].forEach { stackView.addArrangedSubview($0) }
         return stackView
     }()
 
@@ -109,6 +108,8 @@ private extension RatingView {
 
     func layoutLeftContainer() {
         addSubview(leftContainer)
+
+        [ratingLabel, starRateView, countLabel].forEach { leftContainer.addArrangedSubview($0) }
 
         leftContainer.snp.makeConstraints { make in
             make.top.equalTo(headerLabel.snp.bottom).offset(Constraint.regular)

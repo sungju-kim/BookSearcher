@@ -23,11 +23,10 @@ final class ButtonView: UIView {
                                                          backgroundColor: .Custom.buttonBlue,
                                                          fontColor: .Custom.background)
 
-    private lazy var buttonContainer: UIStackView = {
+    private let buttonContainer: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.spacing = Constraint.min
-        [readButton, wishListButton].forEach { stackView.addArrangedSubview($0) }
         return stackView
     }()
 
@@ -72,6 +71,8 @@ extension ButtonView {
 private extension ButtonView {
     func layoutButtonContainer() {
         addSubview(buttonContainer)
+
+        [readButton, wishListButton].forEach { buttonContainer.addArrangedSubview($0) }
 
         buttonContainer.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(Constraint.regular)

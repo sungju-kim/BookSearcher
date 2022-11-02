@@ -19,7 +19,6 @@ final class BannerView: UIView {
         imageView.contentMode = .scaleToFill
         imageView.layer.cornerRadius = 5
         imageView.clipsToBounds = true
-        imageView.backgroundColor = .blue
         return imageView
     }()
 
@@ -47,11 +46,11 @@ final class BannerView: UIView {
         return label
     }()
 
-    private lazy var labelContainer: UIStackView = {
+    private let labelContainer: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = Constraint.min
-        [titleLabel, authorLabel, informationLabel].forEach { stackView.addArrangedSubview($0) }
+
         return stackView
     }()
 
@@ -119,6 +118,8 @@ private extension BannerView {
 
     func layoutLabelContainer() {
         addSubview(labelContainer)
+
+        [titleLabel, authorLabel, informationLabel].forEach { labelContainer.addArrangedSubview($0) }
 
         labelContainer.snp.makeConstraints { make in
             make.top.trailing.equalToSuperview().inset(Constraint.regular)

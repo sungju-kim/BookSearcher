@@ -9,11 +9,11 @@ import UIKit
 import SnapKit
 
 final class UnderLineView: UIView {
-    private lazy var containerView: UIStackView = {
+    private let containerView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fill
-        [leadingView, lineView, trailingView].forEach { stackView.addArrangedSubview($0) }
+
         return stackView
     }()
 
@@ -56,6 +56,8 @@ final class UnderLineView: UIView {
 private extension UnderLineView {
     func layoutContainerView() {
         addSubview(containerView)
+
+        [leadingView, lineView, trailingView].forEach { containerView.addArrangedSubview($0) }
 
         containerView.snp.makeConstraints { make in
             make.edges.equalToSuperview()

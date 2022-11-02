@@ -58,11 +58,11 @@ final class MainViewController: UIViewController {
         return button
     }()
 
-    private lazy var headerContainer: UIStackView = {
+    private let headerContainer: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
-        [headerLabel, moreButton].forEach { stackView.addArrangedSubview($0) }
+
         return stackView
     }()
 
@@ -218,6 +218,8 @@ private extension MainViewController {
 
     func layoutHeaderContainer() {
         view.addSubview(headerContainer)
+
+        [headerLabel, moreButton].forEach { headerContainer.addArrangedSubview($0) }
 
         headerContainer.snp.makeConstraints { make in
             make.top.equalTo(menuBar.snp.bottom).offset(Constraint.regular)

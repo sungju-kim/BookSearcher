@@ -9,13 +9,13 @@ import UIKit
 import SnapKit
 
 final class StarRateView: UIView {
-    private lazy var visibleView: UIView = {
+    private let visibleView: UIView = {
         let view = UIView()
         view.backgroundColor = .Custom.starRate
         return view
     }()
 
-    private lazy var backgroundView: UIStackView = {
+    private let backgroundView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
@@ -29,7 +29,7 @@ final class StarRateView: UIView {
         return stackView
     }()
 
-    private lazy var foregroundView: UIStackView = {
+    private let foregroundView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually

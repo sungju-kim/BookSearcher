@@ -11,12 +11,12 @@ import SnapKit
 final class RateCountView: UIView {
     private var rangeViews: [RangeView] = (1...5).map { RangeView(rate: $0) }
 
-    private lazy var container: UIStackView = {
+    private let container: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = Constraint.min / 2
         stackView.distribution = .fillEqually
-        rangeViews.reversed().forEach { stackView.addArrangedSubview($0) }
+
         return stackView
     }()
 
@@ -46,6 +46,8 @@ extension RateCountView {
 private extension RateCountView {
     func layoutContainer() {
         addSubview(container)
+
+        rangeViews.reversed().forEach { container.addArrangedSubview($0) }
 
         container.snp.makeConstraints { make in
             make.edges.equalToSuperview()

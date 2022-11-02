@@ -14,7 +14,7 @@ final class ButtonView: UIView {
 
     private var viewModel: ButtonViewModel?
 
-    private let readButton: UIButton = CustomButton(title: "샘플 읽기",
+    private let readButton: UIButton = CustomButton(title: "자세히 보기",
                                                      backgroundColor: .clear,
                                                      fontColor: .Custom.buttonBlue)
 
@@ -63,6 +63,10 @@ extension ButtonView {
 
         readButton.rx.tap
             .bind(to: viewModel.input.linkButtonTapped)
+            .disposed(by: disposeBag)
+
+        wishListButton.rx.tap
+            .bind(to: viewModel.input.wishListButtonTapped)
             .disposed(by: disposeBag)
     }
 }

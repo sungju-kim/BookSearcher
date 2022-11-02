@@ -21,6 +21,8 @@ final class DetailViewModel {
         let didLoadBookInfoViewModel = PublishRelay<BookInfoViewModel>()
         let didLoadRatingViewModel = PublishRelay<RatingViewModel>()
         let didLoadReview = PublishRelay<[ReviewCellViewModel]>()
+
+        let didAddWishList = PublishRelay<Void>()
     }
 
     struct SubViewModels {
@@ -82,6 +84,18 @@ final class DetailViewModel {
             .map { $0.mockReviewList() }
             .map { $0.map { ReviewCellViewModel(review: $0) } }
             .bind(to: output.didLoadReview)
+            .disposed(by: disposebag)
+
+        bindSubViewModel()
+    }
+}
+
+// MARK: - Bind
+
+private extension DetailViewModel {
+    func bindSubViewModel() {
+        subViewModels.buttonViewModel.input.wishListButtonTapped
+            .bind(to: output.didAddWishList)
             .disposed(by: disposebag)
     }
 }

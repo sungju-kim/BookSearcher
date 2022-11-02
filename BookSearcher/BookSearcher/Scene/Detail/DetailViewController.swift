@@ -26,6 +26,22 @@ final class DetailViewController: UIViewController {
         return scrollView
     }()
 
+    private var toastLabel: UILabel {
+        let label = CustomLabel(fontColor: .white, fontSize: 12, fontWeight: .regular)
+        label.frame = CGRect(origin: CGPoint(x: view.frame.midX - (view.frame.width / 4),
+                                             y: view.frame.midY),
+                             size: CGSize(width: view.frame.width / 2,
+                                          height: 30))
+
+        label.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        label.textColor = UIColor.white
+        label.textAlignment = .center
+        label.text = "위시리스트에 추가 되었습니다."
+        label.layer.cornerRadius = 10
+        label.clipsToBounds  =  true
+        return label
+    }
+
     private let contentView = UIView()
 
     private let bannerView = BannerView()
@@ -61,6 +77,17 @@ final class DetailViewController: UIViewController {
     private func returnToSearchView() {
         navigationController?.popViewController(animated: true)
     }
+
+    private func presentToast() {
+        let toastLabel = self.toastLabel
+        view.addSubview(toastLabel)
+
+        UIView.animate(withDuration: 1.0, delay: 0.1) {
+            toastLabel.alpha = 0.0
+        } completion: { _ in
+            toastLabel.removeFromSuperview()
+        }
+    }
 }
 
 // MARK: - Configure
@@ -89,6 +116,10 @@ extension DetailViewController {
         viewModel.output.didLoadReview
             .bind(to: reviewList.rx.items(cellIdentifier: ReviewCell.identifier, cellType: ReviewCell.self)) { _, viewModel, cell in
                 cell.configure(with: viewModel) }
+            .disposed(by: disposeBag)
+
+        viewModel.output.didAddWishList
+            .bind(onNext: presentToast)
             .disposed(by: disposeBag)
 
         navigationView.beforeButton.rx.tap

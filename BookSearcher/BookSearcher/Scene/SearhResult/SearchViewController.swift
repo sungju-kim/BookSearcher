@@ -62,6 +62,7 @@ final class SearchViewController: UIViewController {
     private func showResults(isShown: Bool) {
         resultContainer.isHidden = !isShown
         border.isHidden = isShown
+        view.endEditing(isShown)
     }
 
     private func viewWillDismiss() {
@@ -128,6 +129,25 @@ extension SearchViewController {
             .map { $1 }
             .bind(to: viewModel.input.beforeButtonTapped)
             .disposed(by: disposeBag)
+
+        Observable
+            .merge(
+                NotificationCenter.keyboardWillHideHeight.map { (true, $0) },
+                NotificationCenter.keyboardWillShowHeight.map { (false, $0) }
+            )
+            .withUnretained(self)
+            .bind { viewController, keyboardValue in
+                let (isHidden, value) = keyboardValue
+                let offsetHeight = isHidden ? 0 : viewController.view.safeAreaInsets.bottom
+
+                UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseOut) {
+                    self.resultContainer.snp.updateConstraints {
+                        $0.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).inset(value - offsetHeight)
+                    }
+                    self.resultContainer.superview?.layoutIfNeeded()
+                }
+            }
+            .disposed(by: disposeBag)
     }
 }
 
@@ -149,7 +169,8 @@ private extension SearchViewController {
 
         resultContainer.snp.makeConstraints { make in
             make.top.equalTo(navigationView.snp.bottom)
-            make.leading.trailing.bottom.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
         }
     }
 

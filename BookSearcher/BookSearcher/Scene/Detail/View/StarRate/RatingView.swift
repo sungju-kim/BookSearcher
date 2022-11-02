@@ -17,7 +17,7 @@ final class RatingView: UIView {
 
     private let headerLabel: UILabel = {
         let label = CustomLabel(fontColor: .white, fontSize: 28, fontWeight: .semibold)
-        label.text = "평점 및 리뷰정보"
+        label.text = .Rating.headerText
         return label
     }()
 

@@ -20,8 +20,7 @@ final class StarRateView: UIView {
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         (0...4).forEach { _ in
-            let image = UIImage(systemName: "star")
-            var imageView = UIImageView(image: image)
+            var imageView = UIImageView(image: .Icon.star)
             imageView.contentMode = .scaleAspectFit
             imageView.tintColor = .Custom.starRate
             stackView.addArrangedSubview(imageView)
@@ -34,8 +33,7 @@ final class StarRateView: UIView {
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         (0...4).forEach { _ in
-            let image = UIImage(systemName: "star.fill")
-            var imageView = UIImageView(image: image)
+            var imageView = UIImageView(image: .Icon.filledStar)
             imageView.contentMode = .scaleAspectFit
             stackView.addArrangedSubview(imageView)
         }

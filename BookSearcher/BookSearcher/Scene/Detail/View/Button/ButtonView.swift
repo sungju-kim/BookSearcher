@@ -14,12 +14,12 @@ final class ButtonView: UIView {
 
     private var viewModel: ButtonViewModel?
 
-    private let readButton: UIButton = CustomButton(title: "자세히 보기",
+    private let readButton: UIButton = CustomButton(title: .Button.moveDetail,
                                                      backgroundColor: .clear,
                                                      fontColor: .Custom.buttonBlue)
 
-    private let wishListButton: UIButton = CustomButton(title: "위시리스트에 추가",
-                                                         image: UIImage(systemName: "bookmark.square"),
+    private let wishListButton: UIButton = CustomButton(title: .Button.addWishList,
+                                                        image: .Icon.bookMark,
                                                          backgroundColor: .Custom.buttonBlue,
                                                          fontColor: .Custom.background)
 

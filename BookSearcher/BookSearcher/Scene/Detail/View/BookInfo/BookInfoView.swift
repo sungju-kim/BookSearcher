@@ -16,13 +16,12 @@ final class BookInfoView: UIView {
 
     private let headerLabel: UILabel = {
         let label = CustomLabel(fontColor: .white, fontSize: 28, fontWeight: .semibold)
-        label.text = "Book 정보"
         return label
     }()
 
     private let textLabel: UILabel = {
         let label = CustomLabel(fontColor: .Custom.textGray,
-                                fontSize: 14,
+                                fontSize: 12,
                                 fontWeight: .regular)
         label.numberOfLines = 3
         return label

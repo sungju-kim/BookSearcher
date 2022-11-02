@@ -10,7 +10,7 @@ import UIKit
 final class CustomNavigationView: UIStackView {
     private(set) var beforeButton: UIButton = {
         var configuration = UIButton.Configuration.plain()
-        configuration.image = UIImage(systemName: "chevron.left")
+        configuration.image = .Icon.left
         configuration.baseForegroundColor = .Custom.placeholder
         let button = UIButton(configuration: configuration)
         return button
@@ -20,10 +20,10 @@ final class CustomNavigationView: UIStackView {
         let searchBar = UISearchBar()
         searchBar.backgroundImage = UIImage()
         searchBar.setImage(.init(), for: .search, state: .normal)
-        searchBar.setImage(UIImage(systemName: "xmark"), for: .clear, state: .normal)
+        searchBar.setImage(.Icon.xMark, for: .clear, state: .normal)
         searchBar.searchTextField.tintColor = .Custom.placeholder
         searchBar.searchTextField.backgroundColor = .clear
-        let attribute = NSAttributedString(string: "Play 북에서 검색",
+        let attribute = NSAttributedString(string: .NaigationView.searchBarPlaceholder,
                                           attributes: [NSAttributedString.Key.foregroundColor: UIColor.Custom.placeholder,
                                                        NSAttributedString.Key.font: UIFont.customFont(ofSize: 18, weight: .regular)])
         searchBar.searchTextField.attributedPlaceholder = attribute

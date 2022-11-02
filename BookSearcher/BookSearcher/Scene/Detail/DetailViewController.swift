@@ -36,7 +36,7 @@ final class DetailViewController: UIViewController {
         label.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         label.textColor = UIColor.white
         label.textAlignment = .center
-        label.text = "위시리스트에 추가 되었습니다."
+        label.text = .Toast.addWishList
         label.layer.cornerRadius = 10
         label.clipsToBounds  =  true
         return label

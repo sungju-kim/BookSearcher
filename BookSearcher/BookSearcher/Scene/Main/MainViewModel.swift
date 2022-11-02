@@ -19,7 +19,7 @@ final class MainViewModel {
 
     struct Output {
         let loadedData = PublishRelay<[MostSoldViewModel]>()
-        let selectedMenu = BehaviorRelay<ItemType>(value: .eBook)
+        let selectedMenu = BehaviorRelay<ItemType>(value: .book)
         let didLoadSearchViewModel = PublishRelay<SearchViewModel>()
         let showSearchView = PublishRelay<Void>()
         let dismissSearchView = PublishRelay<Void>()

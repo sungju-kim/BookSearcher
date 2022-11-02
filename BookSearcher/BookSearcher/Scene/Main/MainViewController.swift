@@ -22,10 +22,10 @@ final class MainViewController: UIViewController {
                                             bottom: Constraint.regular,
                                             trailing: Constraint.regular)
 
-        configuration.image = UIImage(systemName: "magnifyingglass")
+        configuration.image = .Icon.magnifyingGlass
         configuration.imagePadding = Constraint.semiRegular
 
-        var titleAttribute: AttributedString = .init("Play 북에서 검색")
+        var titleAttribute = AttributedString(stringLiteral: .NaigationView.searchBarPlaceholder)
         titleAttribute.font = .customFont(ofSize: 18,
                                           weight: .regular)
 
@@ -52,7 +52,7 @@ final class MainViewController: UIViewController {
 
     private let moreButton: UIButton = {
         var configuration = UIButton.Configuration.plain()
-        configuration.image = UIImage(systemName: "chevron.right")
+        configuration.image = .Icon.right
         configuration.baseForegroundColor = .Custom.selectedItem
         let button = UIButton(configuration: configuration)
         return button

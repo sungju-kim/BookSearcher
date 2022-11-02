@@ -25,11 +25,11 @@ final class MenuBar: UIView {
                                        rightSegmentState: .normal,
                                        barMetrics: .default)
 
-        segmentControl.insertSegment(withTitle: "ebook",
+        segmentControl.insertSegment(withTitle: ItemType.book.text,
                                      at: 0,
                                      animated: true)
 
-        segmentControl.insertSegment(withTitle: "오디오북",
+        segmentControl.insertSegment(withTitle: ItemType.music.text,
                                      at: 1,
                                      animated: true)
 

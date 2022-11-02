@@ -63,12 +63,12 @@ extension Review {
 }
 
 enum ItemType: Int, CaseIterable {
-    case eBook
+    case book
     case music
 
     var text: String {
         switch self {
-        case .eBook:
+        case .book:
             return "Book"
         case .music:
             return "Music"
@@ -77,8 +77,8 @@ enum ItemType: Int, CaseIterable {
 
     var title: String {
         switch self {
-        case .eBook:
-            return "최다 판매 eBook"
+        case .book:
+            return "최다 판매 Book"
         case .music:
             return "최다 판매 음반"
         }

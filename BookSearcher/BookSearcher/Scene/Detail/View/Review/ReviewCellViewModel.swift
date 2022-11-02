@@ -26,7 +26,7 @@ final class ReviewCellViewModel {
     }
 
     @Injector(keypath: \.repository)
-    var repository: Repository
+    private var repository: Repository
 
     let input = Input()
     let output = Output()

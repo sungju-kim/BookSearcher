@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 
 final class ButtonView: UIView {
-    private var disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
 
     private var viewModel: ButtonViewModel?
 

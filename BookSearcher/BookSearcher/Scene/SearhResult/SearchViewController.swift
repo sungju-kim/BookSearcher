@@ -15,7 +15,7 @@ final class SearchViewController: UIViewController {
 
     private var viewModel: SearchViewModel?
 
-    private lazy var navigationView = CustomNavigationView()
+    private let navigationView = CustomNavigationView()
 
     private let menuBar = MenuBar()
 

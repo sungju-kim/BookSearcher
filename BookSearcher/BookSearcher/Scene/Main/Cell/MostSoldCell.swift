@@ -12,6 +12,8 @@ import SnapKit
 final class MostSoldCell: UICollectionViewCell {
     private var disposeBag = DisposeBag()
 
+    private var viewModel: MostSoldViewModel?
+
     static var identifier: String {
         return "\(self)"
     }
@@ -72,6 +74,8 @@ final class MostSoldCell: UICollectionViewCell {
 
 extension MostSoldCell {
     func configure(with viewModel: MostSoldViewModel) {
+        self.viewModel = viewModel
+
         viewModel.output.didLoadImage
             .map { UIImage(data: $0) }
             .bind(to: imageView.rx.image)

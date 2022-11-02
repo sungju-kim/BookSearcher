@@ -12,6 +12,7 @@ import RxRelay
 
 final class BookInfoViewModel {
     private let disposeBag = DisposeBag()
+
     struct Input {
         let cellDidLoad = PublishRelay<Void>()
     }

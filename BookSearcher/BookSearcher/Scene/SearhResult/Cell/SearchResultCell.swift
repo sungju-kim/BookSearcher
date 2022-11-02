@@ -16,6 +16,8 @@ final class SearchResultCell: UICollectionViewCell {
 
     private var disposeBag = DisposeBag()
 
+    private var viewModel: SearchResultCell?
+
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleToFill
@@ -117,6 +119,8 @@ final class SearchResultCell: UICollectionViewCell {
 
 extension SearchResultCell {
     func configure(with viewModel: SearchResultViewModel) {
+        self.viewModel = viewModel
+
         viewModel.output.didLoadImage
             .map { UIImage(data: $0) }
             .bind(to: imageView.rx.image)

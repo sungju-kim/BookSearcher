@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 
 final class BookInfoView: UIView {
-    private var disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
 
     private var viewModel: BookInfoViewModel?
 
@@ -22,7 +22,7 @@ final class BookInfoView: UIView {
 
     private let textLabel: UILabel = {
         let label = CustomLabel(fontColor: .Custom.textGray,
-                                fontSize: 12,
+                                fontSize: 14,
                                 fontWeight: .regular)
         label.numberOfLines = 3
         return label

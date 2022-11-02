@@ -55,7 +55,6 @@ final class RatingViewModel {
             .disposed(by: disposeBag)
 
         Observable.zip(output.didLoadRate.map { _ in },
-                        output.didLoadRate.map { _ in },
                         output.didLoadStarRate.map { _ in },
                         output.didLoadRateCount.map { _ in },
                         output.didLoadReviewRatio.map { _ in })

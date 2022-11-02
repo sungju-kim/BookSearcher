@@ -11,7 +11,7 @@ import RxCocoa
 import SnapKit
 
 final class RatingView: UIView {
-    private var disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
 
     private var viewModel: RatingViewModel?
 

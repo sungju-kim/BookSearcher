@@ -12,6 +12,7 @@ import RxRelay
 
 final class ButtonViewModel {
     private let disposeBag = DisposeBag()
+
     struct Input {
         let linkButtonTapped = PublishRelay<Void>()
         let wishListButtonTapped = PublishRelay<Void>()

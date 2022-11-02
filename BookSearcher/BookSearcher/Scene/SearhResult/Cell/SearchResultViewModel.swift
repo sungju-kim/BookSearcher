@@ -10,6 +10,8 @@ import RxSwift
 import RxRelay
 
 final class SearchResultViewModel {
+    private let disposeBag = DisposeBag()
+
     struct Input {
         let cellDidLoad = PublishRelay<Void>()
     }
@@ -22,7 +24,6 @@ final class SearchResultViewModel {
         let didLoadRate = PublishRelay<String>()
         let starLabelIsHidden = PublishRelay<Bool>()
     }
-    private let disposeBag = DisposeBag()
 
     @Injector(keypath: \.repository)
     private var repository: Repository

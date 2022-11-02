@@ -11,6 +11,7 @@ import RxRelay
 
 final class BannerViewModel {
     private let disposeBag = DisposeBag()
+
     struct Input {
         let viewDidLoad = PublishRelay<Void>()
     }

@@ -10,11 +10,11 @@ import RxSwift
 import RxCocoa
 
 final class BannerView: UIView {
-    private var disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
 
     private var viewModel: BannerViewModel?
 
-    private(set) var imageView: UIImageView = {
+    private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleToFill
         imageView.layer.cornerRadius = 5
@@ -23,7 +23,7 @@ final class BannerView: UIView {
         return imageView
     }()
 
-    private(set) lazy var titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = CustomLabel(fontColor: .white,
                                 fontSize: 28,
                                 fontWeight: .semibold)
@@ -32,7 +32,7 @@ final class BannerView: UIView {
         return label
     }()
 
-    private(set) var authorLabel: UILabel = {
+    private let authorLabel: UILabel = {
         let label = CustomLabel(fontColor: .Custom.textGray,
                                 fontSize: 14,
                                 fontWeight: .regular)
@@ -40,7 +40,7 @@ final class BannerView: UIView {
         return label
     }()
 
-    private(set) var informationLabel: UILabel = {
+    private let informationLabel: UILabel = {
         let label = CustomLabel(fontColor: .Custom.textGray,
                                 fontSize: 14,
                                 fontWeight: .regular)

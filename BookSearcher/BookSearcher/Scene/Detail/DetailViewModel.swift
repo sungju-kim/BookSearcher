@@ -46,10 +46,12 @@ final class DetailViewModel {
             .share()
 
         let bookInfoSectionViewModel = loadedData
-            .compactMap { $0.itemDescription }
-            .filter { $0 != ""}
-            .map { [BookInfoCellViewModel(text: $0)] }
-            .map { BookInfoSectionViewModel(headerText: "eBook 정보", cellViewModels: $0) }
+            .map { [$0.mallType, $0.itemDescription] }
+            .compactMap { $0 as? [String] }
+            .filter { $0[1] != ""}
+            .map {
+                BookInfoSectionViewModel(headerText: "\($0[0]) 정보",
+                                         cellViewModels: [BookInfoCellViewModel(text: $0[1])]) }
             .map { (SectionType.bookInfo, $0 as any SectionViewModel) }
             .share()
 

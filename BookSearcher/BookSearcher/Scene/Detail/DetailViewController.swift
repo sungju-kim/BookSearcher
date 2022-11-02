@@ -156,9 +156,8 @@ private extension DetailViewController {
         scrollView.addSubview(contentView)
 
         contentView.snp.makeConstraints { make in
-            make.edges.equalTo(scrollView.contentLayoutGuide)
+            make.top.leading.trailing.equalTo(scrollView.contentLayoutGuide)
             make.width.equalTo(scrollView.frameLayoutGuide)
-            make.height.equalTo(1000)
         }
     }
 
@@ -203,7 +202,13 @@ private extension DetailViewController {
         reviewList.snp.makeConstraints { make in
             make.top.equalTo(ratingView.snp.bottom).offset(Constraint.regular)
             make.leading.trailing.equalToSuperview()
+            make.height.lessThanOrEqualTo(300)
             make.bottom.equalToSuperview()
+        }
+
+        scrollView.contentLayoutGuide.snp.makeConstraints { make in
+            make.top.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(reviewList)
         }
     }
 

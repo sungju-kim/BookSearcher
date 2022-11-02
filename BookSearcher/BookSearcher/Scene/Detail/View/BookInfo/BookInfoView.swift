@@ -14,6 +14,12 @@ final class BookInfoView: UIView {
 
     private var viewModel: BookInfoViewModel?
 
+    private let headerLabel: UILabel = {
+        let label = CustomLabel(fontColor: .white, fontSize: 28, fontWeight: .semibold)
+        label.text = "Book 정보"
+        return label
+    }()
+
     private let textLabel: UILabel = {
         let label = CustomLabel(fontColor: .Custom.textGray,
                                 fontSize: 12,
@@ -25,12 +31,16 @@ final class BookInfoView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
+        self.isHidden = true
+        layoutHeaderLabel()
         layoutTextLabel()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
 
+        self.isHidden = true
+        layoutHeaderLabel()
         layoutTextLabel()
     }
 }
@@ -44,6 +54,10 @@ extension BookInfoView {
             .bind(to: textLabel.rx.text)
             .disposed(by: disposeBag)
 
+        viewModel.output.isDataHidden
+            .bind(to: self.rx.isHidden)
+            .disposed(by: disposeBag)
+
         viewModel.input.cellDidLoad.accept(())
     }
 }
@@ -51,11 +65,21 @@ extension BookInfoView {
 // MARK: - Layout Section
 
 private extension BookInfoView {
+    func layoutHeaderLabel() {
+        addSubview(headerLabel)
+
+        headerLabel.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(Constraint.regular)
+            make.top.equalToSuperview().inset(Constraint.semiMax)
+        }
+    }
+
     func layoutTextLabel() {
         addSubview(textLabel)
 
         textLabel.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(Constraint.regular)
+            make.top.equalTo(headerLabel.snp.bottom).offset(Constraint.regular)
+            make.leading.trailing.bottom.equalToSuperview().inset(Constraint.regular)
         }
     }
 }

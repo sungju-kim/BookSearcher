@@ -17,6 +17,7 @@ final class BookInfoViewModel {
     }
 
     struct Output {
+        let isDataHidden = BehaviorRelay<Bool>(value: true)
         let didLoadText = PublishRelay<String>()
     }
 
@@ -24,9 +25,17 @@ final class BookInfoViewModel {
     let output = Output()
 
     func configure(with text: String) -> BookInfoViewModel {
-        input.cellDidLoad
+        let validText = input.cellDidLoad
             .compactMap { text }
+            .share()
+
+        validText
             .bind(to: output.didLoadText)
+            .disposed(by: disposeBag)
+
+        validText
+            .map { $0 == "" }
+            .bind(to: output.isDataHidden)
             .disposed(by: disposeBag)
 
         return self

@@ -1,5 +1,5 @@
 //
-//  StarRateCell.swift
+//  RatingView.swift
 //  BookSearcher
 //
 //  Created by dale on 2022/10/31.
@@ -10,14 +10,10 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-final class StarRateCell: UICollectionViewCell {
+final class RatingView: UIView {
     private var disposeBag = DisposeBag()
 
-    private var viewModel: StarRateCellViewModel?
-
-    static var identifier: String {
-        return "\(self)"
-    }
+    private var viewModel: RatingViewModel?
 
     private let ratingLabel: UILabel = {
         let label = CustomLabel(fontColor: .white, fontSize: 60, fontWeight: .bold)
@@ -48,6 +44,7 @@ final class StarRateCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
+        self.isHidden = true
         layoutLeftContainer()
         layoutRateCountView()
     }
@@ -55,14 +52,15 @@ final class StarRateCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
 
+        self.isHidden = true
         layoutLeftContainer()
         layoutRateCountView()
     }
 }
 
 // MARK: - Configure
-extension StarRateCell {
-    func configure(with viewModel: StarRateCellViewModel) {
+extension RatingView {
+    func configure(with viewModel: RatingViewModel) {
         self.viewModel = viewModel
 
         viewModel.output.didLoadRate
@@ -81,15 +79,19 @@ extension StarRateCell {
             .bind(onNext: starRateView.configure)
             .disposed(by: disposeBag)
 
+        viewModel.output.isDataHidden
+            .bind(to: self.rx.isHidden)
+            .disposed(by: disposeBag)
+
         viewModel.input.cellDidLoad.accept(())
     }
 }
 
 // MARK: - Layout Section
 
-private extension StarRateCell {
+private extension RatingView {
     func layoutLeftContainer() {
-        contentView.addSubview(leftContainer)
+        addSubview(leftContainer)
 
         leftContainer.snp.makeConstraints { make in
             make.leading.top.bottom.equalToSuperview().inset(Constraint.regular)
@@ -97,7 +99,7 @@ private extension StarRateCell {
     }
 
     func layoutRateCountView() {
-        contentView.addSubview(rateCountView)
+        addSubview(rateCountView)
 
         rateCountView.snp.makeConstraints { make in
             make.leading.equalTo(leftContainer.snp.trailing).offset(Constraint.regular)

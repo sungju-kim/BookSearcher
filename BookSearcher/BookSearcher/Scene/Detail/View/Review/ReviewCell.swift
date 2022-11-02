@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-final class ReviewCell: UICollectionViewCell {
+final class ReviewCell: UITableViewCell {
     private var disposeBag = DisposeBag()
 
     private var viewModel: ReviewCellViewModel?
@@ -19,7 +19,7 @@ final class ReviewCell: UICollectionViewCell {
         return "\(self)"
     }
 
-    private let imageView: UIImageView = {
+    private let userImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.backgroundColor = .Custom.textGray
@@ -63,9 +63,10 @@ final class ReviewCell: UICollectionViewCell {
         return stackView
     }()
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
 
+        backgroundColor = .clear
         layoutImageView()
         layoutContainer()
     }
@@ -73,6 +74,7 @@ final class ReviewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
 
+        backgroundColor = .clear
         layoutImageView()
         layoutContainer()
     }
@@ -80,7 +82,7 @@ final class ReviewCell: UICollectionViewCell {
     override func draw(_ rect: CGRect) {
         super.draw(rect)
 
-        imageView.layer.cornerRadius = imageView.frame.height / 2
+        userImageView.layer.cornerRadius = userImageView.frame.height / 2
     }
 
     override func prepareForReuse() {
@@ -97,7 +99,7 @@ extension ReviewCell {
 
         viewModel.output.didLoadImage
             .compactMap { UIImage(data: $0) }
-            .bind(to: imageView.rx.image)
+            .bind(to: userImageView.rx.image)
             .disposed(by: disposeBag)
 
         viewModel.output.didLoadName
@@ -124,9 +126,9 @@ extension ReviewCell {
 
 private extension ReviewCell {
     func layoutImageView() {
-        contentView.addSubview(imageView)
+        contentView.addSubview(userImageView)
 
-        imageView.snp.makeConstraints { make in
+        userImageView.snp.makeConstraints { make in
             make.width.height.equalTo(50)
             make.top.leading.equalToSuperview().inset(Constraint.regular)
         }
@@ -136,7 +138,7 @@ private extension ReviewCell {
         contentView.addSubview(container)
 
         container.snp.makeConstraints { make in
-            make.leading.equalTo(imageView.snp.trailing).offset(Constraint.regular)
+            make.leading.equalTo(userImageView.snp.trailing).offset(Constraint.regular)
             make.top.bottom.trailing.equalToSuperview().inset(Constraint.regular)
         }
     }

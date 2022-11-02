@@ -60,7 +60,7 @@ final class RangeView: UIView {
 
 extension RangeView {
     func configure(rate: Double) {
-        foregroundView.snp.remakeConstraints() { make in
+        foregroundView.snp.remakeConstraints { make in
             make.leading.equalTo(rateLabel.snp.trailing).offset(Constraint.regular)
             make.top.bottom.equalToSuperview().inset(Constraint.min / 1.5)
             make.width.equalTo(backgroundView).multipliedBy(rate)

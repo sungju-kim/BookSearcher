@@ -1,5 +1,5 @@
 //
-//  BookInfoCell.swift
+//  BookInfoView.swift
 //  BookSearcher
 //
 //  Created by dale on 2022/10/31.
@@ -9,14 +9,10 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-final class BookInfoCell: UICollectionViewCell {
+final class BookInfoView: UIView {
     private var disposeBag = DisposeBag()
 
-    private var viewModel: BookInfoCellViewModel?
-
-    static var identifier: String {
-        return "\(self)"
-    }
+    private var viewModel: BookInfoViewModel?
 
     private let textLabel: UILabel = {
         let label = CustomLabel(fontColor: .Custom.textGray,
@@ -37,17 +33,11 @@ final class BookInfoCell: UICollectionViewCell {
 
         layoutTextLabel()
     }
-
-    override func prepareForReuse() {
-        super.prepareForReuse()
-
-        disposeBag = DisposeBag()
-    }
 }
 
 // MARK: - Configure
-extension BookInfoCell {
-    func configure(with viewModel: BookInfoCellViewModel) {
+extension BookInfoView {
+    func configure(with viewModel: BookInfoViewModel) {
         self.viewModel = viewModel
 
         viewModel.output.didLoadText
@@ -60,9 +50,9 @@ extension BookInfoCell {
 
 // MARK: - Layout Section
 
-private extension BookInfoCell {
+private extension BookInfoView {
     func layoutTextLabel() {
-        contentView.addSubview(textLabel)
+        addSubview(textLabel)
 
         textLabel.snp.makeConstraints { make in
             make.edges.equalToSuperview().inset(Constraint.regular)

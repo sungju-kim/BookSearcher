@@ -1,5 +1,5 @@
 //
-//  BannerCell.swift
+//  BannerView.swift
 //  BookSearcher
 //
 //  Created by dale on 2022/10/31.
@@ -9,14 +9,11 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-final class BannerCell: UICollectionViewCell {
+final class BannerView: UIView {
     private var disposeBag = DisposeBag()
 
-    private var viewModel: BannerCellViewModel?
+    private var viewModel: BannerViewModel?
 
-    static var identifier: String {
-        return "\(self)"
-    }
     private(set) var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleToFill
@@ -82,18 +79,12 @@ final class BannerCell: UICollectionViewCell {
         layoutLabelContainer()
         layoutBorder()
     }
-
-    override func prepareForReuse() {
-        super.prepareForReuse()
-
-        disposeBag = DisposeBag()
-    }
 }
 
 // MARK: - Configure
 
-extension BannerCell {
-    func configure(with viewModel: BannerCellViewModel) {
+extension BannerView {
+    func configure(with viewModel: BannerViewModel) {
         self.viewModel = viewModel
 
         viewModel.output.didLoadImage
@@ -113,15 +104,15 @@ extension BannerCell {
             .bind(to: informationLabel.rx.text)
             .disposed(by: disposeBag)
 
-        viewModel.input.cellDidLoad.accept(())
+        viewModel.input.viewDidLoad.accept(())
     }
 }
 
 // MARK: - Layout Section
 
-private extension BannerCell {
+private extension BannerView {
     func layoutImageView() {
-        contentView.addSubview(imageView)
+        addSubview(imageView)
 
         imageView.snp.makeConstraints { make in
             make.width.equalTo(120)
@@ -132,7 +123,7 @@ private extension BannerCell {
     }
 
     func layoutLabelContainer() {
-        contentView.addSubview(labelContainer)
+        addSubview(labelContainer)
 
         labelContainer.snp.makeConstraints { make in
             make.top.trailing.equalToSuperview().inset(Constraint.regular)
@@ -142,7 +133,7 @@ private extension BannerCell {
     }
 
     func layoutBorder() {
-        contentView.addSubview(border)
+        addSubview(border)
 
         border.snp.makeConstraints { make in
             make.leading.trailing.bottom.equalToSuperview()

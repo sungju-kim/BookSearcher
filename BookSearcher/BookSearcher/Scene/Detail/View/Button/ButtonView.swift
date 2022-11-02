@@ -1,5 +1,5 @@
 //
-//  ButtonCell.swift
+//  ButtonView.swift
 //  BookSearcher
 //
 //  Created by dale on 2022/10/31.
@@ -9,14 +9,10 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-final class ButtonCell: UICollectionViewCell {
+final class ButtonView: UIView {
     private var disposeBag = DisposeBag()
 
-    private var viewModel: ButtonCellViewModel?
-
-    static var identifier: String {
-        return "\(self)"
-    }
+    private var viewModel: ButtonViewModel?
 
     private let readButton: UIButton = CustomButton(title: "샘플 읽기",
                                                      backgroundColor: .clear,
@@ -54,17 +50,11 @@ final class ButtonCell: UICollectionViewCell {
         layoutButtonContainer()
         layoutBorder()
     }
-
-    override func prepareForReuse() {
-        super.prepareForReuse()
-
-        disposeBag = DisposeBag()
-    }
 }
 
 // MARK: - Configure
-extension ButtonCell {
-    func configure(with viewModel: ButtonCellViewModel) {
+extension ButtonView {
+    func configure(with viewModel: ButtonViewModel) {
         self.viewModel = viewModel
 
         readButton.rx.tap
@@ -75,9 +65,9 @@ extension ButtonCell {
 
 // MARK: - Layout Section
 
-private extension ButtonCell {
+private extension ButtonView {
     func layoutButtonContainer() {
-        contentView.addSubview(buttonContainer)
+        addSubview(buttonContainer)
 
         buttonContainer.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(Constraint.regular)
@@ -86,7 +76,7 @@ private extension ButtonCell {
     }
 
     func layoutBorder() {
-        contentView.addSubview(border)
+        addSubview(border)
 
         border.snp.makeConstraints { make in
             make.top.equalTo(buttonContainer.snp.bottom).offset(Constraint.regular)

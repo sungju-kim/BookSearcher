@@ -10,7 +10,7 @@ import RxSwift
 import RxRelay
 import RxCocoa
 
-final class StarRateCellViewModel: CellViewModel {
+final class RatingViewModel {
     private let disposeBag = DisposeBag()
 
     struct Input {
@@ -18,6 +18,7 @@ final class StarRateCellViewModel: CellViewModel {
     }
 
     struct Output {
+        let isDataHidden = BehaviorRelay<Bool>(value: true)
         let didLoadRate = PublishRelay<String>()
         let didLoadStarRate = PublishRelay<Double>()
         let didLoadRateCount = PublishRelay<String>()
@@ -27,7 +28,7 @@ final class StarRateCellViewModel: CellViewModel {
     let input = Input()
     let output = Output()
 
-    init(ratingInfo: RatingInfo, reviewList: [Review]) {
+    func configure(with ratingInfo: RatingInfo, and reviewList: [Review]) -> RatingViewModel {
         input.cellDidLoad
             .compactMap { ratingInfo.ratingScore }
             .map { round($0 * 5) / 10 }
@@ -53,6 +54,16 @@ final class StarRateCellViewModel: CellViewModel {
             .bind(to: output.didLoadReviewRatio)
             .disposed(by: disposeBag)
 
+        Observable.zip(output.didLoadRate.map { _ in },
+                        output.didLoadRate.map { _ in },
+                        output.didLoadStarRate.map { _ in },
+                        output.didLoadRateCount.map { _ in },
+                        output.didLoadReviewRatio.map { _ in })
+        .map { _ in false }
+        .bind(to: output.isDataHidden)
+        .disposed(by: disposeBag)
+
+        return self
     }
 
     private func getRatio(totalCount: Int?, reviews: [Review]?) -> [Int: Double] {

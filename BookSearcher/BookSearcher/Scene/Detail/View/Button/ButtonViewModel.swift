@@ -1,5 +1,5 @@
 //
-//  ButtonCellViewModel.swift
+//  ButtonViewModel.swift
 //  BookSearcher
 //
 //  Created by dale on 2022/11/01.
@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 import RxRelay
 
-final class ButtonCellViewModel: CellViewModel {
+final class ButtonViewModel {
     private let disposeBag = DisposeBag()
     struct Input {
         let linkButtonTapped = PublishRelay<Void>()
@@ -23,11 +23,13 @@ final class ButtonCellViewModel: CellViewModel {
     let input = Input()
     let output = Output()
 
-    init(link: String) {
+    func configure(with link: String) -> ButtonViewModel {
         input.linkButtonTapped
             .compactMap { link }
             .compactMap { URL(string: $0) }
             .bind(to: output.prepareForPresent)
             .disposed(by: disposeBag)
+
+        return self
     }
 }

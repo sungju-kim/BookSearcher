@@ -100,8 +100,6 @@ extension BannerView {
         viewModel.output.didLoadInfo
             .bind(to: informationLabel.rx.text)
             .disposed(by: disposeBag)
-
-        viewModel.input.viewDidLoad.accept(())
     }
 }
 

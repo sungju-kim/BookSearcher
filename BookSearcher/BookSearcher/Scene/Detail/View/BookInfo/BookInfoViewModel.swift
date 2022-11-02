@@ -14,31 +14,32 @@ final class BookInfoViewModel {
     private let disposeBag = DisposeBag()
 
     struct Input {
-        let cellDidLoad = PublishRelay<Void>()
+        let updateHeader = PublishRelay<String>()
+        let updateText = PublishRelay<String>()
     }
 
     struct Output {
         let isDataHidden = BehaviorRelay<Bool>(value: true)
+        let didLoadHeader = PublishRelay<String>()
         let didLoadText = PublishRelay<String>()
     }
 
     let input = Input()
     let output = Output()
 
-    func configure(with text: String) -> BookInfoViewModel {
-        let validText = input.cellDidLoad
-            .compactMap { text }
-            .share()
-
-        validText
+    init() {
+        input.updateText
             .bind(to: output.didLoadText)
             .disposed(by: disposeBag)
 
-        validText
-            .map { $0 == "" }
+        input.updateText
+            .map { $0.isEmpty }
             .bind(to: output.isDataHidden)
             .disposed(by: disposeBag)
 
-        return self
+        input.updateHeader
+            .map { "\($0) 정보" }
+            .bind(to: output.didLoadHeader)
+            .disposed(by: disposeBag)
     }
 }

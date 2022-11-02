@@ -16,7 +16,7 @@ final class SearchResultCell: UICollectionViewCell {
 
     private var disposeBag = DisposeBag()
 
-    private var viewModel: SearchResultCell?
+    private var viewModel: SearchResultViewModel?
 
     private let imageView: UIImageView = {
         let imageView = UIImageView()

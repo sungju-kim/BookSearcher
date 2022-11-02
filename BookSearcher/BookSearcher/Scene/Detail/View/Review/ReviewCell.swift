@@ -67,6 +67,7 @@ final class ReviewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         backgroundColor = .clear
+        selectionStyle = .none
         layoutImageView()
         layoutContainer()
     }
@@ -75,6 +76,7 @@ final class ReviewCell: UITableViewCell {
         super.init(coder: coder)
 
         backgroundColor = .clear
+        selectionStyle = .none
         layoutImageView()
         layoutContainer()
     }

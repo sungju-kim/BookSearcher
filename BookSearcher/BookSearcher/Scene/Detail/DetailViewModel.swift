@@ -16,12 +16,8 @@ final class DetailViewModel {
     }
 
     struct Output {
-        let didLoadBannerViewModel = PublishRelay<BannerViewModel>()
-        let didLoadButtonViewModel = PublishRelay<ButtonViewModel>()
-        let didLoadBookInfoViewModel = PublishRelay<BookInfoViewModel>()
-        let didLoadRatingViewModel = PublishRelay<RatingViewModel>()
         let didLoadReview = PublishRelay<[ReviewCellViewModel]>()
-
+        let openURL = PublishRelay<URL>()
         let didAddWishList = PublishRelay<Void>()
     }
 
@@ -37,7 +33,7 @@ final class DetailViewModel {
 
     let input = Input()
     let output = Output()
-    private let subViewModels = SubViewModels()
+    let subViewModels = SubViewModels()
 
     init(itemId: String) {
         let item = input.viewDidLoad
@@ -48,54 +44,39 @@ final class DetailViewModel {
             .share()
 
         item
-            .withUnretained(self)
-            .map { ($0.subViewModels.bannerViewModel, $1) }
-            .map { $0.configure(with: $1) }
-            .bind(to: output.didLoadBannerViewModel)
+            .bind(to: subViewModels.bannerViewModel.input.updateItem)
             .disposed(by: disposebag)
 
         item
-            .compactMap { $0.link }
-            .withUnretained(self)
-            .map { ($0.subViewModels.buttonViewModel, $1) }
-            .map { $0.configure(with: $1) }
-            .bind(to: output.didLoadButtonViewModel)
+            .compactMap { $0.subInfo }
+            .bind(to: subViewModels.ratingViewModel.input.updateRating)
+            .disposed(by: disposebag)
+
+        item
+            .compactMap { $0.mallType }
+            .bind(to: subViewModels.bookInfoViewModel.input.updateHeader)
             .disposed(by: disposebag)
 
         item
             .compactMap { $0.itemDescription }
-            .withUnretained(self)
-            .map { ($0.subViewModels.bookInfoViewModel, $1) }
-            .map { $0.configure(with: $1) }
-            .bind(to: output.didLoadBookInfoViewModel)
+            .bind(to: subViewModels.bookInfoViewModel.input.updateText)
             .disposed(by: disposebag)
-        let subInfo = item
+        item
             .compactMap { $0.subInfo }
-            .share()
-
-        Observable.zip( subInfo.compactMap { $0.ratingInfo }, subInfo.map { $0.mockReviewList() })
-            .withUnretained(self)
-            .map { ($0.subViewModels.ratingViewModel, $1.0, $1.1) }
-            .map { $0.configure(with: $1, and: $2)}
-            .bind(to: output.didLoadRatingViewModel)
-            .disposed(by: disposebag)
-
-        subInfo
             .map { $0.mockReviewList() }
             .map { $0.map { ReviewCellViewModel(review: $0) } }
             .bind(to: output.didLoadReview)
             .disposed(by: disposebag)
 
-        bindSubViewModel()
-    }
-}
-
-// MARK: - Bind
-
-private extension DetailViewModel {
-    func bindSubViewModel() {
         subViewModels.buttonViewModel.input.wishListButtonTapped
-            .bind(to: output.didAddWishList)
+                    .bind(to: output.didAddWishList)
+                    .disposed(by: disposebag)
+
+        subViewModels.buttonViewModel.input.linkButtonTapped
+            .withLatestFrom(item)
+            .compactMap { $0.link }
+            .compactMap { URL(string: $0) }
+            .bind(to: output.openURL)
             .disposed(by: disposebag)
     }
 }

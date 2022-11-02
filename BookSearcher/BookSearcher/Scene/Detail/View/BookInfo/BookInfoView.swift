@@ -50,6 +50,10 @@ extension BookInfoView {
     func configure(with viewModel: BookInfoViewModel) {
         self.viewModel = viewModel
 
+        viewModel.output.didLoadHeader
+            .bind(to: headerLabel.rx.text)
+            .disposed(by: disposeBag)
+
         viewModel.output.didLoadText
             .bind(to: textLabel.rx.text)
             .disposed(by: disposeBag)
@@ -57,8 +61,6 @@ extension BookInfoView {
         viewModel.output.isDataHidden
             .bind(to: self.rx.isHidden)
             .disposed(by: disposeBag)
-
-        viewModel.input.cellDidLoad.accept(())
     }
 }
 

@@ -80,18 +80,18 @@ extension RatingView {
             .disposed(by: disposeBag)
 
         viewModel.output.didLoadReviewRatio
+            .observe(on: MainScheduler.instance)
             .bind(onNext: rateCountView.configure)
             .disposed(by: disposeBag)
 
         viewModel.output.didLoadStarRate
+            .observe(on: MainScheduler.instance)
             .bind(onNext: starRateView.configure)
             .disposed(by: disposeBag)
 
         viewModel.output.isDataHidden
             .bind(to: self.rx.isHidden)
             .disposed(by: disposeBag)
-
-        viewModel.input.cellDidLoad.accept(())
     }
 }
 

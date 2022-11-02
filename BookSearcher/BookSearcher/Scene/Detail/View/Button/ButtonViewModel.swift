@@ -18,20 +18,5 @@ final class ButtonViewModel {
         let wishListButtonTapped = PublishRelay<Void>()
     }
 
-    struct Output {
-        let prepareForPresent = PublishRelay<URL>()
-    }
-
     let input = Input()
-    let output = Output()
-
-    func configure(with link: String) -> ButtonViewModel {
-        input.linkButtonTapped
-            .compactMap { link }
-            .compactMap { URL(string: $0) }
-            .bind(to: output.prepareForPresent)
-            .disposed(by: disposeBag)
-
-        return self
-    }
 }

@@ -13,7 +13,7 @@ final class BannerViewModel {
     private let disposeBag = DisposeBag()
 
     struct Input {
-        let viewDidLoad = PublishRelay<Void>()
+        let updateItem = PublishRelay<Item>()
     }
 
     struct Output {
@@ -29,28 +29,26 @@ final class BannerViewModel {
     let input = Input()
     let output = Output()
 
-    func configure(with item: Item) -> BannerViewModel {
-        input.viewDidLoad
-            .compactMap { item.imageURL }
+    init() {
+        input.updateItem
+            .compactMap { $0.imageURL }
             .flatMapLatest(repository.downLoadImage)
             .bind(to: output.didLoadImage)
             .disposed(by: disposeBag)
 
-        input.viewDidLoad
-            .compactMap { item.title}
+        input.updateItem
+            .compactMap { $0.title }
             .bind(to: output.didLoadTitle)
             .disposed(by: disposeBag)
 
-        input.viewDidLoad
-            .compactMap { item.author }
+        input.updateItem
+            .compactMap { $0.author }
             .bind(to: output.didLoadAuthor)
             .disposed(by: disposeBag)
 
-        input.viewDidLoad
-            .compactMap { item.mallType }
+        input.updateItem
+            .compactMap { $0.mallType }
             .bind(to: output.didLoadInfo)
             .disposed(by: disposeBag)
-
-        return self
     }
 }

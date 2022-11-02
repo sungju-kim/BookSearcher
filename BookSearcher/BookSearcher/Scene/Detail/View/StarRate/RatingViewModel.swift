@@ -14,7 +14,7 @@ final class RatingViewModel {
     private let disposeBag = DisposeBag()
 
     struct Input {
-        let cellDidLoad = PublishRelay<Void>()
+        let updateRating = PublishRelay<SubInfo>()
     }
 
     struct Output {
@@ -28,28 +28,28 @@ final class RatingViewModel {
     let input = Input()
     let output = Output()
 
-    func configure(with ratingInfo: RatingInfo, and reviewList: [Review]) -> RatingViewModel {
-        input.cellDidLoad
-            .compactMap { ratingInfo.ratingScore }
+    init() {
+        input.updateRating
+            .compactMap { $0.ratingInfo?.ratingScore}
             .map { round($0 * 5) / 10 }
             .map { String($0) }
             .bind(to: output.didLoadRate)
             .disposed(by: disposeBag)
 
-        input.cellDidLoad
-            .compactMap { ratingInfo.ratingScore }
+        input.updateRating
+            .compactMap { $0.ratingInfo?.ratingScore }
             .map { $0/10 }
             .bind(to: output.didLoadStarRate)
             .disposed(by: disposeBag)
 
-        input.cellDidLoad
-            .compactMap { ratingInfo.ratingCount }
+        input.updateRating
+            .compactMap { $0.ratingInfo?.ratingCount }
             .map { "평점 \($0)개"}
             .bind(to: output.didLoadRateCount)
             .disposed(by: disposeBag)
 
-        input.cellDidLoad
-            .compactMap { (ratingInfo.ratingCount, reviewList) }
+        input.updateRating
+            .compactMap { ($0.ratingInfo?.ratingCount, $0.mockReviewList()) }
             .map(getRatio)
             .bind(to: output.didLoadReviewRatio)
             .disposed(by: disposeBag)
@@ -61,8 +61,6 @@ final class RatingViewModel {
         .map { _ in false }
         .bind(to: output.isDataHidden)
         .disposed(by: disposeBag)
-
-        return self
     }
 
     private func getRatio(totalCount: Int?, reviews: [Review]?) -> [Int: Double] {

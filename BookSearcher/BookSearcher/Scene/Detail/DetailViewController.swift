@@ -96,26 +96,17 @@ extension DetailViewController {
     func configure(with viewModel: DetailViewModel) {
         self.viewModel = viewModel
 
-        viewModel.output.didLoadBannerViewModel
-            .bind(onNext: bannerView.configure)
-            .disposed(by: disposeBag)
+        bannerView.configure(with: viewModel.subViewModels.bannerViewModel)
+        bookInfoView.configure(with: viewModel.subViewModels.bookInfoViewModel)
+        ratingView.configure(with: viewModel.subViewModels.ratingViewModel)
+        buttonView.configure(with: viewModel.subViewModels.buttonViewModel)
 
-        viewModel.output.didLoadButtonViewModel
-            .bind(onNext: buttonView.configure)
-            .disposed(by: disposeBag)
-
-        viewModel.output.didLoadBookInfoViewModel
-            .bind(onNext: bookInfoView.configure)
-            .disposed(by: disposeBag)
-
-        viewModel.output.didLoadRatingViewModel
-            .observe(on: MainScheduler.instance)
-            .bind(onNext: ratingView.configure)
+        viewModel.output.openURL
+            .bind(onNext: { UIApplication.shared.open($0) })
             .disposed(by: disposeBag)
 
         viewModel.output.didLoadReview
             .bind(to: reviewList.rx.items(cellIdentifier: ReviewCell.identifier, cellType: ReviewCell.self)) { _, viewModel, cell in
-                cell.selectionStyle = .none
                 cell.configure(with: viewModel) }
             .disposed(by: disposeBag)
 

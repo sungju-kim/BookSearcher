@@ -57,6 +57,10 @@ extension ButtonView {
     func configure(with viewModel: ButtonViewModel) {
         self.viewModel = viewModel
 
+        viewModel.output.prepareForPresent
+            .bind(onNext: { UIApplication.shared.open($0) })
+            .disposed(by: disposeBag)
+
         readButton.rx.tap
             .bind(to: viewModel.input.linkButtonTapped)
             .disposed(by: disposeBag)
